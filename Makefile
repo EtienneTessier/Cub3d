@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: etessier <etessier@student.42paris.fr>     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/09 12:48:02 by etessier          #+#    #+#              #
+#    Updated: 2024/10/09 12:48:03 by etessier         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 LIBFTPRINTF_PATH	= libft_printf
 LIBFTPRINTF_LIB		= $(LIBFTPRINTF_PATH)/libftprintf.a
 
@@ -12,8 +24,9 @@ INCLUDES			= $(addprefix $(INCLUDES_PATH), $(INCLUDES_FILES))
 INCLUDES_FILES_B	= cub3d_bonus.h
 INCLUDES_B			= $(addprefix $(INCLUDES_PATH), $(INCLUDES_FILES_B))
 
-SRC_PATH			= sources/
-SRC_FILES 			= cub3d.c
+SRC_PATH			=	sources/
+SRC_FILES 			=	cub3d.c			init_data.c		init_map.c		init_textures.c \
+						get_next_line.c	utils_str.c
 SRC		= $(addprefix $(SRC_PATH), $(SRC_FILES))
 
 OBJ		= $(SRC:.c=.o)
