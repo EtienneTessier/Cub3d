@@ -35,6 +35,8 @@
 # define ERR_TEXTURE_DOUBLE "Same texture defined multiple times"
 # define ERR_XPM "Textures need to be xpm files"
 # define ERR_COLOR "Color format should be 0.0-255.0-255"
+# define ERR_MAP_NL "Empry line inside your map"
+# define ERR_CHAR_MAP "Unknown character in your map !"
 # define COLOR 0
 # define TEXTURE 1
 # define W 119
@@ -83,6 +85,7 @@ int		init_textures(char *map_path, t_data *data);
 int		init_map(t_data *data);
 
 char	*get_next_line(int fd);
+char	*ft_join(char *s1, char *s2, int nb_read);
 int		skip_char(char *str, char to_skip);
 void	free_data(t_data *data);
 

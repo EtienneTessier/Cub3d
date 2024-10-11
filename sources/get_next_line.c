@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-static char	*ft_join(char *s1, char *s2, int nb_read)
+char	*ft_join(char *s1, char *s2, int nb_read)
 {
 	int		i;
 	int		j;
