@@ -33,8 +33,7 @@ int	main(int argc, char **argv)
 	data = init_data(argv[1]);
 	if (!data)
 		return (1);
-	data->win = mlx_new_window(data->mlx, data->width * 64, data->height * 64 \
-			, "cub3d");
+	// data->win = mlx_new_window(data->mlx, 1920, 1080 , "cub3d");
 	ft_printf("ez pz lemon squeezy\n");
 	free_data(data);
 	return (0);

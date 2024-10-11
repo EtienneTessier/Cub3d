@@ -24,6 +24,7 @@ static t_data	*crea_data(void)
 	data->map2d = NULL;
 	data->mlx = NULL;
 	data->win = NULL;
+	return (data);
 }
 
 static t_img	*crea_img(t_data *data)
@@ -48,11 +49,12 @@ t_data	*init_data(char *map_path)
 
 	data = crea_data();
 	data->img = crea_img(data);
-	data->mlx = mlx_init(data);
-	if (!data->mlx)
-		return (free_data(data), NULL);
+	// data->mlx = mlx_init(data);
+	// if (!data->mlx)
+	// 	return (free_data(data), NULL);
 	if (init_textures(map_path, data))
 		return (free_data(data), NULL);
 	if (init_map(data))
 		return (free_data(data), NULL);
+	return (data);
 }

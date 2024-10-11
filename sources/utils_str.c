@@ -16,6 +16,7 @@ int	skip_char(char *str, char to_skip)
 {
 	int	i;
 
+	i = 0;
 	while (str[i] == to_skip)
 		i++;
 	return (i);

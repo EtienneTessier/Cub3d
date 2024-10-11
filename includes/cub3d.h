@@ -33,6 +33,8 @@
 # define ERR_TEXTURES "Wrong textures"
 # define ERR_TEXTURE_FMT "Wrong texture format"
 # define ERR_TEXTURE_DOUBLE "Same texture defined multiple times"
+# define ERR_XPM "Textures need to be xpm files"
+# define ERR_COLOR "Color format should be 0.0-255.0-255"
 # define COLOR 0
 # define TEXTURE 1
 # define W 119

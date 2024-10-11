@@ -19,4 +19,6 @@ int	init_map(t_data *data)
 	// 	return (1);
 	// -> control map
 	// -> chargement de la map 2D
+	(void)data;
+	return (0);
 }
