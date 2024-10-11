@@ -19,8 +19,6 @@ static t_data	*crea_data(void)
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		exit(1);
-	data->height = 64;
-	data->width = 64;
 	data->map2d = NULL;
 	data->mlx = NULL;
 	data->win = NULL;

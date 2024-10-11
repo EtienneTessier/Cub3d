@@ -41,9 +41,9 @@ static int	check_line(char *line, int i, t_img *img)
 
 static char	*get_texture_path(char *line)
 {
-	int	i;
-	int	j;
-	int	size;
+	int		i;
+	int		j;
+	int		size;
 	char	*texture_path;
 
 	size = 0;

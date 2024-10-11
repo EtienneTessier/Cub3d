@@ -33,6 +33,8 @@ void	free_data(t_data *data)
 {
 	if (data->img)
 		free_textures(data->img);
+	if (data->map2d_copy)
+		ft_freesplit(data->map2d_copy);
 	if (data->map2d)
 		ft_freesplit(data->map2d);
 	if (data->win)
@@ -41,4 +43,11 @@ void	free_data(t_data *data)
 		mlx_destroy_display(data->mlx);
 	if (data)
 		free(data);
+}
+
+void	exit_pgm(t_data *data)
+{
+	if (data)
+		free_data(data);
+	exit (1);
 }

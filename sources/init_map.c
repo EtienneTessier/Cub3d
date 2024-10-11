@@ -12,32 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-static char	*load_map(t_data *data)
-{
-	char	*str;
-	char	*map1d;
-
-	while (1)
-	{
-		map1d = get_next_line(data->map_fd);
-		if (!map1d || map1d[0] == '\0')
-			return (map1d);
-		if (map1d[0] != '\n')
-			break ;
-		free(map1d);
-	}
-	while (1)
-	{
-		str = get_next_line(data->map_fd);
-		if (!str || str[0] == '\0')
-			return (map1d);
-		map1d = ft_join(map1d, str, ft_strlen(str));
-		free(str);
-		if (!map1d)
-			return (NULL);
-	}
-}
-
 static int	control_char_map(char *map1d)
 {
 	int	i;
@@ -57,17 +31,91 @@ static int	control_char_map(char *map1d)
 	return (0);
 }
 
+static char	**crea_map_flood(size_t width, size_t height, t_data *data)
+{
+	size_t	i;
+	size_t	j;
+
+	data->map2d_copy = ft_calloc(height + 2, sizeof(char *));
+	if (!data->map2d_copy)
+		return (NULL);
+	i = -1;
+	while (++i <= height)
+	{
+		data->map2d_copy[i] = ft_calloc(width + 1, sizeof(char));
+		if (!data->map2d_copy[i])
+			return (ft_freesplit(data->map2d_copy), NULL);
+		data->map2d_copy[i][0] = ' ';
+		j = 0;
+		if (i % height == 0)
+			while (++j < width - 1)
+				data->map2d_copy[i][j] = ' ';
+		else
+			while (data->map2d[i - 1][++j - 1])
+				data->map2d_copy[i][j] = data->map2d[i - 1][j - 1];
+		while (j < width)
+			data->map2d_copy[i][j++] = ' ';
+		data->map2d_copy[i][j] = '\0';
+	}
+	return (data->map2d_copy);
+}
+
+static void	flood_fill(char **map, int x, int y, t_data *data)
+{
+	map[x][y] = 'X';
+	if (x > 0 && (map[x - 1][y] != ' ' && map[x - 1][y] != '1' \
+			&& map[x - 1][y] != 'X'))
+		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), exit_pgm(data));
+	if (y > 0 && (map[x][y - 1] != ' ' && map[x][y - 1] != '1' \
+			&& map[x][y - 1] != 'X'))
+		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), exit_pgm(data));
+	if (map[x + 1] && (map[x + 1][y] != ' ' && map[x + 1][y] != '1' \
+			&& map[x + 1][y] != 'X'))
+		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), exit_pgm(data));
+	if (map[x][y + 1] && (map[x][y + 1] != ' ' && map[x][y + 1] != '1' \
+			&& map[x][y + 1] != 'X'))
+		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), exit_pgm(data));
+	if (x > 0 && map[x - 1][y] == ' ')
+		flood_fill(map, x - 1, y, data);
+	if (y > 0 && map[x][y - 1] == ' ')
+		flood_fill(map, x, y - 1, data);
+	if (map[x + 1] && map[x + 1][y] == ' ')
+		flood_fill(map, x + 1, y, data);
+	if (map[x][y + 1] && map[x][y + 1] == ' ')
+		flood_fill(map, x, y + 1, data);
+}
+
+static int	control_map_closed(t_data *data)
+{
+	size_t	width;
+	size_t	height;
+
+	width = 0;
+	height = -1;
+	while (data->map2d[++height])
+	{
+		if (ft_strlen(data->map2d[height]) > width)
+			width = ft_strlen(data->map2d[height]);
+	}
+	width += 2;
+	height += 1;
+	data->map2d_copy = crea_map_flood(width, height, data);
+	flood_fill(data->map2d_copy, 0, 0, data);
+	return (0);
+}
+
 int	init_map(t_data *data)
 {
 	char	*map1d;
 
 	map1d = load_map(data);
-	ft_printf("map :\n%s", map1d);
 	if (control_char_map(map1d))
 		return (free(map1d), 1);
-	// -> chargement de la map 2D
-	// -> control map closed
-	(void)data;
+	data->map2d = ft_split(map1d, '\n');
 	free(map1d);
+	if (!data->map2d)
+		return (1);
+	if (control_map_closed(data))
+		return (1);
 	return (0);
 }

@@ -26,7 +26,7 @@ INCLUDES_B			= $(addprefix $(INCLUDES_PATH), $(INCLUDES_FILES_B))
 
 SRC_PATH			=	sources/
 SRC_FILES 			=	cub3d.c			init_data.c		init_map.c		init_textures.c \
-						get_next_line.c	utils_str.c		exit.c
+						get_next_line.c	utils_str.c		exit.c			utils_debug.c
 SRC		= $(addprefix $(SRC_PATH), $(SRC_FILES))
 
 OBJ		= $(SRC:.c=.o)

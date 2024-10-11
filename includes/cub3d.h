@@ -30,6 +30,7 @@
 # define ERR_NB_ARG "Only 2 parameters required : ./cub3d maps.cub"
 # define ERR_MAP_EXT "Wrong map extension"
 # define ERR_MAP_OPEN "Map open error"
+# define ERR_MAP_OPEN_WALL "The map isn't closed"
 # define ERR_TEXTURES "Wrong textures"
 # define ERR_TEXTURE_FMT "Wrong texture format"
 # define ERR_TEXTURE_DOUBLE "Same texture defined multiple times"
@@ -61,11 +62,10 @@ typedef struct	s_img
 
 typedef struct	s_data
 {
-	int			height;
-	int			width;
 	int			map_fd;
 	t_img		*img;
 	char		**map2d;
+	char		**map2d_copy;
 	void		*mlx;
 	void		*win;
 }				t_data;
@@ -81,12 +81,22 @@ typedef enum	e_error
 //	Fonctions
 
 t_data	*init_data(char *map_path);
-int		init_textures(char *map_path, t_data *data);
-int		init_map(t_data *data);
 
+int		init_textures(char *map_path, t_data *data);
+
+int		init_map(t_data *data);
+char	*load_map(t_data *data);
+
+// Utils
 char	*get_next_line(int fd);
 char	*ft_join(char *s1, char *s2, int nb_read);
 int		skip_char(char *str, char to_skip);
+
+// Free/Exit
 void	free_data(t_data *data);
+void	exit_pgm(t_data *data);
+
+// Debug
+void	print_map_2d(char **map2d);
 
 #endif
