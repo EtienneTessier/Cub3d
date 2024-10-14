@@ -35,8 +35,8 @@ static void	free_map(t_map *map)
 		ft_freesplit(map->map2d_copy);
 	if (map->map2d)
 		ft_freesplit(map->map2d);
-	if (map->map_fd > 0)
-		close(map->map_fd);
+	if (map->fd > 0)
+		close(map->fd);
 	free(map);
 
 }
@@ -51,11 +51,10 @@ void	free_data(t_data *data)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)
 		mlx_destroy_display(data->mlx);
-	if (data)
-		free(data);
+	free(data);
 }
 
-void	exit_pgm(t_data *data)
+int	exit_pgm(t_data *data)
 {
 	if (data)
 		free_data(data);

@@ -65,16 +65,16 @@ static void	flood_fill(char **map, int x, int y, t_data *data)
 	map[x][y] = 'X';
 	if (x > 0 && (map[x - 1][y] != ' ' && map[x - 1][y] != '1' \
 			&& map[x - 1][y] != 'X'))
-		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), exit_pgm(data));
+		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), (void)exit_pgm(data));
 	if (y > 0 && (map[x][y - 1] != ' ' && map[x][y - 1] != '1' \
 			&& map[x][y - 1] != 'X'))
-		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), exit_pgm(data));
+		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), (void)exit_pgm(data));
 	if (map[x + 1] && (map[x + 1][y] != ' ' && map[x + 1][y] != '1' \
 			&& map[x + 1][y] != 'X'))
-		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), exit_pgm(data));
+		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), (void)exit_pgm(data));
 	if (map[x][y + 1] && (map[x][y + 1] != ' ' && map[x][y + 1] != '1' \
 			&& map[x][y + 1] != 'X'))
-		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), exit_pgm(data));
+		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), (void)exit_pgm(data));
 	if (x > 0 && map[x - 1][y] == ' ')
 		flood_fill(map, x - 1, y, data);
 	if (y > 0 && map[x][y - 1] == ' ')
@@ -97,10 +97,11 @@ static int	control_map_closed(t_data *data)
 		if (ft_strlen(data->map->map2d[height]) > width)
 			width = ft_strlen(data->map->map2d[height]);
 	}
-	data->map->map_height = height;
-	data->map->map_width = width;
-	width += 2;
+	width++;
+	data->map->height = height;
+	data->map->width = width;
 	height += 1;
+	width += 1;
 	data->map->map2d_copy = crea_map_flood(width, height, data);
 	flood_fill(data->map->map2d_copy, 0, 0, data);
 	return (0);
@@ -119,5 +120,7 @@ int	init_map(t_data *data)
 		return (1);
 	if (control_map_closed(data))
 		return (1);
+	find_player(data);
+	ft_printf("player[y][x] = [%d][%d]\n", data->player.y, data->player.x);
 	return (0);
 }

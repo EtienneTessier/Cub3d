@@ -40,6 +40,8 @@
 # define ERR_CHAR_MAP "Unknown character in your map !"
 # define COLOR 0
 # define TEXTURE 1
+# define SCREEN_WIDTH 720
+# define SCREEN_HEIGHT 480
 # define W 119
 # define S 115
 # define D 100
@@ -62,9 +64,9 @@ typedef struct	s_img
 
 typedef struct	s_map
 {
-	int			map_fd;
-	size_t		map_width;
-	size_t		map_height;
+	int			fd;
+	size_t		width;
+	size_t		height;
 	char		**map2d;
 	char		**map2d_copy;
 }				t_map;
@@ -81,7 +83,7 @@ typedef struct	s_data
 	void		*win;
 	t_img		*img;
 	t_map		*map;
-	t_pos		*player;
+	t_pos		player;
 }				t_data;
 
 //	Enum
@@ -100,6 +102,7 @@ int		init_textures(char *map_path, t_data *data);
 
 int		init_map(t_data *data);
 char	*load_map(t_data *data);
+void	find_player(t_data *data);
 
 // Utils
 char	*get_next_line(int fd);
@@ -108,7 +111,7 @@ int		skip_char(char *str, char to_skip);
 
 // Free/Exit
 void	free_data(t_data *data);
-void	exit_pgm(t_data *data);
+int		exit_pgm(t_data *data);
 
 // Debug
 void	print_map_2d(char **map2d);

@@ -69,7 +69,7 @@ static char	*get_texture_path(char *line)
 static int	*set_color(char *line)
 {
 	(void)line;
-	return (ft_printf("set ceiling/floor\n"), 0);
+	return (ft_printf("set ceiling/floor\n"), NULL);
 }
 
 static int	set_textures(char *line, t_data *data, t_img *img)
@@ -112,13 +112,13 @@ int	init_textures(char *map_path, t_data *data)
 	int		textures_init;
 	char	*line;
 
-	data->map_fd = open(map_path, O_RDONLY);
-	if (data->map_fd == -1)
+	data->map->fd = open(map_path, O_RDONLY);
+	if (data->map->fd == -1)
 		return (ft_putendl_fd(ERR_MAP_OPEN, 2), 1);
 	textures_init = 0;
 	while (textures_init < 6)
 	{
-		line = get_next_line(data->map_fd);
+		line = get_next_line(data->map->fd);
 		if (!line || line[0] == '\0')
 			return (1);
 		if (line[0] == '\n')
