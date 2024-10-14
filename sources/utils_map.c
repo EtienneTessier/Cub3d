@@ -19,7 +19,7 @@ char	*load_map(t_data *data)
 
 	while (1)
 	{
-		map1d = get_next_line(data->map_fd);
+		map1d = get_next_line(data->map->map_fd);
 		if (!map1d || map1d[0] == '\0')
 			return (map1d);
 		if (map1d[0] != '\n')
@@ -28,7 +28,7 @@ char	*load_map(t_data *data)
 	}
 	while (1)
 	{
-		str = get_next_line(data->map_fd);
+		str = get_next_line(data->map->map_fd);
 		if (!str || str[0] == '\0')
 			return (map1d);
 		map1d = ft_join(map1d, str, ft_strlen(str));

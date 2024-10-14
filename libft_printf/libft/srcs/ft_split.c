@@ -64,7 +64,7 @@ static char	*ft_split_word(char const *s, char c, int *i)
 	dest[j] = '\0';
 	if (s[j] != '\0')
 	{
-		while (ft_is_sep(s[j], c))
+		while (s[j] && ft_is_sep(s[j], c))
 			j++;
 	}
 	*i += j;

@@ -12,6 +12,7 @@
 
 #include "../includes/cub3d.h"
 
+//	Controle si la ligne de parametre
 static int	check_line(char *line, int i, t_img *img)
 {
 	int	type;
@@ -39,6 +40,7 @@ static int	check_line(char *line, int i, t_img *img)
 	return (ft_putendl_fd(ERR_TEXTURE_DOUBLE, 2), 1);
 }
 
+//	Recupere le chemin vers la texture (murs) -> Controle xpm ?
 static char	*get_texture_path(char *line)
 {
 	int		i;
@@ -64,11 +66,11 @@ static char	*get_texture_path(char *line)
 	return (texture_path);
 }
 
-// static int	*set_color(char *line)
-// {
-// 	(void)line;
-// 	return (NULL);
-// }
+static int	*set_color(char *line)
+{
+	(void)line;
+	return (ft_printf("set ceiling/floor\n"), 0);
+}
 
 static int	set_textures(char *line, t_data *data, t_img *img)
 {
@@ -77,11 +79,9 @@ static int	set_textures(char *line, t_data *data, t_img *img)
 	(void)data;
 	(void)img;
 	if (line[0] == 'C')
-		return (ft_printf("set ceiling\n"), 0);
-		// data->img->ceiling = set_color(line);
+		return (data->img->ceiling = set_color(line), 0);
 	else if (line[0] == 'F')
-		return (ft_printf("set floor\n"), 0);
-		// data->img->floor = set_color(line);
+		return (data->img->floor = set_color(line), 0);
 	texture_path = get_texture_path(&line[2]);
 	if (!texture_path)
 		return (1);

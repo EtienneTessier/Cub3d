@@ -36,28 +36,28 @@ static char	**crea_map_flood(size_t width, size_t height, t_data *data)
 	size_t	i;
 	size_t	j;
 
-	data->map2d_copy = ft_calloc(height + 2, sizeof(char *));
-	if (!data->map2d_copy)
+	data->map->map2d_copy = ft_calloc(height + 2, sizeof(char *));
+	if (!data->map->map2d_copy)
 		return (NULL);
 	i = -1;
 	while (++i <= height)
 	{
-		data->map2d_copy[i] = ft_calloc(width + 1, sizeof(char));
-		if (!data->map2d_copy[i])
-			return (ft_freesplit(data->map2d_copy), NULL);
-		data->map2d_copy[i][0] = ' ';
+		data->map->map2d_copy[i] = ft_calloc(width + 1, sizeof(char));
+		if (!data->map->map2d_copy[i])
+			return (ft_freesplit(data->map->map2d_copy), NULL);
+		data->map->map2d_copy[i][0] = ' ';
 		j = 0;
 		if (i % height == 0)
 			while (++j < width - 1)
-				data->map2d_copy[i][j] = ' ';
+				data->map->map2d_copy[i][j] = ' ';
 		else
-			while (data->map2d[i - 1][++j - 1])
-				data->map2d_copy[i][j] = data->map2d[i - 1][j - 1];
+			while (data->map->map2d[i - 1][++j - 1])
+				data->map->map2d_copy[i][j] = data->map->map2d[i - 1][j - 1];
 		while (j < width)
-			data->map2d_copy[i][j++] = ' ';
-		data->map2d_copy[i][j] = '\0';
+			data->map->map2d_copy[i][j++] = ' ';
+		data->map->map2d_copy[i][j] = '\0';
 	}
-	return (data->map2d_copy);
+	return (data->map->map2d_copy);
 }
 
 static void	flood_fill(char **map, int x, int y, t_data *data)
@@ -92,15 +92,17 @@ static int	control_map_closed(t_data *data)
 
 	width = 0;
 	height = -1;
-	while (data->map2d[++height])
+	while (data->map->map2d[++height])
 	{
-		if (ft_strlen(data->map2d[height]) > width)
-			width = ft_strlen(data->map2d[height]);
+		if (ft_strlen(data->map->map2d[height]) > width)
+			width = ft_strlen(data->map->map2d[height]);
 	}
+	data->map->map_height = height;
+	data->map->map_width = width;
 	width += 2;
 	height += 1;
-	data->map2d_copy = crea_map_flood(width, height, data);
-	flood_fill(data->map2d_copy, 0, 0, data);
+	data->map->map2d_copy = crea_map_flood(width, height, data);
+	flood_fill(data->map->map2d_copy, 0, 0, data);
 	return (0);
 }
 
@@ -111,9 +113,9 @@ int	init_map(t_data *data)
 	map1d = load_map(data);
 	if (control_char_map(map1d))
 		return (free(map1d), 1);
-	data->map2d = ft_split(map1d, '\n');
+	data->map->map2d = ft_split(map1d, '\n');
 	free(map1d);
-	if (!data->map2d)
+	if (!data->map->map2d)
 		return (1);
 	if (control_map_closed(data))
 		return (1);

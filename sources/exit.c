@@ -29,14 +29,24 @@ static void	free_textures(t_img *img)
 	free(img);
 }
 
+static void	free_map(t_map *map)
+{
+	if (map->map2d_copy)
+		ft_freesplit(map->map2d_copy);
+	if (map->map2d)
+		ft_freesplit(map->map2d);
+	if (map->map_fd > 0)
+		close(map->map_fd);
+	free(map);
+
+}
+
 void	free_data(t_data *data)
 {
 	if (data->img)
 		free_textures(data->img);
-	if (data->map2d_copy)
-		ft_freesplit(data->map2d_copy);
-	if (data->map2d)
-		ft_freesplit(data->map2d);
+	if (data->map)
+		free_map(data->map);
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)

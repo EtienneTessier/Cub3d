@@ -60,14 +60,28 @@ typedef struct	s_img
 	int			width;
 }				t_img;
 
-typedef struct	s_data
+typedef struct	s_map
 {
 	int			map_fd;
-	t_img		*img;
+	size_t		map_width;
+	size_t		map_height;
 	char		**map2d;
 	char		**map2d_copy;
+}				t_map;
+
+typedef struct	s_pos
+{
+	int			x;
+	int			y;
+}				t_pos;
+
+typedef struct	s_data
+{
 	void		*mlx;
 	void		*win;
+	t_img		*img;
+	t_map		*map;
+	t_pos		*player;
 }				t_data;
 
 //	Enum

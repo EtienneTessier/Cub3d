@@ -19,9 +19,11 @@ static t_data	*crea_data(void)
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		exit(1);
-	data->map2d = NULL;
+	data->map = NULL;
+	data->img = NULL;
 	data->mlx = NULL;
 	data->win = NULL;
+	data->player = NULL;
 	return (data);
 }
 
@@ -41,12 +43,26 @@ static t_img	*crea_img(t_data *data)
 	return (img);
 }
 
+static t_map	*crea_map(t_data *data)
+{
+	t_map	*map;
+
+	map = ft_calloc(1, sizeof(t_map));
+	if (!map)
+		(free(data), exit(1));
+	map->map2d = NULL;
+	map->map2d_copy = NULL;
+	map->map_fd = -1;
+	return (map);
+}
+
 t_data	*init_data(char *map_path)
 {
 	t_data	*data;
 
 	data = crea_data();
 	data->img = crea_img(data);
+	data->map = crea_map(data);
 	// data->mlx = mlx_init(data);
 	// if (!data->mlx)
 	// 	return (free_data(data), NULL);
