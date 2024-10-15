@@ -12,21 +12,21 @@
 
 #include "../includes/cub3d.h"
 
-static void	free_textures(t_img *img)
+static void	free_textures(t_txtr *txtr)
 {
-	if (img->ceiling)
-		free(img->ceiling);
-	if (img->floor)
-		free(img->floor);
-	if (img->north)
-		free(img->north);
-	if (img->south)
-		free(img->south);
-	if (img->east)
-		free(img->east);
-	if (img->west)
-		free(img->west);
-	free(img);
+	if (txtr->ceiling)
+		free(txtr->ceiling);
+	if (txtr->floor)
+		free(txtr->floor);
+	if (txtr->north)
+		free(txtr->north);
+	if (txtr->south)
+		free(txtr->south);
+	if (txtr->east)
+		free(txtr->east);
+	if (txtr->west)
+		free(txtr->west);
+	free(txtr);
 }
 
 static void	free_map(t_map *map)
@@ -43,8 +43,8 @@ static void	free_map(t_map *map)
 
 void	free_data(t_data *data)
 {
-	if (data->img)
-		free_textures(data->img);
+	if (data->txtr)
+		free_textures(data->txtr);
 	if (data->map)
 		free_map(data->map);
 	if (data->win)

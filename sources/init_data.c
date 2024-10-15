@@ -20,26 +20,26 @@ static t_data	*crea_data(void)
 	if (!data)
 		exit(1);
 	data->map = NULL;
-	data->img = NULL;
+	data->txtr = NULL;
 	data->mlx = NULL;
 	data->win = NULL;
 	return (data);
 }
 
-static t_img	*crea_img(t_data *data)
+static t_txtr	*crea_txtr(t_data *data)
 {
-	t_img	*img;
+	t_txtr	*txtr;
 
-	img = ft_calloc(1, sizeof(t_img));
-	if (!img)
+	txtr = ft_calloc(1, sizeof(t_txtr));
+	if (!txtr)
 		(free(data), exit(1));
-	img->ceiling = NULL;
-	img->floor = NULL;
-	img->north = NULL;
-	img->south = NULL;
-	img->east = NULL;
-	img->west = NULL;
-	return (img);
+	txtr->ceiling = NULL;
+	txtr->floor = NULL;
+	txtr->north = NULL;
+	txtr->south = NULL;
+	txtr->east = NULL;
+	txtr->west = NULL;
+	return (txtr);
 }
 
 static t_map	*crea_map(t_data *data)
@@ -60,7 +60,7 @@ t_data	*init_data(char *map_path)
 	t_data	*data;
 
 	data = crea_data();
-	data->img = crea_img(data);
+	data->txtr = crea_txtr(data);
 	data->map = crea_map(data);
 	data->mlx = mlx_init(data);
 	if (!data->mlx)

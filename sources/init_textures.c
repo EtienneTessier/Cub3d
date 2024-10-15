@@ -13,7 +13,7 @@
 #include "../includes/cub3d.h"
 
 //	Controle si la ligne de parametre
-static int	check_line(char *line, int i, t_img *img)
+static int	check_line(char *line, int i, t_txtr *txtr)
 {
 	int	type;
 
@@ -25,17 +25,17 @@ static int	check_line(char *line, int i, t_img *img)
 		type = TEXTURE;
 	else
 		return (ft_putendl_fd(ERR_TEXTURE_FMT, 2), 1);
-	if (line[i] == 'F' && img->floor == NULL)
+	if (line[i] == 'F' && txtr->floor == NULL)
 		return (0);
-	if (line[i] == 'C' && img->ceiling == NULL)
+	if (line[i] == 'C' && txtr->ceiling == NULL)
 		return (0);
-	if (line[i] == 'N' && img->north == NULL)
+	if (line[i] == 'N' && txtr->north == NULL)
 		return (0);
-	if (line[i] == 'S' && img->south == NULL)
+	if (line[i] == 'S' && txtr->south == NULL)
 		return (0);
-	if (line[i] == 'E' && img->east == NULL)
+	if (line[i] == 'E' && txtr->east == NULL)
 		return (0);
-	if (line[i] == 'W' && img->west == NULL)
+	if (line[i] == 'W' && txtr->west == NULL)
 		return (0);
 	return (ft_putendl_fd(ERR_TEXTURE_DOUBLE, 2), 1);
 }
@@ -72,16 +72,16 @@ static int	*set_color(char *line)
 	return (ft_printf("set ceiling/floor\n"), NULL);
 }
 
-static int	set_textures(char *line, t_data *data, t_img *img)
+static int	set_textures(char *line, t_data *data, t_txtr *txtr)
 {
 	char	*texture_path;
 
 	(void)data;
-	(void)img;
+	(void)txtr;
 	if (line[0] == 'C')
-		return (data->img->ceiling = set_color(line), 0);
+		return (data->txtr->ceiling = set_color(line), 0);
 	else if (line[0] == 'F')
-		return (data->img->floor = set_color(line), 0);
+		return (data->txtr->floor = set_color(line), 0);
 	texture_path = get_texture_path(&line[2]);
 	if (!texture_path)
 		return (1);
@@ -127,9 +127,9 @@ int	init_textures(char *map_path, t_data *data)
 			continue ;
 		}
 		i = skip_char(line, ' ');
-		if (check_line(line, i, data->img))
+		if (check_line(line, i, data->txtr))
 			return (free(line), 1);
-		(set_textures(&line[i], data, data->img), free(line));
+		(set_textures(&line[i], data, data->txtr), free(line));
 		textures_init++;
 	}
 	return (0);

@@ -25,6 +25,19 @@ static void	check_param(int argc, char **argv)
 		(ft_putendl_fd(ERR_MAP_EXT, 2), exit(1));
 }
 
+int	render(t_data *data)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < data->map->width * 25)
+	{
+ 		mlx_pixel_put(data->mlx, data->win, i, data->map->height * 25 / 2, RED_PIXEL);
+		i++;
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
@@ -35,6 +48,7 @@ int	main(int argc, char **argv)
 		return (1);
 	data->win = mlx_new_window(data->mlx, data->map->width * 25, data->map->height * 25, "cub3d");
 	mlx_hook(data->win, 17, 0, &exit_pgm, data);
+	mlx_loop_hook(data->mlx, &render, data);
 	mlx_loop(data->mlx);
 	mlx_destroy_display(data->mlx);
 	free_data(data);

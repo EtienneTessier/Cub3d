@@ -48,9 +48,11 @@
 # define A 97
 # define ESC 65307
 
+# define RED_PIXEL 0xFF0000
+
 //	Structures
 
-typedef struct	s_img
+typedef struct	s_txtr
 {
 	void		*north;
 	void		*south;
@@ -60,7 +62,7 @@ typedef struct	s_img
 	int			*ceiling;
 	int			height;
 	int			width;
-}				t_img;
+}				t_txtr;
 
 typedef struct	s_map
 {
@@ -81,7 +83,7 @@ typedef struct	s_data
 {
 	void		*mlx;
 	void		*win;
-	t_img		*img;
+	t_txtr		*txtr;
 	t_map		*map;
 	t_pos		player;
 }				t_data;

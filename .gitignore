@@ -1,3 +1,5 @@
 mlx-linux/
 .vscode/
 maps/
+*.o
+cub3d
