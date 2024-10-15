@@ -23,7 +23,6 @@ static t_data	*crea_data(void)
 	data->img = NULL;
 	data->mlx = NULL;
 	data->win = NULL;
-	data->player = NULL;
 	return (data);
 }
 
