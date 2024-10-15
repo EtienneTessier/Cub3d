@@ -1,5 +1,7 @@
-mlx-linux/
 .vscode/
+mlx-linux/
 maps/
 *.o
+*.a
+*.cub
 cub3d

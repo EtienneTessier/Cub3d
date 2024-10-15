@@ -87,5 +87,7 @@ t_data	*init_data(char *map_path)
 		data->map->height * TILE_SIZE);
 	data->img->addr = mlx_get_data_addr(data->img->img, &data->img->bpp, \
 		&data->img->line_length, &data->img->endian);
+	data->win = mlx_new_window(data->mlx, data->map->width * TILE_SIZE, \
+	data->map->height * TILE_SIZE, "cub3d");
 	return (data);
 }

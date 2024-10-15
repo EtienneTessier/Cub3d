@@ -51,6 +51,8 @@
 # define A 97
 # define ESC 65307
 # define PI 3.141592
+# define SPEED 0.1
+# define RSPEED 0.1
 
 # define RED_PIXEL 0xFF0000
 # define ORA_PIXEL 0xFF5733
@@ -99,6 +101,8 @@ typedef struct	s_player
 	int			x;
 	int			y;
 	double		dir;
+	double		dir_x;
+	double		dir_y;
 }				t_player;
 
 typedef struct	s_data
@@ -134,6 +138,10 @@ void	find_player(t_data *data);
 void	load_img(t_img *img);
 int		load_map_img(t_data *data);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+// Deplacements
+int		handle_key(int key_code, t_data *data);
+void	get_player_dir(char c, t_data *data);
 
 // Utils
 char	*get_next_line(int fd);

@@ -81,6 +81,7 @@ int	load_map_img(t_data *data)
 		y += TILE_SIZE - 1;
 	}
 	load_player(data);
+	mlx_put_image_to_window(data->mlx, data->win,data->img->img, 0, 0);
 	return (0);
 }
 
