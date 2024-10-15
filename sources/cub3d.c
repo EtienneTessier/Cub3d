@@ -46,13 +46,11 @@ int	main(int argc, char **argv)
 	data = init_data(argv[1]);
 	if (!data)
 		return (1);
-	data->win = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
-	data->img->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	data->img->addr = mlx_get_data_addr(data->img->img, &data->img->bpp, &data->img->line_length, &data->img->endian);
+	data->win = mlx_new_window(data->mlx, data->map->width * TILE_SIZE, data->map->height * TILE_SIZE, "cub3d");
 	mlx_hook(data->win, 17, 0, &exit_pgm, data);
-	my_mlx_pixel_put(data->img, 50, 50, RED_PIXEL);
+	load_map_img(data);
+	// mlx_loop_hook(data->mlx, &load_map_img, data);
 	mlx_put_image_to_window(data->mlx, data->win,data->img->img, 0, 0);
-	// mlx_loop_hook(data->mlx, &render, data);
 	mlx_loop(data->mlx);
 	mlx_destroy_display(data->mlx);
 	free_data(data);

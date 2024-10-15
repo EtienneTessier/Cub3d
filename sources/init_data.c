@@ -77,11 +77,15 @@ t_data	*init_data(char *map_path)
 	data->map = crea_map(data);
 	data->img = crea_img(data);
 	data->mlx = mlx_init(data);
-	if (!data->mlx)
-		return (free_data(data), NULL);
 	if (init_textures(map_path, data))
 		return (free_data(data), NULL);
 	if (init_map(data))
 		return (free_data(data), NULL);
+	if (!data->mlx)
+		return (free_data(data), NULL);
+	data->img->img = mlx_new_image(data->mlx, data->map->width * TILE_SIZE, \
+		data->map->height * TILE_SIZE);
+	data->img->addr = mlx_get_data_addr(data->img->img, &data->img->bpp, \
+		&data->img->line_length, &data->img->endian);
 	return (data);
 }

@@ -38,7 +38,6 @@ static void	free_map(t_map *map)
 	if (map->fd > 0)
 		close(map->fd);
 	free(map);
-
 }
 
 static void	free_img(void *mlx, t_img *img)

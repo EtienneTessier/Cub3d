@@ -38,6 +38,18 @@ char	*load_map(t_data *data)
 	}
 }
 
+static double	get_player_dir(char c)
+{
+	if (c == 'N')
+		return (PI / 2);
+	else if (c == 'S')
+		return ((2 * PI) / 3);
+	else if (c == 'E')
+		return (2 * PI);
+	else
+		return (PI);
+}
+
 void	find_player(t_data *data)
 {
 	int	y;
@@ -56,7 +68,7 @@ void	find_player(t_data *data)
 			{
 				data->player.x = x;
 				data->player.y = y;
-				return ;
+				data->player.dir = get_player_dir(data->map->map2d[y][x]);
 			}
 			x++;
 		}

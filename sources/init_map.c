@@ -15,19 +15,29 @@
 static int	control_char_map(char *map1d)
 {
 	int	i;
+	int player;
 
-	i = -1;
+	i = ((player = -1));
 	while (map1d[++i])
 	{
 		if (map1d[i] == '\n' && map1d[i + 1] == '\n')
 			return (ft_putendl_fd(ERR_MAP_NL, 2), 1);
 		if (map1d[i] == '0' || map1d[i] == '1' || map1d[i] == ' ' || \
-			map1d[i] == 'N' || map1d[i] == 'S' || map1d[i] == 'E' || \
-			map1d[i] == 'W' || map1d[i] == '\n')
+			map1d[i] == '\n')
 			continue ;
+		if (map1d[i] == 'N' || map1d[i] == 'S' || map1d[i] == 'E' || \
+			map1d[i] == 'W')
+		{
+			if (player == -1)
+				player = 1;
+			else
+				return (ft_putendl_fd(ERR_MAP_PLAYER, 2), 1);
+		}
 		else
 			return (ft_putendl_fd(ERR_CHAR_MAP, 2), 1);
 	}
+	if (player == -1)
+		return (ft_putendl_fd(ERR_MAP_PLAYER, 2), 1);
 	return (0);
 }
 
@@ -97,11 +107,10 @@ static int	control_map_closed(t_data *data)
 		if (ft_strlen(data->map->map2d[height]) > width)
 			width = ft_strlen(data->map->map2d[height]);
 	}
-	width++;
 	data->map->height = height;
 	data->map->width = width;
 	height += 1;
-	width += 1;
+	width += 2;
 	data->map->map2d_copy = crea_map_flood(width, height, data);
 	flood_fill(data->map->map2d_copy, 0, 0, data);
 	return (0);
@@ -121,6 +130,6 @@ int	init_map(t_data *data)
 	if (control_map_closed(data))
 		return (1);
 	find_player(data);
-	ft_printf("player[y][x] = [%d][%d]\n", data->player.y, data->player.x);
+	// ft_printf("player[y][x] = [%d][%d]\n", data->player.y, data->player.x);
 	return (0);
 }

@@ -21,6 +21,7 @@
 # include <stdint.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <math.h>
 # include "../libft_printf/includes/ft_printf.h"
 # include "../libft_printf/libft/include/libft.h"
 # include "../mlx-linux/mlx.h"
@@ -29,6 +30,7 @@
 
 # define ERR_NB_ARG "Only 2 parameters required : ./cub3d maps.cub"
 # define ERR_MAP_EXT "Wrong map extension"
+# define ERR_MAP_PLAYER "You need exactly 1 player position (N/S/E/W)"
 # define ERR_MAP_OPEN "Map open error"
 # define ERR_MAP_OPEN_WALL "The map isn't closed"
 # define ERR_TEXTURES "Wrong textures"
@@ -40,15 +42,25 @@
 # define ERR_CHAR_MAP "Unknown character in your map !"
 # define COLOR 0
 # define TEXTURE 1
-# define SCREEN_WIDTH 720
-# define SCREEN_HEIGHT 480
+# define SCR_WIDTH 720
+# define SCR_HEIGHT 480
+# define TILE_SIZE 25
 # define W 119
 # define S 115
 # define D 100
 # define A 97
 # define ESC 65307
+# define PI 3.141592
 
 # define RED_PIXEL 0xFF0000
+# define ORA_PIXEL 0xFF5733
+# define YEL_PIXEL 0xF0FF33
+# define GRE_PIXEL 0x33FF33
+# define GRI_PIXEL 0x969696
+# define DBL_PIXEL 0x3338FF
+# define PUR_PIXEL 0xCF33FF
+# define WHI_PIXEL 0xFFFFFF
+# define BLA_PIXEL 0x000000
 
 //	Structures
 
@@ -82,11 +94,12 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
-typedef struct	s_pos
+typedef struct	s_player
 {
 	int			x;
 	int			y;
-}				t_pos;
+	double		dir;
+}				t_player;
 
 typedef struct	s_data
 {
@@ -95,7 +108,7 @@ typedef struct	s_data
 	t_img		*img;
 	t_txtr		*txtr;
 	t_map		*map;
-	t_pos		player;
+	t_player	player;
 }				t_data;
 
 //	Enum
@@ -108,6 +121,7 @@ typedef enum	e_error
 
 //	Fonctions
 
+// Initialisation
 t_data	*init_data(char *map_path);
 
 int		init_textures(char *map_path, t_data *data);
@@ -117,6 +131,8 @@ char	*load_map(t_data *data);
 void	find_player(t_data *data);
 
 // Affichage
+void	load_img(t_img *img);
+int		load_map_img(t_data *data);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 // Utils
