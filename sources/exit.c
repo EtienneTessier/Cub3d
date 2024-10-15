@@ -41,16 +41,25 @@ static void	free_map(t_map *map)
 
 }
 
+static void	free_img(void *mlx, t_img *img)
+{
+	if (img->img)
+		mlx_destroy_image(mlx, img->img);
+	free(img);
+}
+
 void	free_data(t_data *data)
 {
 	if (data->txtr)
 		free_textures(data->txtr);
 	if (data->map)
 		free_map(data->map);
+	if (data->img)
+		free_img(data->mlx, data->img);
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)
-		mlx_destroy_display(data->mlx);
+		(mlx_destroy_display(data->mlx), free(data->mlx));
 	free(data);
 }
 

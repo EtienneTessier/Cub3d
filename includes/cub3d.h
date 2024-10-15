@@ -73,6 +73,15 @@ typedef struct	s_map
 	char		**map2d_copy;
 }				t_map;
 
+typedef struct	s_img
+{
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			line_length;
+	int			endian;
+}				t_img;
+
 typedef struct	s_pos
 {
 	int			x;
@@ -83,6 +92,7 @@ typedef struct	s_data
 {
 	void		*mlx;
 	void		*win;
+	t_img		*img;
 	t_txtr		*txtr;
 	t_map		*map;
 	t_pos		player;
@@ -105,6 +115,9 @@ int		init_textures(char *map_path, t_data *data);
 int		init_map(t_data *data);
 char	*load_map(t_data *data);
 void	find_player(t_data *data);
+
+// Affichage
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 // Utils
 char	*get_next_line(int fd);

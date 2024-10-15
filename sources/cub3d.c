@@ -25,18 +25,18 @@ static void	check_param(int argc, char **argv)
 		(ft_putendl_fd(ERR_MAP_EXT, 2), exit(1));
 }
 
-int	render(t_data *data)
-{
-	size_t	i;
+// int	render(t_data *data)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (i < data->map->width * 25)
-	{
- 		mlx_pixel_put(data->mlx, data->win, i, data->map->height * 25 / 2, RED_PIXEL);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (i < data->map->width * 25)
+// 	{
+//  		mlx_pixel_put(data->mlx, data->win, i, data->map->height * 25 / 2, RED_PIXEL);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 int	main(int argc, char **argv)
 {
@@ -46,9 +46,13 @@ int	main(int argc, char **argv)
 	data = init_data(argv[1]);
 	if (!data)
 		return (1);
-	data->win = mlx_new_window(data->mlx, data->map->width * 25, data->map->height * 25, "cub3d");
+	data->win = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
+	data->img->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	data->img->addr = mlx_get_data_addr(data->img->img, &data->img->bpp, &data->img->line_length, &data->img->endian);
 	mlx_hook(data->win, 17, 0, &exit_pgm, data);
-	mlx_loop_hook(data->mlx, &render, data);
+	my_mlx_pixel_put(data->img, 50, 50, RED_PIXEL);
+	mlx_put_image_to_window(data->mlx, data->win,data->img->img, 0, 0);
+	// mlx_loop_hook(data->mlx, &render, data);
 	mlx_loop(data->mlx);
 	mlx_destroy_display(data->mlx);
 	free_data(data);
