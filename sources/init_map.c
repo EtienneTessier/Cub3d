@@ -15,7 +15,7 @@
 static int	control_char_map(char *map1d)
 {
 	int	i;
-	int player;
+	int	player;
 
 	i = ((player = -1));
 	while (map1d[++i])
@@ -130,7 +130,7 @@ int	init_map(t_data *data)
 	if (control_map_closed(data))
 		return (1);
 	find_player(data);
-	printf("player x = %d\n", data->player.x);
-	printf("player y = %d\n", data->player.y);
+	printf("player x = %f\n", data->player.x);
+	printf("player y = %f\n", data->player.y);
 	return (0);
 }

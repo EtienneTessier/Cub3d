@@ -38,30 +38,32 @@ char	*load_map(t_data *data)
 	}
 }
 
-void	get_player_dir(char c, t_data *data)
+static void	get_player_dir(char c, t_data *data)
 {
+	data->player.dir_x = ((data->player.dir_y = 0));
+	data->ray.plan_x = ((data->ray.plan_y = 0));
 	if (c == 'N')
-		data->player.dir = PI / 2;
-	else if (c == 'S')
-		data->player.dir = (2 * PI) / 3;
-	else if (c == 'E')
-		data->player.dir = 2 * PI;
-	else if (c == 'W')
-		data->player.dir = PI;
-	if (data->player.dir < PI)
+	{
 		data->player.dir_y = -1;
-	else if ((data->player.dir == PI) || (data->player.dir == 2 * PI))
-		data->player.dir_y = 0;
-	else
+		data->ray.plan_y = 0.66;
+	}
+	else if (c == 'S')
+	{
 		data->player.dir_y = 1;
-	if ((data->player.dir > (PI / 2)) && (data->player.dir < ((3 * PI) / 2)))
-		data->player.dir_x = -1;
-	else if ((data->player.dir == (PI / 2)) || (data->player.dir == ((3 * PI) / 2)))
-		data->player.dir_x = 0;
-	else
+		data->ray.plan_y = -0.66;
+	}
+	else if (c == 'E')
+	{
 		data->player.dir_x = 1;
-	printf("data->player.dir_x = %f\n", data->player.dir_x);
-	printf("data->player.dir_y = %f\n", data->player.dir_y);
+		data->ray.plan_x = 0.66;
+	}
+	else if (c == 'W')
+	{
+		data->player.dir_x = -1;
+		data->ray.plan_x = -0.66;
+	}
+	// printf("data->player.dir_x = %f\n", data->player.dir_x);
+	// printf("data->player.dir_y = %f\n", data->player.dir_y);
 }
 
 void	find_player(t_data *data)
@@ -83,6 +85,7 @@ void	find_player(t_data *data)
 				data->player.x = x;
 				data->player.y = y;
 				get_player_dir(data->map->map2d[y][x], data);
+				data->map->map2d[y][x] = '0';
 				return ;
 			}
 			x++;

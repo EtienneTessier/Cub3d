@@ -45,10 +45,16 @@
 # define SCR_WIDTH 720
 # define SCR_HEIGHT 480
 # define TILE_SIZE 25
-# define W 119
+// Azerty
+# define W 122
 # define S 115
-# define D 100
-# define A 97
+# define D 113
+# define A 100
+// Qwerty
+// # define W 119
+// # define S 115
+// # define D 100
+// # define A 97
 # define ESC 65307
 # define PI 3.141592
 # define SPEED 0.1
@@ -98,12 +104,35 @@ typedef struct	s_img
 
 typedef struct	s_player
 {
-	int			x;
-	int			y;
-	double		dir;
+	double		x;
+	double		y;
 	double		dir_x;
 	double		dir_y;
 }				t_player;
+
+typedef struct s_ray
+{
+	double		plan_x;
+	double		plan_y;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	double		camera_x;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	double		perp_wall_dist;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	int			x;
+}				t_ray;
 
 typedef struct	s_data
 {
@@ -113,6 +142,7 @@ typedef struct	s_data
 	t_txtr		*txtr;
 	t_map		*map;
 	t_player	player;
+	t_ray		ray;
 }				t_data;
 
 //	Enum
@@ -135,13 +165,11 @@ char	*load_map(t_data *data);
 void	find_player(t_data *data);
 
 // Affichage
-void	load_img(t_img *img);
 int		load_map_img(t_data *data);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 // Deplacements
 int		handle_key(int key_code, t_data *data);
-void	get_player_dir(char c, t_data *data);
 
 // Utils
 char	*get_next_line(int fd);

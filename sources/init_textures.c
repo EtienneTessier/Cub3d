@@ -17,6 +17,7 @@ static int	check_line(char *line, int i, t_txtr *txtr)
 {
 	int	type;
 
+	(void)type;
 	if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
 		type = COLOR;
 	else if ((!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || \

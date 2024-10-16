@@ -14,20 +14,18 @@
 
 static void	move_forward(t_player *player, t_data *data)
 {
-	// if (data->map->map2d[(int)player->y][(int)(player->x + (player->dir_x * SPEED))] == '0')
-	(void)data;
-	player->x += player->dir_x * SPEED;
-	// if (data->map->map2d[(int)(player->y + (player->dir_y * SPEED))][(int)player->x] == '0')
-	player->y += player->dir_y * SPEED;
+	if (data->map->map2d[(int)player->y][(int)(player->x + (player->dir_x * SPEED))] == '0')
+		player->x += player->dir_x * SPEED;
+	if (data->map->map2d[(int)(player->y + (player->dir_y * SPEED))][(int)player->x] == '0')
+		player->y += player->dir_y * SPEED;
 }
 
 static void	move_backward(t_player *player, t_data *data)
 {
-	// if (data->map->map2d[(int)player->y][(int)(player->x - (player->dir_x * SPEED))] == '0')
-	(void)data;
-	player->x -= player->dir_x * SPEED;
-	// if (data->map->map2d[(int)(player->y - (player->dir_y * SPEED))][(int)player->x] == '0')
-	player->y -= player->dir_y * SPEED;
+	if (data->map->map2d[(int)player->y][(int)(player->x - (player->dir_x * SPEED))] == '0')
+		player->x -= player->dir_x * SPEED;
+	if (data->map->map2d[(int)(player->y - (player->dir_y * SPEED))][(int)player->x] == '0')
+		player->y -= player->dir_y * SPEED;
 }
 
 static void	rotate_right(t_player *player)
@@ -37,8 +35,6 @@ static void	rotate_right(t_player *player)
 	old_dir_x = player->dir_x;
 	player->dir_x = player->dir_x * cos(-RSPEED) - player->dir_y * sin(-RSPEED);
 	player->dir_y = old_dir_x * sin(-RSPEED) + player->dir_y * cos(-RSPEED);
-	// printf("player->dir_x = %f\n", player->dir_x);
-	// printf("player->dir_y = %f\n", player->dir_y);
 }
 
 static void	rotate_left(t_player *player)
@@ -48,8 +44,6 @@ static void	rotate_left(t_player *player)
 	old_dir_x = player->dir_x;
 	player->dir_x = player->dir_x * cos(RSPEED) - player->dir_y * sin(RSPEED);
 	player->dir_y = old_dir_x * sin(RSPEED) + player->dir_y * cos(RSPEED);
-	// printf("player->dir_x = %f\n", player->dir_x);
-	// printf("player->dir_y = %f\n", player->dir_y);
 }
 
 int	handle_key(int key_code, t_data *data)

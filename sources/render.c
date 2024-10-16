@@ -84,22 +84,3 @@ int	load_map_img(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->win,data->img->img, 0, 0);
 	return (0);
 }
-
-void	load_img(t_img *img)
-{
-	int	y;
-	int	x;
-	int	colors[8] = {RED_PIXEL, ORA_PIXEL, YEL_PIXEL, GRE_PIXEL, GRI_PIXEL, DBL_PIXEL, PUR_PIXEL, BLA_PIXEL};
-
-	y = ((x = 0));
-	while (y < SCR_HEIGHT)
-	{
-		x = 0;
-		while (x < SCR_WIDTH)
-		{
-			my_mlx_pixel_put(img, x, y, colors[y % 8]);
-			x++;
-		}
-		y++;
-	}
-}
