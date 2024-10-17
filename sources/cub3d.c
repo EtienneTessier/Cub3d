@@ -35,7 +35,8 @@ int	main(int argc, char **argv)
 		return (1);
 	mlx_hook(data->win, 17, 0, &exit_pgm, data);
 	mlx_hook(data->win, 2, 1L<<0, handle_key, data);
-	mlx_loop_hook(data->mlx, &load_map_img, data);
+	// mlx_loop_hook(data->mlx, &load_map_img, data);
+	mlx_loop_hook(data->mlx, &ray_cast, data);
 	mlx_loop(data->mlx);
 	mlx_destroy_display(data->mlx);
 	free_data(data);

@@ -46,15 +46,15 @@
 # define SCR_HEIGHT 480
 # define TILE_SIZE 25
 // Azerty
-# define W 122
-# define S 115
-# define D 113
-# define A 100
-// Qwerty
-// # define W 119
+// # define W 122
 // # define S 115
-// # define D 100
-// # define A 97
+// # define D 113
+// # define A 100
+// Qwerty
+# define W 119
+# define S 115
+# define D 100
+# define A 97
 # define ESC 65307
 # define PI 3.141592
 # define SPEED 0.1
@@ -108,12 +108,12 @@ typedef struct	s_player
 	double		y;
 	double		dir_x;
 	double		dir_y;
+	double		plan_x;
+	double		plan_y;
 }				t_player;
 
 typedef struct s_ray
 {
-	double		plan_x;
-	double		plan_y;
 	double		ray_dir_x;
 	double		ray_dir_y;
 	double		camera_x;
@@ -142,7 +142,6 @@ typedef struct	s_data
 	t_txtr		*txtr;
 	t_map		*map;
 	t_player	player;
-	t_ray		ray;
 }				t_data;
 
 //	Enum
@@ -165,8 +164,9 @@ char	*load_map(t_data *data);
 void	find_player(t_data *data);
 
 // Affichage
-int		load_map_img(t_data *data);
+int		ray_cast(t_data *data);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	load_col(int x, t_ray ray, int color, t_data *data);
 
 // Deplacements
 int		handle_key(int key_code, t_data *data);
@@ -182,5 +182,6 @@ int		exit_pgm(t_data *data);
 
 // Debug
 void	print_map_2d(char **map2d);
+int		load_map_img(t_data *data);
 
 #endif

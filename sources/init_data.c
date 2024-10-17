@@ -83,11 +83,9 @@ t_data	*init_data(char *map_path)
 		return (free_data(data), NULL);
 	if (!data->mlx)
 		return (free_data(data), NULL);
-	data->img->img = mlx_new_image(data->mlx, data->map->width * TILE_SIZE, \
-		data->map->height * TILE_SIZE);
+	data->img->img = mlx_new_image(data->mlx, SCR_WIDTH, SCR_HEIGHT);
 	data->img->addr = mlx_get_data_addr(data->img->img, &data->img->bpp, \
 		&data->img->line_length, &data->img->endian);
-	data->win = mlx_new_window(data->mlx, data->map->width * TILE_SIZE, \
-	data->map->height * TILE_SIZE, "cub3d");
+	data->win = mlx_new_window(data->mlx, SCR_WIDTH, SCR_HEIGHT, "cub3d");
 	return (data);
 }

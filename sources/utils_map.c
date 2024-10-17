@@ -41,26 +41,30 @@ char	*load_map(t_data *data)
 static void	get_player_dir(char c, t_data *data)
 {
 	data->player.dir_x = ((data->player.dir_y = 0));
-	data->ray.plan_x = ((data->ray.plan_y = 0));
-	if (c == 'N')
+	data->player.plan_x = ((data->player.plan_y = 0));
+	if (c == 'W') //E
 	{
-		data->player.dir_y = -1;
-		data->ray.plan_y = 0.66;
+		// data->player.dir_y = -1;
+		data->player.dir_x = -1;
+		data->player.plan_y = 0.66;
+	}
+	else if (c == 'E') //W
+	{
+		// data->player.dir_y = 1;
+		data->player.dir_x = 1;
+		data->player.plan_y = -0.66;
 	}
 	else if (c == 'S')
 	{
+		// data->player.dir_x = 1;
 		data->player.dir_y = 1;
-		data->ray.plan_y = -0.66;
+		data->player.plan_x = 0.66;
 	}
-	else if (c == 'E')
+	else if (c == 'N')
 	{
-		data->player.dir_x = 1;
-		data->ray.plan_x = 0.66;
-	}
-	else if (c == 'W')
-	{
-		data->player.dir_x = -1;
-		data->ray.plan_x = -0.66;
+		// data->player.dir_x = -1;
+		data->player.dir_y = -1;
+		data->player.plan_x = -0.66;
 	}
 	// printf("data->player.dir_x = %f\n", data->player.dir_x);
 	// printf("data->player.dir_y = %f\n", data->player.dir_y);

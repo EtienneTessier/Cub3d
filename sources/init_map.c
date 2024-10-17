@@ -130,6 +130,7 @@ int	init_map(t_data *data)
 	if (control_map_closed(data))
 		return (1);
 	find_player(data);
+	print_map_2d(data->map->map2d);
 	printf("player x = %f\n", data->player.x);
 	printf("player y = %f\n", data->player.y);
 	return (0);
