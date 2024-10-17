@@ -34,6 +34,7 @@
 # define ERR_MAP_OPEN "Map open error"
 # define ERR_MAP_OPEN_WALL "The map isn't closed"
 # define ERR_TEXTURES "Wrong textures"
+# define ERR_TEXTURES_LOAD "Error when loading a sprite"
 # define ERR_TEXTURE_FMT "Wrong texture format"
 # define ERR_TEXTURE_DOUBLE "Same texture defined multiple times"
 # define ERR_XPM "Textures need to be xpm files"
@@ -44,6 +45,8 @@
 # define TEXTURE 1
 # define SCR_WIDTH 720
 # define SCR_HEIGHT 480
+# define TXR_WIDTH 64
+# define TXR_HEIGHT 64
 # define TILE_SIZE 25
 // Azerty
 // # define W 122

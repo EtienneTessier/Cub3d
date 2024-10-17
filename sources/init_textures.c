@@ -77,8 +77,6 @@ static int	set_textures(char *line, t_data *data, t_txtr *txtr)
 {
 	char	*texture_path;
 
-	(void)data;
-	(void)txtr;
 	if (line[0] == 'C')
 		return (data->txtr->ceiling = set_color(line), 0);
 	else if (line[0] == 'F')
@@ -86,24 +84,37 @@ static int	set_textures(char *line, t_data *data, t_txtr *txtr)
 	texture_path = get_texture_path(&line[2]);
 	if (!texture_path)
 		return (1);
-	ft_printf("texture_path = %s\n", texture_path);
+	// ft_printf("texture_path = %s\n", texture_path);
 	if (line[0] == 'N')
-		ft_printf("set north\n");
-		// img->north = mlx_xpm_file_to_image(data->mlx, texture_path,
-		// 	&img->width, &img->height);
+		txtr->north = mlx_xpm_file_to_image(data->mlx, texture_path,
+			&txtr->width, &txtr->height);
 	else if (line[0] == 'S')
-		ft_printf("set south\n");
-		// img->south = mlx_xpm_file_to_image(data->mlx, texture_path,
-		// 	&img->width, &img->height);
+		txtr->south = mlx_xpm_file_to_image(data->mlx, texture_path,
+			&txtr->width, &txtr->height);
 	else if (line[0] == 'E')
-		ft_printf("set east\n");
-		// img->east = mlx_xpm_file_to_image(data->mlx, texture_path,
-		// 	&img->width, &img->height);
+		txtr->east = mlx_xpm_file_to_image(data->mlx, texture_path,
+			&txtr->width, &txtr->height);
 	else if (line[0] == 'W')
-		ft_printf("set west\n");
-		// img->west = mlx_xpm_file_to_image(data->mlx, texture_path,
-		// 	&img->width, &img->height);
+		txtr->west = mlx_xpm_file_to_image(data->mlx, texture_path,
+			&txtr->width, &txtr->height);
 	free(texture_path);
+	return (0);
+}
+
+static int	check_textures(t_txtr *txtr)
+{
+	if (!txtr->east)
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+	if (!txtr->west)
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+	if (!txtr->north)
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+	if (!txtr->south)
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+	// if (!txtr->ceiling)
+	// 	return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+	// if (!txtr->floor)
+	// 	return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
 	return (0);
 }
 
@@ -133,5 +144,5 @@ int	init_textures(char *map_path, t_data *data)
 		(set_textures(&line[i], data, data->txtr), free(line));
 		textures_init++;
 	}
-	return (0);
+	return (check_textures(data->txtr));
 }
