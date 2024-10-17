@@ -46,25 +46,25 @@ static void	get_player_dir(char c, t_data *data)
 	{
 		// data->player.dir_y = -1;
 		data->player.dir_x = -1;
-		data->player.plan_y = 0.66;
+		data->player.plan_y = -0.66;
 	}
 	else if (c == 'E') //W
 	{
 		// data->player.dir_y = 1;
 		data->player.dir_x = 1;
-		data->player.plan_y = -0.66;
+		data->player.plan_y = 0.66;
 	}
 	else if (c == 'S')
 	{
 		// data->player.dir_x = 1;
 		data->player.dir_y = 1;
-		data->player.plan_x = 0.66;
+		data->player.plan_x = -0.66;
 	}
 	else if (c == 'N')
 	{
 		// data->player.dir_x = -1;
 		data->player.dir_y = -1;
-		data->player.plan_x = -0.66;
+		data->player.plan_x = 0.66;
 	}
 	// printf("data->player.dir_x = %f\n", data->player.dir_x);
 	// printf("data->player.dir_y = %f\n", data->player.dir_y);

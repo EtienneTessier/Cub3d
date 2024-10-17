@@ -34,11 +34,11 @@ static void	rotate_right(t_player *player)
 	double	old_plan_x;
 
 	old_dir_x = player->dir_x;
-	player->dir_x = player->dir_x * cos(-RSPEED) - player->dir_y * sin(-RSPEED);
-	player->dir_y = old_dir_x * sin(-RSPEED) + player->dir_y * cos(-RSPEED);
+	player->dir_x = player->dir_x * cos(RSPEED) - player->dir_y * sin(RSPEED);
+	player->dir_y = old_dir_x * sin(RSPEED) + player->dir_y * cos(RSPEED);
 	old_plan_x = player->plan_x;
-	player->plan_x = player->plan_x * cos(-RSPEED) - player->plan_y * sin(-RSPEED);
-	player->plan_y = old_plan_x * sin(-RSPEED) + player->plan_y * cos(-RSPEED);
+	player->plan_x = player->plan_x * cos(RSPEED) - player->plan_y * sin(RSPEED);
+	player->plan_y = old_plan_x * sin(RSPEED) + player->plan_y * cos(RSPEED);
 }
 
 static void	rotate_left(t_player *player)
@@ -47,11 +47,11 @@ static void	rotate_left(t_player *player)
 	double	old_plan_x;
 
 	old_dir_x = player->dir_x;
-	player->dir_x = player->dir_x * cos(RSPEED) - player->dir_y * sin(RSPEED);
-	player->dir_y = old_dir_x * sin(RSPEED) + player->dir_y * cos(RSPEED);
+	player->dir_x = player->dir_x * cos(-RSPEED) - player->dir_y * sin(-RSPEED);
+	player->dir_y = old_dir_x * sin(-RSPEED) + player->dir_y * cos(-RSPEED);
 	old_plan_x = player->plan_x;
-	player->plan_x = player->plan_x * cos(RSPEED) - player->plan_y * sin(RSPEED);
-	player->plan_y = old_plan_x * sin(RSPEED) + player->plan_y * cos(RSPEED);
+	player->plan_x = player->plan_x * cos(-RSPEED) - player->plan_y * sin(-RSPEED);
+	player->plan_y = old_plan_x * sin(-RSPEED) + player->plan_y * cos(-RSPEED);
 }
 
 int	handle_key(int key_code, t_data *data)
