@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-static void	free_textures(t_txtr *txtr)
+static void	free_textures(t_txr *txtr)
 {
 	if (txtr->ceiling)
 		free(txtr->ceiling);

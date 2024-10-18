@@ -75,18 +75,6 @@
 
 //	Structures
 
-typedef struct	s_txtr
-{
-	void		*north;
-	void		*south;
-	void		*east;
-	void		*west;
-	int			*floor;
-	int			*ceiling;
-	int			height;
-	int			width;
-}				t_txtr;
-
 typedef struct	s_map
 {
 	int			fd;
@@ -99,11 +87,23 @@ typedef struct	s_map
 typedef struct	s_img
 {
 	void		*img;
-	char		*addr;
+	int			*addr;
 	int			bpp;
 	int			line_length;
 	int			endian;
 }				t_img;
+
+typedef struct	s_txtr
+{
+	int			*north;
+	int			*south;
+	int			*east;
+	int			*west;
+	int			*floor;
+	int			*ceiling;
+	int			height;
+	int			width;
+}				t_txr;
 
 typedef struct	s_player
 {
@@ -117,6 +117,7 @@ typedef struct	s_player
 
 typedef struct s_ray
 {
+	int			x;
 	double		ray_dir_x;
 	double		ray_dir_y;
 	double		camera_x;
@@ -134,7 +135,12 @@ typedef struct s_ray
 	int			line_height;
 	int			draw_start;
 	int			draw_end;
-	int			x;
+	double		wall_x;
+	double		tex_pos;
+	int			tex_x;
+	int			tex_y;
+	int			step;
+	int			*txr;
 }				t_ray;
 
 typedef struct	s_data
@@ -142,7 +148,7 @@ typedef struct	s_data
 	void		*mlx;
 	void		*win;
 	t_img		*img;
-	t_txtr		*txtr;
+	t_txr		*txtr;
 	t_map		*map;
 	t_player	player;
 }				t_data;
@@ -170,6 +176,7 @@ void	find_player(t_data *data);
 int		ray_cast(t_data *data);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	load_col(int x, t_ray ray, int color, t_data *data);
+void	load_col_txr(t_ray ray, t_data *data);
 
 // Deplacements
 int		handle_key(int key_code, t_data *data);

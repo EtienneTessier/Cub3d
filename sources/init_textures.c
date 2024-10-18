@@ -13,33 +13,34 @@
 #include "../includes/cub3d.h"
 
 //	Controle si la ligne de parametre
-static int	check_line(char *line, int i, t_txtr *txtr)
-{
-	int	type;
+// static int	check_line(char *line, int i, t_txr *txtr)
+// {
+// 	int	type;
 
-	(void)type;
-	if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
-		type = COLOR;
-	else if ((!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || \
-			!ft_strncmp(line, "EA", 2) || !ft_strncmp(line, "WE", 2)) \
-			&& line[i + 2] == ' ')
-		type = TEXTURE;
-	else
-		return (ft_putendl_fd(ERR_TEXTURE_FMT, 2), 1);
-	if (line[i] == 'F' && txtr->floor == NULL)
-		return (0);
-	if (line[i] == 'C' && txtr->ceiling == NULL)
-		return (0);
-	if (line[i] == 'N' && txtr->north == NULL)
-		return (0);
-	if (line[i] == 'S' && txtr->south == NULL)
-		return (0);
-	if (line[i] == 'E' && txtr->east == NULL)
-		return (0);
-	if (line[i] == 'W' && txtr->west == NULL)
-		return (0);
-	return (ft_putendl_fd(ERR_TEXTURE_DOUBLE, 2), 1);
-}
+// 	(void)type;
+// 	if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
+// 		type = COLOR;
+// 	else if ((!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || \
+// 			!ft_strncmp(line, "EA", 2) || !ft_strncmp(line, "WE", 2)) \
+// 			&& line[i + 2] == ' ')
+// 		type = TEXTURE;
+// 	else
+// 		return (ft_putendl_fd(ERR_TEXTURE_FMT, 2), 1);
+// 	if (line[i] == 'F' && txtr->floor == NULL)
+// 		return (0);
+// 	if (line[i] == 'C' && txtr->ceiling == NULL)
+// 		return (0);
+// 	if (line[i] == 'N' && txtr->north->img == NULL)
+// 		return (0);
+// 	if (line[i] == 'S' && txtr->south->img == NULL)
+// 		return (0);
+// 	if (line[i] == 'E' && txtr->east->img == NULL)
+// 		return (0);
+// 	if (line[i] == 'W' && txtr->west->img == NULL)
+// 		return (0);
+// 	ft_printf("line = %s\n", line);
+// 	return (ft_putendl_fd(ERR_TEXTURE_DOUBLE, 2), 1);
+// }
 
 //	Recupere le chemin vers la texture (murs) -> Controle xpm ?
 static char	*get_texture_path(char *line)
@@ -67,13 +68,52 @@ static char	*get_texture_path(char *line)
 	return (texture_path);
 }
 
+
+void	init_texture_img(t_data *data, t_img *image, char *path)
+{
+	image->img = mlx_xpm_file_to_image(data->mlx, path, &data->txtr->width,
+			&data->txtr->height);
+	if (image->img == NULL)
+		(free_data(data), exit(1));
+	image->addr = (int *)mlx_get_data_addr(image->img, &image->bpp,
+			&image->line_length, &image->endian);
+	return ;
+}
+
+static int	*xpm_to_img(t_data *data, char *path)
+{
+	t_img	tmp;
+	int		*buffer;
+	int		x;
+	int		y;
+
+	init_texture_img(data, &tmp, path);
+	buffer = ft_calloc(1, sizeof * buffer * data->txtr->width * data->txtr->height);
+	if (!buffer)
+		(free_data(data), exit(1));
+	y = 0;
+	while (y < data->txtr->height)
+	{
+		x = 0;
+		while (x < data->txtr->width)
+		{
+			buffer[y * data->txtr->width + x]
+				= tmp.addr[y * data->txtr->width + x];
+			++x;
+		}
+		y++;
+	}
+	mlx_destroy_image(data->mlx, tmp.img);
+	return (buffer);
+}
+
 static int	*set_color(char *line)
 {
 	(void)line;
 	return (ft_printf("set ceiling/floor\n"), NULL);
 }
 
-static int	set_textures(char *line, t_data *data, t_txtr *txtr)
+static int	set_textures(char *line, t_data *data, t_txr *txtr)
 {
 	char	*texture_path;
 
@@ -84,24 +124,19 @@ static int	set_textures(char *line, t_data *data, t_txtr *txtr)
 	texture_path = get_texture_path(&line[2]);
 	if (!texture_path)
 		return (1);
-	// ft_printf("texture_path = %s\n", texture_path);
 	if (line[0] == 'N')
-		txtr->north = mlx_xpm_file_to_image(data->mlx, texture_path,
-			&txtr->width, &txtr->height);
+		txtr->north = xpm_to_img(data, texture_path);
 	else if (line[0] == 'S')
-		txtr->south = mlx_xpm_file_to_image(data->mlx, texture_path,
-			&txtr->width, &txtr->height);
+		txtr->south = xpm_to_img(data, texture_path);
 	else if (line[0] == 'E')
-		txtr->east = mlx_xpm_file_to_image(data->mlx, texture_path,
-			&txtr->width, &txtr->height);
+		txtr->east = xpm_to_img(data, texture_path);
 	else if (line[0] == 'W')
-		txtr->west = mlx_xpm_file_to_image(data->mlx, texture_path,
-			&txtr->width, &txtr->height);
+		txtr->west = xpm_to_img(data, texture_path);
 	free(texture_path);
 	return (0);
 }
 
-static int	check_textures(t_txtr *txtr)
+static int	check_textures(t_txr *txtr)
 {
 	if (!txtr->east)
 		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
@@ -139,8 +174,8 @@ int	init_textures(char *map_path, t_data *data)
 			continue ;
 		}
 		i = skip_char(line, ' ');
-		if (check_line(line, i, data->txtr))
-			return (free(line), 1);
+		// if (check_line(line, i, data->txtr))
+		// 	return (free(line), 1);
 		(set_textures(&line[i], data, data->txtr), free(line));
 		textures_init++;
 	}

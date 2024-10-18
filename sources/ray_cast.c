@@ -15,13 +15,12 @@
 int	ray_cast(t_data *data)
 {
 	t_ray	ray;
-	int color;
-	int	x;
+	// int color;
 
-	x = -1;
-	while (++x < SCR_WIDTH)
+	ray.x = 0;
+	while (ray.x < SCR_WIDTH)
 	{
-		ray.camera_x = 2 * x / (double)SCR_WIDTH - 1;
+		ray.camera_x = 2 * ray.x / (double)SCR_WIDTH - 1;
 		ray.ray_dir_x = data->player.dir_x + data->player.plan_x * ray.camera_x;
 		ray.ray_dir_y = data->player.dir_y + data->player.plan_y * ray.camera_x;
 		// printf("ray.ray_dir_x = %f\n", ray.ray_dir_x);
@@ -108,12 +107,55 @@ int	ray_cast(t_data *data)
 			ray.draw_end = SCR_HEIGHT - 1;
 		// ft_printf("ray.draw_end = %d\n\n", ray.draw_end);
 
-		if (ray.side == 1)
-			color = GRI_PIXEL;
+		if (ray.side == 0)
+			ray.wall_x = data->player.y + ray.perp_wall_dist * ray.ray_dir_y;
 		else
-			color = WHI_PIXEL;
-		load_col(x, ray, color, data);
+			ray.wall_x = data->player.x + ray.perp_wall_dist * ray.ray_dir_x;
+		ray.wall_x -= floor(ray.wall_x);
+		ray.tex_x = (int)(ray.wall_x * TXR_WIDTH);
+		if ((ray.side == 0 && ray.ray_dir_x > 0) || (ray.side == 1 && ray.ray_dir_y < 0))
+			ray.tex_x = TXR_WIDTH - ray.tex_x - 1;
+
+		ray.step = 1.0 * (TXR_HEIGHT / ray.line_height);
+
+		ray.tex_pos = (ray.draw_start - SCR_HEIGHT / 2 + ray.line_height / 2) * ray.step;
+		// side == 1 && dir_y > 0 --> S
+		// side == 1 && dir_y < 0 --> N
+		// side == 0 && dir_x > 0 --> E
+		// side == 0 && dir_x < 0 --> W
+		// if (ray.side == 1)
+		// {
+		// 	if (ray.ray_dir_y > 0)
+		// 		color = GRI_PIXEL;
+		// 	else
+		// 		color = ORA_PIXEL;
+		// }
+		// else
+		// {
+		// 	if (ray.ray_dir_x > 0)
+		// 		color = WHI_PIXEL;
+		// 	else
+		// 		color = GRE_PIXEL;
+		// }
+		// load_col(ray.x, ray, color, data);
+		if (ray.side == 1)
+		{
+			if (ray.ray_dir_y > 0)
+				ray.txr = data->txtr->south;
+			else
+				ray.txr = data->txtr->north;
+		}
+		else
+		{
+			if (ray.ray_dir_x > 0)
+				ray.txr = data->txtr->east;
+			else
+				ray.txr = data->txtr->west;
+		}
+		load_col_txr(ray, data);
+		ray.x += 1;
 	}
 	mlx_put_image_to_window(data->mlx, data->win,data->img->img, 0, 0);
+	sleep(1);
 	return (0);
 }

@@ -27,11 +27,11 @@ static t_data	*crea_data(void)
 	return (data);
 }
 
-static t_txtr	*crea_txtr(t_data *data)
+static t_txr	*crea_txtr(t_data *data)
 {
-	t_txtr	*txtr;
+	t_txr	*txtr;
 
-	txtr = ft_calloc(1, sizeof(t_txtr));
+	txtr = ft_calloc(1, sizeof(t_txr));
 	if (!txtr)
 		exit_pgm(data);
 	txtr->ceiling = NULL;
@@ -73,10 +73,10 @@ t_data	*init_data(char *map_path)
 	t_data	*data;
 
 	data = crea_data();
-	data->txtr = crea_txtr(data);
 	data->map = crea_map(data);
 	data->img = crea_img(data);
 	data->mlx = mlx_init(data);
+	data->txtr = crea_txtr(data);
 	if (init_textures(map_path, data))
 		return (free_data(data), NULL);
 	if (init_map(data))
@@ -84,7 +84,7 @@ t_data	*init_data(char *map_path)
 	if (!data->mlx)
 		return (free_data(data), NULL);
 	data->img->img = mlx_new_image(data->mlx, SCR_WIDTH, SCR_HEIGHT);
-	data->img->addr = mlx_get_data_addr(data->img->img, &data->img->bpp, \
+	data->img->addr = (int *)mlx_get_data_addr(data->img->img, &data->img->bpp, \
 		&data->img->line_length, &data->img->endian);
 	data->win = mlx_new_window(data->mlx, SCR_WIDTH, SCR_HEIGHT, "cub3d");
 	return (data);
