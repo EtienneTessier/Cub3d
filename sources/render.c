@@ -56,6 +56,7 @@ void	load_col_txr(t_ray *ray, t_data *data)
 	{
 		ray->tex_y = (int)ray->tex_pos & (TXR_HEIGHT - 1);
 		ray->tex_pos += ray->step;
+		// ft_printf("ray->tex_y * TXR_WIDTH = %d, ray->tex_x = %d\n", ray->tex_y * TXR_WIDTH, ray->tex_x);
 		my_mlx_pixel_put(data->img, ray->x, y, ray->txr \
 			[ray->tex_y * TXR_WIDTH + ray->tex_x]);
 		y++;

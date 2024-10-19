@@ -129,8 +129,8 @@ int	ray_cast(t_data *data)
 		find_wall_hit(&ray, data);
 		find_wall_tex_pos(&ray, data);
 		if (1 == 2)
-			load_textures(&ray, data);
-		load_color(&ray, data);
+			load_color(&ray, data);
+		load_textures(&ray, data);
 		ray.x += 1;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
