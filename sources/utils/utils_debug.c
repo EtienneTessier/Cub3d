@@ -29,8 +29,8 @@ void	print_map_2d(char **map2d)
 
 static void	load_tile(char c, t_img *img, int *x, int *y)
 {
-	int tile_x;
-	int tile_y;
+	int	tile_x;
+	int	tile_y;
 
 	tile_y = 0;
 	while (tile_y < TILE_SIZE)
@@ -38,7 +38,7 @@ static void	load_tile(char c, t_img *img, int *x, int *y)
 		tile_x = 0;
 		while (tile_x < TILE_SIZE)
 		{
-			if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
+			if (c == '0')
 				my_mlx_pixel_put(img, *x + tile_x, *y + tile_y, GRI_PIXEL);
 			else if (c == '1')
 				my_mlx_pixel_put(img, *x + tile_x, *y + tile_y, WHI_PIXEL);
@@ -52,7 +52,7 @@ static void	load_tile(char c, t_img *img, int *x, int *y)
 
 static void	load_player(t_data *data)
 {
-	int x;
+	int	x;
 	int	y;
 
 	y = 0;
@@ -61,7 +61,8 @@ static void	load_player(t_data *data)
 		x = 0;
 		while (x < 10)
 		{
-			my_mlx_pixel_put(data->img, (data->player.x * TILE_SIZE) + x, (data->player.y * TILE_SIZE) + y, ORA_PIXEL);
+			my_mlx_pixel_put(data->img, (data->player.x * TILE_SIZE) + x, \
+				(data->player.y * TILE_SIZE) + y, ORA_PIXEL);
 			x++;
 		}
 		y++;
@@ -72,8 +73,8 @@ int	load_map_img(t_data *data)
 {
 	size_t	i;
 	size_t	j;
-	int	y;
-	int	x;
+	int		y;
+	int		x;
 
 	y = ((x = 0));
 	i = -1;
@@ -88,6 +89,29 @@ int	load_map_img(t_data *data)
 		y += TILE_SIZE - 1;
 	}
 	load_player(data);
-	mlx_put_image_to_window(data->mlx, data->win,data->img->img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 	return (0);
+}
+
+// side == 1 && dir_y > 0 --> S
+// side == 1 && dir_y < 0 --> N
+// side == 0 && dir_x > 0 --> E
+// side == 0 && dir_x < 0 --> W
+void	load_color(t_ray *ray, t_data *data)
+{
+	if (ray->side == 1)
+	{
+		if (ray->ray_dir_y > 0)
+			data->txtr->color = GRI_PIXEL;
+		else
+			data->txtr->color = ORA_PIXEL;
+	}
+	else
+	{
+		if (ray->ray_dir_x > 0)
+			data->txtr->color = WHI_PIXEL;
+		else
+			data->txtr->color = GRE_PIXEL;
+	}
+	load_col(ray, data);
 }
