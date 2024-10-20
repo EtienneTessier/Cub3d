@@ -128,9 +128,10 @@ int	ray_cast(t_data *data)
 		find_delta_side_dist(&ray, data);
 		find_wall_hit(&ray, data);
 		find_wall_tex_pos(&ray, data);
-		if (1 == 2)\
+		if (DEBUG)
 			load_color(&ray, data);
-		load_textures(&ray, data);
+		else
+			load_textures(&ray, data);
 		ray.x++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);

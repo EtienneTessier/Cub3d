@@ -32,38 +32,24 @@ static void	move_backward(t_player *player, t_data *data)
 		player->y -= player->dir_y * SPEED;
 }
 
-static void	rotate_right(t_player *player)
+static void	move_left(t_player *player, t_data *data)
 {
-	double	old_dir_x;
-	double	old_plan_x;
-
-	old_dir_x = player->dir_x;
-	player->dir_x = player->dir_x * cos(RSPEED) - \
-		player->dir_y * sin(RSPEED);
-	player->dir_y = old_dir_x * sin(RSPEED) + \
-		player->dir_y * cos(RSPEED);
-	old_plan_x = player->plan_x;
-	player->plan_x = player->plan_x * cos(RSPEED) - \
-		player->plan_y * sin(RSPEED);
-	player->plan_y = old_plan_x * sin(RSPEED) + \
-		player->plan_y * cos(RSPEED);
+	if (data->map->map2d[(int)player->y] \
+			[(int)(player->x - (player->plan_x * SPEED))] == '0')
+		player->x -= player->plan_x * SPEED;
+	if (data->map->map2d[(int)(player->y - (player->plan_y * SPEED))] \
+			[(int)player->x] == '0')
+		player->y -= player->plan_y * SPEED;
 }
 
-static void	rotate_left(t_player *player)
+static void	move_right(t_player *player, t_data *data)
 {
-	double	old_dir_x;
-	double	old_plan_x;
-
-	old_dir_x = player->dir_x;
-	player->dir_x = player->dir_x * cos(-RSPEED) - \
-		player->dir_y * sin(-RSPEED);
-	player->dir_y = old_dir_x * sin(-RSPEED) + \
-		player->dir_y * cos(-RSPEED);
-	old_plan_x = player->plan_x;
-	player->plan_x = player->plan_x * \
-		cos(-RSPEED) - player->plan_y * sin(-RSPEED);
-	player->plan_y = old_plan_x * sin(-RSPEED) + \
-		player->plan_y * cos(-RSPEED);
+	if (data->map->map2d[(int)player->y] \
+			[(int)(player->x + (player->plan_x * SPEED))] == '0')
+		player->x += player->plan_x * SPEED;
+	if (data->map->map2d[(int)(player->y + (player->plan_y * SPEED))] \
+			[(int)player->x] == '0')
+		player->y += player->plan_y * SPEED;
 }
 
 int	handle_key(int key_code, t_data *data)
@@ -73,8 +59,12 @@ int	handle_key(int key_code, t_data *data)
 	else if (key_code == S)
 		move_backward(&data->player, data);
 	else if (key_code == A)
-		rotate_left(&data->player);
+		move_left(&data->player, data);
 	else if (key_code == D)
+		move_right(&data->player, data);
+	else if (key_code == LEFT)
+		rotate_left(&data->player);
+	else if (key_code == RIGHT)
 		rotate_right(&data->player);
 	else if (key_code == ESC)
 		exit_pgm(data);

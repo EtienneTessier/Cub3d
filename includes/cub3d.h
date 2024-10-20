@@ -28,6 +28,8 @@
 
 //	Defines
 
+# define DEBUG 0
+
 # define ERR_NB_ARG "Only 2 parameters required : ./cub3d maps.cub"
 # define ERR_MAP_EXT "Wrong map extension"
 # define ERR_MAP_PLAYER "You need exactly 1 player position (N/S/E/W)"
@@ -48,10 +50,12 @@
 # define TXR_SIZE 64
 # define TILE_SIZE 25
 // Azerty
-# define W 122
+# define W 122 //Z
 # define S 115
 # define D 100
-# define A 113
+# define A 113 //Q
+# define LEFT 65361
+# define RIGHT 65363
 // Qwerty
 // # define W 119
 // # define S 115
@@ -180,11 +184,15 @@ void	load_col_txr(t_ray *ray, t_data *data);
 
 // Deplacements
 int		handle_key(int key_code, t_data *data);
+void	rotate_right(t_player *player);
+void	rotate_left(t_player *player);
 
 // Utils
 char	*get_next_line(int fd);
 char	*ft_join(char *s1, char *s2, int nb_read);
 int		skip_char(char *str, char to_skip);
+int		check_line(char *line, int i, t_txr *txtr);
+char	*get_texture_path(char *line);
 
 // Free/Exit
 void	free_data(t_data *data);

@@ -25,10 +25,11 @@ INCLUDES_FILES_B	= cub3d_bonus.h
 INCLUDES_B			= $(addprefix $(INCLUDES_PATH), $(INCLUDES_FILES_B))
 
 SRC_PATH			=	sources/
-SRC_FILES 			=	cub3d.c					exit.c					player.c				\
-						render.c				ray_cast.c				utils/utils_map.c		\
-						utils/get_next_line.c	utils/utils_str.c		utils/utils_debug.c		\
+SRC_FILES 			=	cub3d.c					display/ray_cast.c		display/render.c		\
+						utils/utils_debug.c		utils/exit.c			utils/utils_map.c		\
+						utils/get_next_line.c	utils/utils_str.c		utils/utils_texture.c	\
 						init/init_data.c		init/init_map.c			init/init_textures.c	\
+						move/move.c				move/rotate.c			\
 
 SRC		= $(addprefix $(SRC_PATH), $(SRC_FILES))
 
