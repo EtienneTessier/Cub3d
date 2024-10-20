@@ -54,14 +54,14 @@ void	load_col_txr(t_ray *ray, t_data *data)
 	}
 	while (y >= ray->draw_start && y <= ray->draw_end)
 	{
-		ray->tex_y = (int)ray->tex_pos & (TXR_HEIGHT - 1);
+		ray->tex_y = (int)ray->tex_pos & (TXR_SIZE - 1);
 		ray->tex_pos += ray->step;
-		// ft_printf("ray->tex_y * TXR_WIDTH = %d, ray->tex_x = %d\n", ray->tex_y * TXR_WIDTH, ray->tex_x);
+		// ft_printf("ray->tex_y * TXR_SIZE = %d, ray->tex_x = %d\n", ray->tex_y * TXR_SIZE, ray->tex_x);
 		my_mlx_pixel_put(data->img, ray->x, y, ray->txr \
-			[ray->tex_y * TXR_WIDTH + ray->tex_x]);
+			[ray->tex_y * TXR_SIZE + ray->tex_x]);
 		y++;
 	}
-	while (y < SCR_HEIGHT - 1)
+	while (y < SCR_HEIGHT)
 	{
 		my_mlx_pixel_put(data->img, ray->x, y, DBL_PIXEL);
 		y++;

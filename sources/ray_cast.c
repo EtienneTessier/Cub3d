@@ -81,11 +81,11 @@ static void	find_wall_tex_pos(t_ray *ray, t_data *data)
 	else
 		ray->wall_x = data->player.x + ray->perp_wall_dist * ray->ray_dir_x;
 	ray->wall_x -= floor(ray->wall_x);
-	ray->tex_x = (int)(ray->wall_x * TXR_WIDTH);
-	if ((ray->side == 0 && ray->ray_dir_x > 0) || \
-			(ray->side == 1 && ray->ray_dir_y < 0))
-		ray->tex_x = TXR_WIDTH - ray->tex_x - 1;
-	ray->step = 1.0 * (TXR_HEIGHT / ray->line_height);
+	ray->tex_x = (int)(ray->wall_x * TXR_SIZE);
+	if ((ray->side == 0 && ray->ray_dir_x < 0) || \
+			(ray->side == 1 && ray->ray_dir_y > 0))
+		ray->tex_x = TXR_SIZE - ray->tex_x - 1;
+	ray->step = 1.0 * TXR_SIZE / ray->line_height;
 	ray->tex_pos = (ray->draw_start - SCR_HEIGHT / 2 + ray->line_height / 2) \
 		* ray->step;
 }
@@ -128,10 +128,10 @@ int	ray_cast(t_data *data)
 		find_delta_side_dist(&ray, data);
 		find_wall_hit(&ray, data);
 		find_wall_tex_pos(&ray, data);
-		if (1 == 2)
+		if (1 == 2)\
 			load_color(&ray, data);
 		load_textures(&ray, data);
-		ray.x += 1;
+		ray.x++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 	return (0);

@@ -86,7 +86,7 @@ static int	*xpm_to_img(t_data *data, char *path)
 	int		y;
 
 	init_texture_img(data, &tmp, path);
-	buffer = ft_calloc(1, sizeof * buffer * TXR_WIDTH * TXR_HEIGHT);
+	buffer = ft_calloc(1, sizeof * buffer * TXR_SIZE * TXR_SIZE);
 	if (!buffer)
 		(free_data(data), exit(1));
 	y = 0;

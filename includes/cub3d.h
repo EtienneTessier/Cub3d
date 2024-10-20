@@ -45,8 +45,7 @@
 # define TEXTURE 1
 # define SCR_WIDTH 720
 # define SCR_HEIGHT 480
-# define TXR_WIDTH 64
-# define TXR_HEIGHT 64
+# define TXR_SIZE 64
 # define TILE_SIZE 25
 // Azerty
 # define W 122
