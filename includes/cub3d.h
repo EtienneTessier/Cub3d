@@ -50,17 +50,17 @@
 # define TXR_SIZE 64
 # define TILE_SIZE 25
 // Azerty
-# define W 122 //Z
-# define S 115
-# define D 100
-# define A 113 //Q
+// # define W 122 //Z
+// # define S 115
+// # define D 100
+// # define A 113 //Q
 # define LEFT 65361
 # define RIGHT 65363
 // Qwerty
-// # define W 119
-// # define S 115
-// # define D 100
-// # define A 97
+# define W 119
+# define S 115
+# define D 100
+# define A 97
 # define ESC 65307
 # define PI 3.141592
 # define SPEED 0.1
@@ -143,7 +143,7 @@ typedef struct s_ray
 	double		tex_pos;
 	int			tex_x;
 	int			tex_y;
-	int			step;
+	double		step;
 	int			*txr;
 }				t_ray;
 

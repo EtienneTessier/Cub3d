@@ -76,16 +76,17 @@ static void	find_wall_tex_pos(t_ray *ray, t_data *data)
 	ray->draw_end = (ray->line_height / 2) + (SCR_HEIGHT / 2);
 	if (ray->draw_end >= SCR_HEIGHT)
 		ray->draw_end = SCR_HEIGHT - 1;
+
 	if (ray->side == 0)
 		ray->wall_x = data->player.y + ray->perp_wall_dist * ray->ray_dir_y;
 	else
 		ray->wall_x = data->player.x + ray->perp_wall_dist * ray->ray_dir_x;
 	ray->wall_x -= floor(ray->wall_x);
-	ray->tex_x = (int)(ray->wall_x * TXR_SIZE);
+	ray->tex_x = (int)(ray->wall_x * (double)data->txtr->width);
 	if ((ray->side == 0 && ray->ray_dir_x < 0) || \
 			(ray->side == 1 && ray->ray_dir_y > 0))
-		ray->tex_x = TXR_SIZE - ray->tex_x - 1;
-	ray->step = 1.0 * TXR_SIZE / ray->line_height;
+		ray->tex_x = data->txtr->width - ray->tex_x - 1;
+	ray->step = 1.0 * data->txtr->height / ray->line_height;
 	ray->tex_pos = (ray->draw_start - SCR_HEIGHT / 2 + ray->line_height / 2) \
 		* ray->step;
 }
