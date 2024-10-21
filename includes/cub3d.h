@@ -35,6 +35,7 @@
 # define ERR_MAP_PLAYER "You need exactly 1 player position (N/S/E/W)"
 # define ERR_MAP_OPEN "Map open error"
 # define ERR_MAP_OPEN_WALL "The map isn't closed"
+# define ERR_MAP_OPEN_INSIDE "The map is open inside"
 # define ERR_TEXTURES "Wrong textures"
 # define ERR_TEXTURES_LOAD "Error when loading a sprite or texture"
 # define ERR_TEXTURE_FMT "Wrong texture format"
@@ -164,14 +165,15 @@ typedef struct	s_data
 // Initialisation
 t_data			*init_data(char *map_path);
 
+char			*get_texture_path(char *line);
 int				init_textures(char *map_path, t_data *data);
 int				check_line(char *line, int i, t_txr *txr);
 int				check_textures(t_txr *txr, int map_fd);
-char			*get_texture_path(char *line);
 unsigned int	rgb_to_hex(unsigned char r, unsigned char g, unsigned char b);
 
-int				init_map(t_data *data);
 char			*load_map(t_data *data);
+int				init_map(t_data *data);
+int				check_space_inside(char **map2d);
 void			find_player(t_data *data);
 
 // Affichage
@@ -186,9 +188,9 @@ void			rotate_right(t_player *player);
 void			rotate_left(t_player *player);
 
 // Utils
-int				skip_char(char *str, char to_skip);
 char			*get_next_line(int fd);
 char			*ft_join(char *s1, char *s2, int nb_read);
+int				skip_char(char *str, char to_skip);
 
 // Free/Exit
 int				exit_pgm(t_data *data);

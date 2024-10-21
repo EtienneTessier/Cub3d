@@ -91,3 +91,42 @@ void	find_player(t_data *data)
 		y++;
 	}
 }
+
+static void	replace_player(char **map2d)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	while (map2d[++y])
+	{
+		x = -1;
+		while (map2d[y][++x])
+		{
+			if (map2d[y][x] == 'S' || map2d[y][x] == 'N' || \
+					map2d[y][x] == 'E' || map2d[y][x] == 'W')
+				return ((void)(map2d[y][x] = '0'));
+		}
+	}
+}
+
+int	check_space_inside(char **map2d)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	replace_player(map2d);
+	while (map2d[++y])
+	{
+		x = -1;
+		while (map2d[y][++x])
+		{
+			if (map2d[y][x] == ' ' && (map2d[y + 1][x] == '0' ||
+					map2d[y - 1][x] == '0' || map2d[y][x + 1] == '0' ||
+					map2d[y][x - 1] == '0'))
+				return (ft_putendl_fd(ERR_MAP_OPEN_INSIDE, 2), 1);
+		}
+	}
+	return (0);
+}

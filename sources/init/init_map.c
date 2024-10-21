@@ -130,5 +130,5 @@ int	init_map(t_data *data)
 	if (control_map_closed(data))
 		return (1);
 	find_player(data);
-	return (0);
+	return (check_space_inside(data->map->map2d_copy));
 }

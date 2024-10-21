@@ -1,5 +1,5 @@
+OK		Message d'erreur si textures manquantes/pas le bon nom
+OK		Bloquer si espace dans la map
+
+
 Traiter les couleurs du plafond et du sol
-
-Message d'erreur si textures manquantes/pas le bon nom
-Bloquer si espace dans la map
-
