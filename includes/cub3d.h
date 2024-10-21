@@ -36,7 +36,7 @@
 # define ERR_MAP_OPEN "Map open error"
 # define ERR_MAP_OPEN_WALL "The map isn't closed"
 # define ERR_TEXTURES "Wrong textures"
-# define ERR_TEXTURES_LOAD "Error when loading a sprite"
+# define ERR_TEXTURES_LOAD "Error when loading a sprite or texture"
 # define ERR_TEXTURE_FMT "Wrong texture format"
 # define ERR_TEXTURE_DOUBLE "Same texture defined multiple times"
 # define ERR_XPM "Textures need to be xpm files"
@@ -96,14 +96,14 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
-typedef struct	s_txtr
+typedef struct	s_txr
 {
 	int			*north;
 	int			*south;
 	int			*east;
 	int			*west;
-	int			*floor;
-	int			*ceiling;
+	int			floor;
+	int			ceiling;
 	int			color;
 	int			height;
 	int			width;
@@ -152,55 +152,51 @@ typedef struct	s_data
 	void		*mlx;
 	void		*win;
 	t_img		*img;
-	t_txr		*txtr;
+	t_txr		*txr;
 	t_map		*map;
 	t_player	player;
 }				t_data;
 
 //	Enum
 
-typedef enum	e_error
-{
-	NB_ARG	,
-	MAP_EXT
-}				t_error;
-
 //	Fonctions
 
 // Initialisation
-t_data	*init_data(char *map_path);
+t_data			*init_data(char *map_path);
 
-int		init_textures(char *map_path, t_data *data);
+int				init_textures(char *map_path, t_data *data);
+int				check_line(char *line, int i, t_txr *txr);
+int				check_textures(t_txr *txr);
+char			*get_texture_path(char *line);
+unsigned int	rgb_to_hex(unsigned char r, unsigned char g, unsigned char b);
 
-int		init_map(t_data *data);
-char	*load_map(t_data *data);
-void	find_player(t_data *data);
+int				init_map(t_data *data);
+char			*load_map(t_data *data);
+void			find_player(t_data *data);
 
 // Affichage
-int		ray_cast(t_data *data);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void	load_col(t_ray *ray, t_data *data);
-void	load_col_txr(t_ray *ray, t_data *data);
+int				ray_cast(t_data *data);
+void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void			load_col(t_ray *ray, t_data *data);
+void			load_col_txr(t_ray *ray, t_data *data);
 
 // Deplacements
-int		handle_key(int key_code, t_data *data);
-void	rotate_right(t_player *player);
-void	rotate_left(t_player *player);
+int				handle_key(int key_code, t_data *data);
+void			rotate_right(t_player *player);
+void			rotate_left(t_player *player);
 
 // Utils
-char	*get_next_line(int fd);
-char	*ft_join(char *s1, char *s2, int nb_read);
-int		skip_char(char *str, char to_skip);
-int		check_line(char *line, int i, t_txr *txtr);
-char	*get_texture_path(char *line);
+int				skip_char(char *str, char to_skip);
+char			*get_next_line(int fd);
+char			*ft_join(char *s1, char *s2, int nb_read);
 
 // Free/Exit
-void	free_data(t_data *data);
-int		exit_pgm(t_data *data);
+int				exit_pgm(t_data *data);
+void			free_data(t_data *data);
 
 // Debug
-void	print_map_2d(char **map2d);
-int		load_map_img(t_data *data);
-void	load_color(t_ray *ray, t_data *data);
+int				load_map_img(t_data *data);
+void			print_map_2d(char **map2d);
+void			load_color(t_ray *ray, t_data *data);
 
 #endif

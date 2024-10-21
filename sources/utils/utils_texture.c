@@ -13,7 +13,7 @@
 #include "../includes/cub3d.h"
 
 //	Controle si la ligne de parametre
-int	check_line(char *line, int i, t_txr *txtr)
+int	check_line(char *line, int i, t_txr *txr)
 {
 	int	type;
 
@@ -26,17 +26,17 @@ int	check_line(char *line, int i, t_txr *txtr)
 		type = TEXTURE;
 	else
 		return (ft_putendl_fd(ERR_TEXTURE_FMT, 2), 1);
-	if (line[i] == 'F' && txtr->floor == NULL)
+	if (line[i] == 'F' && txr->floor == -1)
 		return (0);
-	if (line[i] == 'C' && txtr->ceiling == NULL)
+	if (line[i] == 'C' && txr->ceiling == -1)
 		return (0);
-	if (line[i] == 'N' && txtr->north == NULL)
+	if (line[i] == 'N' && txr->north == NULL)
 		return (0);
-	if (line[i] == 'S' && txtr->south == NULL)
+	if (line[i] == 'S' && txr->south == NULL)
 		return (0);
-	if (line[i] == 'E' && txtr->east == NULL)
+	if (line[i] == 'E' && txr->east == NULL)
 		return (0);
-	if (line[i] == 'W' && txtr->west == NULL)
+	if (line[i] == 'W' && txr->west == NULL)
 		return (0);
 	ft_printf("line = %s\n", line);
 	return (ft_putendl_fd(ERR_TEXTURE_DOUBLE, 2), 1);
@@ -65,4 +65,26 @@ char	*get_texture_path(char *line)
 	}
 	texture_path[i] = '\0';
 	return (texture_path);
+}
+
+unsigned int	rgb_to_hex(unsigned char r, unsigned char g, unsigned char b)
+{
+	return ((r << 16) | (g << 8) | b);
+}
+
+int	check_textures(t_txr *txr)
+{
+	if (txr->ceiling == -1)
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+	if (txr->floor == -1)
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+	if (!txr->east)
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+	if (!txr->west)
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+	if (!txr->north)
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+	if (!txr->south)
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+	return (0);
 }

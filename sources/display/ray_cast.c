@@ -82,11 +82,11 @@ static void	find_wall_tex_pos(t_ray *ray, t_data *data)
 	else
 		ray->wall_x = data->player.x + ray->perp_wall_dist * ray->ray_dir_x;
 	ray->wall_x -= floor(ray->wall_x);
-	ray->tex_x = (int)(ray->wall_x * (double)data->txtr->width);
+	ray->tex_x = (int)(ray->wall_x * (double)data->txr->width);
 	if ((ray->side == 0 && ray->ray_dir_x < 0) || \
 			(ray->side == 1 && ray->ray_dir_y > 0))
-		ray->tex_x = data->txtr->width - ray->tex_x - 1;
-	ray->step = 1.0 * data->txtr->height / ray->line_height;
+		ray->tex_x = data->txr->width - ray->tex_x - 1;
+	ray->step = 1.0 * data->txr->height / ray->line_height;
 	ray->tex_pos = (ray->draw_start - SCR_HEIGHT / 2 + ray->line_height / 2) \
 		* ray->step;
 }
@@ -100,16 +100,16 @@ static void	load_textures(t_ray *ray, t_data *data)
 	if (ray->side == 1)
 	{
 		if (ray->ray_dir_y > 0)
-			ray->txr = data->txtr->south;
+			ray->txr = data->txr->south;
 		else
-			ray->txr = data->txtr->north;
+			ray->txr = data->txr->north;
 	}
 	else
 	{
 		if (ray->ray_dir_x > 0)
-			ray->txr = data->txtr->east;
+			ray->txr = data->txr->east;
 		else
-			ray->txr = data->txtr->west;
+			ray->txr = data->txr->west;
 	}
 	load_col_txr(ray, data);
 }

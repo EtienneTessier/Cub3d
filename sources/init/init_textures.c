@@ -14,8 +14,8 @@
 
 void	init_texture_img(t_data *data, t_img *image, char *path)
 {
-	image->img = mlx_xpm_file_to_image(data->mlx, path, &data->txtr->width,
-			&data->txtr->height);
+	image->img = mlx_xpm_file_to_image(data->mlx, path, &data->txr->width,
+			&data->txr->height);
 	if (!image->img)
 		(ft_putendl_fd(ERR_TEXTURES_LOAD, 2), free_data(data), exit(1));
 	image->addr = (int *)mlx_get_data_addr(image->img, &image->bpp,
@@ -31,17 +31,18 @@ static int	*xpm_to_img(t_data *data, char *path)
 	int		y;
 
 	init_texture_img(data, &tmp, path);
-	buffer = ft_calloc(1, sizeof * buffer * TXR_SIZE * TXR_SIZE);
+	buffer = ft_calloc(1, sizeof * buffer * data->txr->width * \
+			data->txr->height);
 	if (!buffer)
 		(free_data(data), exit(1));
 	y = 0;
-	while (y < data->txtr->height)
+	while (y < data->txr->height)
 	{
 		x = 0;
-		while (x < data->txtr->width)
+		while (x < data->txr->width)
 		{
-			buffer[y * data->txtr->width + x] \
-				= tmp.addr[y * data->txtr->width + x];
+			buffer[y * data->txr->width + x] \
+				= tmp.addr[y * data->txr->width + x];
 			++x;
 		}
 		y++;
@@ -50,31 +51,44 @@ static int	*xpm_to_img(t_data *data, char *path)
 	return (buffer);
 }
 
-static int	*set_color(char *line)
+static int	set_color(char *line)
 {
-	(void)line;
-	return (ft_printf("set ceiling/floor\n"), NULL);
+	int		i;
+	int		color;
+	char	**colors;
+
+	colors = ft_split(&line[skip_char(&line[1], ' ')], ',');
+	if (!colors)
+		return (0);
+	i = -1;
+	while (++i < 3)
+		if (ft_atoi(colors[i]) < 0 || ft_atoi(colors[i]) > 255)
+			return (ft_freesplit(colors), 0);
+	color = rgb_to_hex(ft_atoi(colors[0]), ft_atoi(colors[1]), \
+		ft_atoi(colors[0]));
+	ft_freesplit(colors);
+	return (color);
 }
 
-static int	set_textures(char *line, t_data *data, t_txr *txtr)
+static int	set_textures(char *line, t_data *data, t_txr *txr)
 {
 	char	*texture_path;
 
 	if (line[0] == 'C')
-		return (data->txtr->ceiling = set_color(line), 0);
+		return (data->txr->ceiling = set_color(line), 0);
 	else if (line[0] == 'F')
-		return (data->txtr->floor = set_color(line), 0);
+		return (data->txr->floor = set_color(line), 0);
 	texture_path = get_texture_path(&line[2]);
 	if (!texture_path)
 		return (1);
 	if (line[0] == 'N')
-		txtr->north = xpm_to_img(data, texture_path);
+		txr->north = xpm_to_img(data, texture_path);
 	else if (line[0] == 'S')
-		txtr->south = xpm_to_img(data, texture_path);
+		txr->south = xpm_to_img(data, texture_path);
 	else if (line[0] == 'E')
-		txtr->east = xpm_to_img(data, texture_path);
+		txr->east = xpm_to_img(data, texture_path);
 	else if (line[0] == 'W')
-		txtr->west = xpm_to_img(data, texture_path);
+		txr->west = xpm_to_img(data, texture_path);
 	free(texture_path);
 	return (0);
 }
@@ -100,10 +114,10 @@ int	init_textures(char *map_path, t_data *data)
 			continue ;
 		}
 		i = skip_char(line, ' ');
-		if (check_line(line, i, data->txtr))
+		if (check_line(line, i, data->txr))
 			return (free(line), 1);
-		(set_textures(&line[i], data, data->txtr), free(line));
+		(set_textures(&line[i], data, data->txr), free(line));
 		textures_init++;
 	}
-	return (0);
+	return (check_textures(data->txr));
 }

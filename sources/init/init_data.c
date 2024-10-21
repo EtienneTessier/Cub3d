@@ -23,24 +23,24 @@ static t_data	*crea_data(void)
 	data->win = NULL;
 	data->img = NULL;
 	data->map = NULL;
-	data->txtr = NULL;
+	data->txr = NULL;
 	return (data);
 }
 
-static t_txr	*crea_txtr(t_data *data)
+static t_txr	*crea_txr(t_data *data)
 {
-	t_txr	*txtr;
+	t_txr	*txr;
 
-	txtr = ft_calloc(1, sizeof(t_txr));
-	if (!txtr)
+	txr = ft_calloc(1, sizeof(t_txr));
+	if (!txr)
 		exit_pgm(data);
-	txtr->ceiling = NULL;
-	txtr->floor = NULL;
-	txtr->north = NULL;
-	txtr->south = NULL;
-	txtr->east = NULL;
-	txtr->west = NULL;
-	return (txtr);
+	txr->ceiling = -1;
+	txr->floor = -1;
+	txr->north = NULL;
+	txr->south = NULL;
+	txr->east = NULL;
+	txr->west = NULL;
+	return (txr);
 }
 
 static t_map	*crea_map(t_data *data)
@@ -76,7 +76,7 @@ t_data	*init_data(char *map_path)
 	data->map = crea_map(data);
 	data->img = crea_img(data);
 	data->mlx = mlx_init(data);
-	data->txtr = crea_txtr(data);
+	data->txr = crea_txr(data);
 	if (init_textures(map_path, data))
 		return (free_data(data), NULL);
 	if (init_map(data))

@@ -102,16 +102,16 @@ void	load_color(t_ray *ray, t_data *data)
 	if (ray->side == 1)
 	{
 		if (ray->ray_dir_y > 0)
-			data->txtr->color = GRI_PIXEL;
+			data->txr->color = GRI_PIXEL;
 		else
-			data->txtr->color = ORA_PIXEL;
+			data->txr->color = ORA_PIXEL;
 	}
 	else
 	{
 		if (ray->ray_dir_x > 0)
-			data->txtr->color = WHI_PIXEL;
+			data->txr->color = WHI_PIXEL;
 		else
-			data->txtr->color = GRE_PIXEL;
+			data->txr->color = GRE_PIXEL;
 	}
 	load_col(ray, data);
 }
