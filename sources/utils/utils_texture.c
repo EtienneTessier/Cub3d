@@ -38,7 +38,6 @@ int	check_line(char *line, int i, t_txr *txr)
 		return (0);
 	if (line[i] == 'W' && txr->west == NULL)
 		return (0);
-	ft_printf("line = %s\n", line);
 	return (ft_putendl_fd(ERR_TEXTURE_DOUBLE, 2), 1);
 }
 
@@ -72,19 +71,32 @@ unsigned int	rgb_to_hex(unsigned char r, unsigned char g, unsigned char b)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int	check_textures(t_txr *txr)
+static void	close_gnl(int fd)
+{
+	char	*str;
+
+	while (1)
+	{
+		str = get_next_line(fd);
+		if (!str)
+			break ;
+		free(str);
+	}
+}
+
+int	check_textures(t_txr *txr, int map_fd)
 {
 	if (txr->ceiling == -1)
-		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), close_gnl(map_fd), 1);
 	if (txr->floor == -1)
-		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), close_gnl(map_fd), 1);
 	if (!txr->east)
-		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), close_gnl(map_fd), 1);
 	if (!txr->west)
-		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), close_gnl(map_fd), 1);
 	if (!txr->north)
-		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), close_gnl(map_fd), 1);
 	if (!txr->south)
-		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), 1);
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), close_gnl(map_fd), 1);
 	return (0);
 }

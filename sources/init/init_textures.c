@@ -12,15 +12,15 @@
 
 #include "../includes/cub3d.h"
 
-void	init_texture_img(t_data *data, t_img *image, char *path)
+static int	init_texture_img(t_data *data, t_img *image, char *path)
 {
 	image->img = mlx_xpm_file_to_image(data->mlx, path, &data->txr->width,
 			&data->txr->height);
 	if (!image->img)
-		(ft_putendl_fd(ERR_TEXTURES_LOAD, 2), free_data(data), exit(1));
+		return (1);
 	image->addr = (int *)mlx_get_data_addr(image->img, &image->bpp,
 			&image->line_length, &image->endian);
-	return ;
+	return (0);
 }
 
 static int	*xpm_to_img(t_data *data, char *path)
@@ -30,7 +30,8 @@ static int	*xpm_to_img(t_data *data, char *path)
 	int		x;
 	int		y;
 
-	init_texture_img(data, &tmp, path);
+	if (init_texture_img(data, &tmp, path))
+		return (NULL);
 	buffer = ft_calloc(1, sizeof * buffer * data->txr->width * \
 			data->txr->height);
 	if (!buffer)
@@ -106,9 +107,9 @@ int	init_textures(char *map_path, t_data *data)
 	while (textures_init < 6)
 	{
 		line = get_next_line(data->map->fd);
-		if (!line || line[0] == '\0')
+		if (!line)
 			return (1);
-		if (line[0] == '\n')
+		if (line[0] == '\n' || line[0] == '\0')
 		{
 			free(line);
 			continue ;
@@ -119,5 +120,5 @@ int	init_textures(char *map_path, t_data *data)
 		(set_textures(&line[i], data, data->txr), free(line));
 		textures_init++;
 	}
-	return (check_textures(data->txr));
+	return (check_textures(data->txr, data->map->fd));
 }

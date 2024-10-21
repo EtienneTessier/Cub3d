@@ -76,6 +76,8 @@ t_data	*init_data(char *map_path)
 	data->map = crea_map(data);
 	data->img = crea_img(data);
 	data->mlx = mlx_init(data);
+	if (!data->mlx)
+		return (free_data(data), NULL);
 	data->txr = crea_txr(data);
 	if (init_textures(map_path, data))
 		return (free_data(data), NULL);

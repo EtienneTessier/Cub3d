@@ -166,7 +166,7 @@ t_data			*init_data(char *map_path);
 
 int				init_textures(char *map_path, t_data *data);
 int				check_line(char *line, int i, t_txr *txr);
-int				check_textures(t_txr *txr);
+int				check_textures(t_txr *txr, int map_fd);
 char			*get_texture_path(char *line);
 unsigned int	rgb_to_hex(unsigned char r, unsigned char g, unsigned char b);
 
