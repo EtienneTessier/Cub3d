@@ -78,6 +78,10 @@ void	close_gnl(int fd)
 
 int	check_textures(t_txr *txr, int map_fd)
 {
+	if (txr->ceiling == -1)
+		return (close_gnl(map_fd), 1);
+	if (txr->floor == -1)
+		return (close_gnl(map_fd), 1);
 	if (!txr->east)
 		return (ft_putendl_fd(ERR_TEXTURES_LOAD_E, 2), close_gnl(map_fd), 1);
 	if (!txr->west)
