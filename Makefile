@@ -21,9 +21,6 @@ INCLUDES_PATH		= include
 INCLUDES_FILES		= cub3d.h
 INCLUDES			= $(addprefix $(INCLUDES_PATH), $(INCLUDES_FILES))
 
-INCLUDES_FILES_B	= cub3d_bonus.h
-INCLUDES_B			= $(addprefix $(INCLUDES_PATH), $(INCLUDES_FILES_B))
-
 SRC_PATH			=	sources/
 SRC_FILES 			=	cub3d.c					display/ray_cast.c		display/render.c		\
 						utils/utils_debug.c		utils/exit.c			utils/utils_map.c		\
@@ -31,14 +28,11 @@ SRC_FILES 			=	cub3d.c					display/ray_cast.c		display/render.c		\
 						init/init_data.c		init/init_map.c			init/init_textures.c	\
 						init/init_colors.c		move/move.c				move/rotate.c
 
-SRC		= $(addprefix $(SRC_PATH), $(SRC_FILES))
-OBJ		= $(SRC:.c=.o)
+SRC			= $(addprefix $(SRC_PATH), $(SRC_FILES))
 
-SRC_PATH_B			= sources_bonus/
-SRC_FILES_B			= cub3d_bonus.c
-
-SRC_B	= $(addprefix $(SRC_PATH_B), $(SRC_FILES_B))
-OBJ_B	= $(SRC_B:.c=.o)
+OBJ_PATH	= obj/
+OBJ			= $(addprefix $(OBJS_PATH), $(SRC))
+# OBJ			= $(SRC:.c=.o)
 
 NAME	= cub3d
 
@@ -59,8 +53,8 @@ all: $(NAME)
 $(NAME): $(OBJ) $(MLX_LIB) $(LIBFTPRINTF_LIB)
 	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
-%.o: %.c $(INCLUDES) $(INCLUDES_B)
-	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
+# %.o: %.c $(INCLUDES) $(INCLUDES_B)
+# 	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 $(LIBFTPRINTF_LIB):
 	@make -C $(LIBFTPRINTF_PATH)
@@ -68,13 +62,17 @@ $(LIBFTPRINTF_LIB):
 $(MLX_LIB):
 	@make -C $(MLX_PATH)
 
+$(OBJS_PATH) %.o: %.c $(INCLUDES) $(INCLUDES_B)
+	@mkdir -p ${@D}
+	@$(CC) $(CFLAGS) -c $< -o $@
+
 bonus : $(NAME_B)
 
 $(NAME_B): $(OBJ_B) $(MLX_LIB) $(LIBFTPRINTF_LIB)
 	$(CC) $(CFLAGS) $(OBJ_B) $(LDFLAGS) $(LDLIBS) -o $(NAME_B)
 
 clean:
-	$(RM) $(OBJ) $(OBJ_B)
+	$(RM) $(OBJS_PATH)
 	@make clean -C $(LIBFTPRINTF_PATH)
 	@make clean -C $(MLX_PATH)
 
