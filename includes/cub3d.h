@@ -30,39 +30,50 @@
 
 # define DEBUG 0
 
-# define ERR_NB_ARG "Only 2 parameters required : ./cub3d maps.cub"
-# define ERR_MAP_EXT "Wrong map extension"
-# define ERR_MAP_PLAYER "You need exactly 1 player position (N/S/E/W)"
-# define ERR_MAP_OPEN "Map open error"
-# define ERR_MAP_OPEN_WALL "The map isn't closed"
-# define ERR_MAP_OPEN_INSIDE "The map is open inside"
-# define ERR_TEXTURES "Wrong textures"
-# define ERR_TEXTURES_LOAD "Error when loading a sprite or texture"
-# define ERR_TEXTURE_FMT "Wrong texture format"
-# define ERR_TEXTURE_DOUBLE "Same texture defined multiple times"
-# define ERR_XPM "Textures need to be xpm files"
-# define ERR_COLOR "Color format should be 0.0-255.0-255"
-# define ERR_MAP_NL "Empry line inside your map"
-# define ERR_CHAR_MAP "Unknown character in your map !"
-# define COLOR 0
-# define TEXTURE 1
+# define ERR_NB_ARG "Error\nOnly 2 parameters required : ./cub3d map.cub"
+
+# define ERR_LINE_FMT "Error\nTextures or colors lines couldn't beggin with space"
+# define ERR_LINE_COLOR_FMT "Error\nColor line format should be F/C 0-255.0-255.0-255"
+# define ERR_LINE_TEXTURE_FMT "Error\nTexture line format should be XX ./path_to_the_xxxx_texture"
+
+# define ERR_TEXTURES_LOAD_E "Error\nLoading east texture failed"
+# define ERR_TEXTURES_LOAD_N "Error\nnLoading north texture failed"
+# define ERR_TEXTURES_LOAD_W "Error\nLoading west texture failed"
+# define ERR_TEXTURES_LOAD_S "Error\nLoading south texture failed"
+# define ERR_TEXTURE_DOUBLE "Error\nSame texture defined multiple times"
+
+# define ERR_COLOR_FMT "Error\nColor format should be 0-255.0-255.0-255"
+# define ERR_COLOR_CHA "Error\nNon-numeric character in color"
+# define ERR_COLOR_VAL "Error\nColor values should be between 0 and 255"
+
+# define ERR_MAP_EXT "Error\nWrong map extension, you map should be .cub format"
+# define ERR_MAP_OPEN "Error\nCouldn't open the map file"
+# define ERR_MAP_PLAYER "Error\nYou need exactly 1 player position (N/S/E/W)"
+# define ERR_MAP_CHAR "Error\nUnknown character in your map !"
+# define ERR_MAP_NL "Error\nEmpry line inside your map"
+# define ERR_MAP_OPEN_WALL "Error\nThe map isn't closed"
+# define ERR_MAP_OPEN_INSIDE "Error\nThe map is open inside"
+
 # define SCR_WIDTH 720
 # define SCR_HEIGHT 480
-# define TXR_SIZE 64
 # define TILE_SIZE 25
+
 // Azerty
 // # define W 122 //Z
 // # define S 115
 // # define D 100
 // # define A 113 //Q
-# define LEFT 65361
-# define RIGHT 65363
+
 // Qwerty
 # define W 119
 # define S 115
 # define D 100
 # define A 97
+
+# define LEFT 65361
+# define RIGHT 65363
 # define ESC 65307
+
 # define PI 3.141592
 # define SPEED 0.1
 # define RSPEED 0.1

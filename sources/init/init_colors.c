@@ -26,13 +26,13 @@ static int	control_color_line(char **colors)
 			if (colors[i][j] == '\n')
 				break ;
 			if (colors[i][j] < '0' || colors[i][j] > '9')
-				return (1);
+				return (ft_putendl_fd(ERR_COLOR_CHA, 2), 1);
 		}
 		if (ft_atoi(colors[i]) < 0 || ft_atoi(colors[i]) > 255)
-				return (1);
+				return (ft_putendl_fd(ERR_COLOR_VAL, 2), 1);
 	}
 	if (i != 3)
-		return (1);
+		return (ft_putendl_fd(ERR_COLOR_FMT, 2), 1);
 	return (0);
 }
 

@@ -15,17 +15,14 @@
 //	Controle si la ligne de parametre
 int	check_line(char *line, int i, t_txr *txr)
 {
-	int	type;
-
-	(void)type;
-	if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
-		type = COLOR;
+	if (line[i] == ' ' || line[i] == '0' || line[i] == '1')
+		return (ft_putendl_fd(ERR_LINE_FMT, 2), 1);
+	if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] != ' ')
+		return (ft_putendl_fd(ERR_LINE_COLOR_FMT, 2), 1);
 	else if ((!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || \
 			!ft_strncmp(line, "EA", 2) || !ft_strncmp(line, "WE", 2)) \
-			&& line[i + 2] == ' ')
-		type = TEXTURE;
-	else
-		return (ft_putendl_fd(ERR_TEXTURE_FMT, 2), 1);
+			&& line[i + 2] != ' ')
+		return (ft_putendl_fd(ERR_LINE_TEXTURE_FMT, 2), 1);
 	if (line[i] == 'F' && txr->floor == -1)
 		return (0);
 	if (line[i] == 'C' && txr->ceiling == -1)
@@ -81,17 +78,13 @@ static void	close_gnl(int fd)
 
 int	check_textures(t_txr *txr, int map_fd)
 {
-	if (txr->ceiling == -1)
-		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), close_gnl(map_fd), 1);
-	if (txr->floor == -1)
-		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), close_gnl(map_fd), 1);
 	if (!txr->east)
-		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), close_gnl(map_fd), 1);
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD_E, 2), close_gnl(map_fd), 1);
 	if (!txr->west)
-		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), close_gnl(map_fd), 1);
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD_W, 2), close_gnl(map_fd), 1);
 	if (!txr->north)
-		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), close_gnl(map_fd), 1);
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD_N, 2), close_gnl(map_fd), 1);
 	if (!txr->south)
-		return (ft_putendl_fd(ERR_TEXTURES_LOAD, 2), close_gnl(map_fd), 1);
+		return (ft_putendl_fd(ERR_TEXTURES_LOAD_S, 2), close_gnl(map_fd), 1);
 	return (0);
 }

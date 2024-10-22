@@ -34,7 +34,7 @@ static int	control_char_map(char *map1d)
 				return (ft_putendl_fd(ERR_MAP_PLAYER, 2), 1);
 		}
 		else
-			return (ft_putendl_fd(ERR_CHAR_MAP, 2), 1);
+			return (ft_putendl_fd(ERR_MAP_CHAR, 2), 1);
 	}
 	if (player == -1)
 		return (ft_putendl_fd(ERR_MAP_PLAYER, 2), 1);
