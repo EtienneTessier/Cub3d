@@ -121,6 +121,8 @@ int	init_map(t_data *data)
 	char	*map1d;
 
 	map1d = load_map(data);
+	if (!map1d)
+		return (ft_putendl_fd(ERR_MAP_LOAD, 2), 1);
 	if (control_char_map(map1d))
 		return (free(map1d), 1);
 	data->map->map2d = ft_split(map1d, '\n');
