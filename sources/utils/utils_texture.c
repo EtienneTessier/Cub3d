@@ -63,7 +63,7 @@ char	*get_texture_path(char *line)
 	return (texture_path);
 }
 
-static void	close_gnl(int fd)
+void	close_gnl(int fd)
 {
 	char	*str;
 

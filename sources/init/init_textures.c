@@ -97,7 +97,7 @@ int	init_textures(char *map_path, t_data *data)
 		}
 		i = skip_char(line, ' ');
 		if (check_line(line, i, data->txr))
-			return (free(line), 1);
+			return (free(line), close_gnl(data->map->fd), 1);
 		(set_textures(&line[i], data, data->txr), free(line));
 		textures_init++;
 	}

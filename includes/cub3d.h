@@ -23,7 +23,6 @@
 # include <fcntl.h>
 # include <math.h>
 # include "../libft_printf/includes/ft_printf.h"
-# include "../libft_printf/libft/include/libft.h"
 # include "../mlx-linux/mlx.h"
 
 //	Defines
@@ -201,6 +200,7 @@ void	rotate_left(t_player *player);
 
 // Utils
 char	*get_next_line(int fd);
+void	close_gnl(int fd);
 char	*ft_join(char *s1, char *s2, int nb_read);
 int		skip_char(char *str, char to_skip);
 
