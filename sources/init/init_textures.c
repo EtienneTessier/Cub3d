@@ -89,7 +89,7 @@ int	init_textures(char *map_path, t_data *data)
 	{
 		line = get_next_line(data->map->fd);
 		if (!line)
-			return (1);
+			return (ft_putendl_fd(ERR_MAP_READ, 2), 1);
 		if (line[0] == '\n' || line[0] == '\0')
 		{
 			free(line);

@@ -47,6 +47,7 @@
 
 # define ERR_MAP_EXT "Error\nWrong map extension, you map should be .cub format"
 # define ERR_MAP_OPEN "Error\nCouldn't open the map file"
+# define ERR_MAP_READ "Error\nCouldn't read the map file"
 # define ERR_MAP_PLAYER "Error\nYou need exactly 1 player position (N/S/E/W)"
 # define ERR_MAP_CHAR "Error\nUnknown character in your map !"
 # define ERR_MAP_NL "Error\nEmpry line inside your map"
