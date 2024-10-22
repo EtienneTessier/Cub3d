@@ -35,7 +35,7 @@ static int	*xpm_to_img(t_data *data, char *path)
 	buffer = ft_calloc(1, sizeof * buffer * data->txr->width * \
 			data->txr->height);
 	if (!buffer)
-		(free_data(data), exit(1));
+		exit_pgm(data);
 	y = 0;
 	while (y < data->txr->height)
 	{
@@ -50,25 +50,6 @@ static int	*xpm_to_img(t_data *data, char *path)
 	}
 	mlx_destroy_image(data->mlx, tmp.img);
 	return (buffer);
-}
-
-static int	set_color(char *line)
-{
-	int		i;
-	int		color;
-	char	**colors;
-
-	colors = ft_split(&line[skip_char(&line[1], ' ')], ',');
-	if (!colors)
-		return (0);
-	i = -1;
-	while (++i < 3)
-		if (ft_atoi(colors[i]) < 0 || ft_atoi(colors[i]) > 255)
-			return (ft_freesplit(colors), 0);
-	color = rgb_to_hex(ft_atoi(colors[0]), ft_atoi(colors[1]), \
-		ft_atoi(colors[0]));
-	ft_freesplit(colors);
-	return (color);
 }
 
 static int	set_textures(char *line, t_data *data, t_txr *txr)

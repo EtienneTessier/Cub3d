@@ -29,7 +29,7 @@ SRC_FILES 			=	cub3d.c					display/ray_cast.c		display/render.c		\
 						utils/utils_debug.c		utils/exit.c			utils/utils_map.c		\
 						utils/get_next_line.c	utils/utils_str.c		utils/utils_texture.c	\
 						init/init_data.c		init/init_map.c			init/init_textures.c	\
-						move/move.c				move/rotate.c			\
+						init/init_colors.c		move/move.c				move/rotate.c
 
 SRC		= $(addprefix $(SRC_PATH), $(SRC_FILES))
 

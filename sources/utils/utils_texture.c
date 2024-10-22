@@ -66,11 +66,6 @@ char	*get_texture_path(char *line)
 	return (texture_path);
 }
 
-unsigned int	rgb_to_hex(unsigned char r, unsigned char g, unsigned char b)
-{
-	return ((r << 16) | (g << 8) | b);
-}
-
 static void	close_gnl(int fd)
 {
 	char	*str;
