@@ -1,5 +1,15 @@
 OK		Message d'erreur si textures manquantes/pas le bon nom
 OK		Bloquer si espace dans la map
+OK		Traiter les couleurs du plafond et du sol
+OK		Leak 1 octet si texture manquante dans le fichier de la map (map 14)
+OK		Message erreur si fichier .cub pour la map (map 2)
+OK		Arreter le programme si valeur non numeric pour sol ou plafond (map 15)
+OK		Si pas de map --> segault (map 4)
+		==13680== Invalid read of size 1
+		==13680==    at 0x404E2A: control_char_map (init_map.c:21)
+		==13680==    by 0x404D51: init_map (init_map.c:124)
+		==13680==    by 0x404A6E: init_data (init_data.c:84)
+		==13680==    by 0x40256E: main (cub3d.c:33)
+		==13680==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
 
 
-Traiter les couleurs du plafond et du sol

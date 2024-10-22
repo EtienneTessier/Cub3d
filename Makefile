@@ -32,14 +32,13 @@ SRC_FILES 			=	cub3d.c					display/ray_cast.c		display/render.c		\
 						init/init_colors.c		move/move.c				move/rotate.c
 
 SRC		= $(addprefix $(SRC_PATH), $(SRC_FILES))
-
 OBJ		= $(SRC:.c=.o)
 
 SRC_PATH_B			= sources_bonus/
 SRC_FILES_B			= cub3d_bonus.c
-SRC_B		= $(addprefix $(SRC_PATH_B), $(SRC_FILES_B))
 
-OBJ_B		= $(SRC_B:.c=.o)
+SRC_B	= $(addprefix $(SRC_PATH_B), $(SRC_FILES_B))
+OBJ_B	= $(SRC_B:.c=.o)
 
 NAME	= cub3d
 
