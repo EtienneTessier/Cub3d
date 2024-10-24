@@ -76,7 +76,6 @@ static void	find_wall_tex_pos(t_ray *ray, t_data *data)
 	ray->draw_end = (ray->line_height / 2) + (SCR_HEIGHT / 2);
 	if (ray->draw_end >= SCR_HEIGHT)
 		ray->draw_end = SCR_HEIGHT - 1;
-
 	if (ray->side == 0)
 		ray->wall_x = data->player.y + ray->perp_wall_dist * ray->ray_dir_y;
 	else

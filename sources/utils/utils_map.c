@@ -98,7 +98,8 @@ static int	init_minimap(t_data *data)
 	i = -1;
 	while (++i < 4)
 	{
-		data->map->minimap[i + data->map->height + 4] = crea_row(' ', data->map->width);
+		data->map->minimap[i + data->map->height + 4] = crea_row(' ', \
+			data->map->width);
 		if (!data->map->minimap[i + data->map->height + 4])
 			return (ft_freesplit(data->map->minimap), 1);
 	}

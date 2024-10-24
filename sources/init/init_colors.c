@@ -29,7 +29,7 @@ static int	control_color_line(char **colors)
 				return (ft_putendl_fd(ERR_COLOR_CHA, 2), 1);
 		}
 		if (ft_atoi(colors[i]) < 0 || ft_atoi(colors[i]) > 255)
-				return (ft_putendl_fd(ERR_COLOR_VAL, 2), 1);
+			return (ft_putendl_fd(ERR_COLOR_VAL, 2), 1);
 	}
 	if (i != 3)
 		return (ft_putendl_fd(ERR_COLOR_FMT, 2), 1);
@@ -53,7 +53,6 @@ int	set_color(char *line)
 		return (-1);
 	if (control_color_line(colors))
 		return (ft_freesplit(colors), -1);
-
 	color = rgb_to_hex(ft_atoi(colors[0]), ft_atoi(colors[1]), \
 		ft_atoi(colors[2]));
 	ft_freesplit(colors);

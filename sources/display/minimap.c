@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static void	load_tile(char c, t_img *img, int x, int y)
 {
@@ -24,9 +24,11 @@ static void	load_tile(char c, t_img *img, int x, int y)
 		while (tile_x < TILE_SIZE)
 		{
 			if (c == '0')
-				my_mlx_pixel_put(img, x + tile_x + TILE_SIZE, y + tile_y + TILE_SIZE, GRI_PIXEL);
+				my_mlx_pixel_put(img, x + tile_x + TILE_SIZE, y + tile_y \
+					+ TILE_SIZE, GRI_PIXEL);
 			else if (c == '1')
-				my_mlx_pixel_put(img, x + tile_x + TILE_SIZE, y + tile_y + TILE_SIZE, WHI_PIXEL);
+				my_mlx_pixel_put(img, x + tile_x + TILE_SIZE, y + tile_y \
+					+ TILE_SIZE, WHI_PIXEL);
 			tile_x++;
 		}
 		tile_y++;
@@ -44,7 +46,8 @@ static void	load_player(t_img *img)
 		x = 0;
 		while (x < 6)
 		{
-			my_mlx_pixel_put(img, x + TILE_SIZE * 6.4, y + TILE_SIZE * 6.4, RED_PIXEL);
+			my_mlx_pixel_put(img, x + TILE_SIZE * 6.4, y + TILE_SIZE \
+				* 6.4, RED_PIXEL);
 			x++;
 		}
 		y++;
@@ -67,7 +70,8 @@ void	print_minimap(t_img *img, t_player player, t_data *data)
 		while (x < 10)
 		{
 			if (start_x + x <= (int)data->map->width && start_x + x >= 0)
-				load_tile(data->map->minimap[start_y + y][start_x + x], img, x * TILE_SIZE, y * TILE_SIZE);
+				load_tile(data->map->minimap[start_y + y][start_x + x], img, x \
+					* TILE_SIZE, y * TILE_SIZE);
 			x++;
 		}
 		y++;
