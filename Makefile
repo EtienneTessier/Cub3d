@@ -36,13 +36,13 @@ OBJ			= $(addprefix $(OBJS_PATH), $(SRC))
 
 NAME	= cub3d
 
-NAME_B	= cub3d_bonus
-
 CC		= cc
 
 CFLAGS	= -Wall -Wextra -Werror -I$(INCLUDES_PATH) -I$(MLX_PATH) -I$(LIBFTPRINTF_PATH) -g3
 
 LDFLAGS	= -L$(MLX_PATH) -L$(LIBFTPRINTF_PATH)
+
+BONUSFLAGS	= -D BONUS=1
 
 LDLIBS	= -lmlx_Linux -lXext -lX11 -lm -lftprintf
 
@@ -66,10 +66,8 @@ $(OBJS_PATH) %.o: %.c $(INCLUDES) $(INCLUDES_B)
 	@mkdir -p ${@D}
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-bonus : $(NAME_B)
-
-$(NAME_B): $(OBJ_B) $(MLX_LIB) $(LIBFTPRINTF_LIB)
-	$(CC) $(CFLAGS) $(OBJ_B) $(LDFLAGS) $(LDLIBS) -o $(NAME_B)
+bonus : $(OBJ) $(MLX_LIB) $(LIBFTPRINTF_LIB)
+	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) $(LDLIBS) $(BONUSFLAGS) -o $(NAME)
 
 clean:
 	$(RM) $(OBJS_PATH)

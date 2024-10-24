@@ -12,4 +12,16 @@ OK		Si pas de map --> segault (map 4)
 		==13680==    by 0x40256E: main (cub3d.c:33)
 		==13680==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
 
-Ajouter un offset sur les deplacement lateraux
+(Ajouter un offset sur les deplacement lateraux)
+
+BONUS :
+
+- Image ciel
+- Minimap
+- Ennemis
+- Sprites animes
+
+- Rotation avec la souris
+- Portes
+
+- Armes ?

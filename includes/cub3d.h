@@ -27,6 +27,10 @@
 
 //	Defines
 
+# ifndef BONUS
+#  define BONUS 0
+# endif
+
 # define DEBUG 0
 
 # define ERR_NB_ARG "Error\nOnly 2 parameters required : ./cub3d map.cub"
@@ -55,9 +59,9 @@
 # define ERR_MAP_OPEN_WALL "Error\nThe map isn't closed"
 # define ERR_MAP_OPEN_INSIDE "Error\nThe map is open inside"
 
-# define SCR_WIDTH 720
-# define SCR_HEIGHT 480
-# define TILE_SIZE 25
+# define SCR_WIDTH 1920
+# define SCR_HEIGHT 1080
+# define TILE_SIZE 10
 
 // Azerty
 // # define W 122 //Z
