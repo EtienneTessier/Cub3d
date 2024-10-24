@@ -136,7 +136,7 @@ int	ray_cast(t_data *data)
 		ray.x++;
 	}
 	if (BONUS)
-		print_minimap(data->img, data->player, data->map->minimap);
+		print_minimap(data->img, data->player, data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 	return (0);
 }

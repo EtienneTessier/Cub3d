@@ -204,7 +204,7 @@ void	load_col_txr(t_ray *ray, t_data *data);
 
 // Minimap
 int		crea_minimap(t_data *data);
-void	print_minimap(t_img *img, t_player player, char **minimap);
+void	print_minimap(t_img *img, t_player player, t_data *data);
 
 // Deplacements
 int		handle_key(int key_code, t_data *data);
