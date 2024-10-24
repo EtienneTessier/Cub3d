@@ -31,6 +31,8 @@ static void	free_map(t_map *map)
 		ft_freesplit(map->map2d_copy);
 	if (map->map2d)
 		ft_freesplit(map->map2d);
+	if (map->minimap)
+		ft_freesplit(map->minimap);
 	if (map->fd > 0)
 		close(map->fd);
 	free(map);

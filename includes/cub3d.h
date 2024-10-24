@@ -61,7 +61,9 @@
 
 # define SCR_WIDTH 1920
 # define SCR_HEIGHT 1080
-# define TILE_SIZE 10
+
+# define MINIMAP_SIZE 200
+# define TILE_SIZE 20
 
 // Azerty
 // # define W 122 //Z
@@ -102,6 +104,7 @@ typedef struct	s_map
 	size_t		height;
 	char		**map2d;
 	char		**map2d_copy;
+	char		**minimap;
 }				t_map;
 
 typedef struct	s_img
@@ -199,6 +202,10 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	load_col(t_ray *ray, t_data *data);
 void	load_col_txr(t_ray *ray, t_data *data);
 
+// Minimap
+int		crea_minimap(t_data *data);
+void	print_minimap(t_img *img, t_player player, char **minimap);
+
 // Deplacements
 int		handle_key(int key_code, t_data *data);
 void	rotate_right(t_player *player);
@@ -209,13 +216,13 @@ char	*get_next_line(int fd);
 void	close_gnl(int fd);
 char	*ft_join(char *s1, char *s2, int nb_read);
 int		skip_char(char *str, char to_skip);
+char	*crea_row(char c, int size);
 
 // Free/Exit
 int		exit_pgm(t_data *data);
 void	free_data(t_data *data);
 
 // Debug
-int		load_map_img(t_data *data);
 void	print_map_2d(char **map2d);
 void	load_color(t_ray *ray, t_data *data);
 

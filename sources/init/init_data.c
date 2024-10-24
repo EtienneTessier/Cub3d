@@ -52,6 +52,7 @@ static t_map	*crea_map(t_data *data)
 		exit_pgm(data);
 	map->map2d = NULL;
 	map->map2d_copy = NULL;
+	map->minimap = NULL;
 	map->fd = -1;
 	return (map);
 }

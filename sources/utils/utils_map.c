@@ -38,60 +38,6 @@ char	*load_map(t_data *data)
 	}
 }
 
-static void	get_player_dir(char c, t_data *data)
-{
-	data->player.dir_x = ((data->player.dir_y = 0));
-	data->player.plan_x = ((data->player.plan_y = 0));
-	if (c == 'W')
-	{
-		data->player.dir_x = -1.01;
-		data->player.plan_y = -0.66;
-	}
-	else if (c == 'E')
-	{
-		data->player.dir_x = 1.01;
-		data->player.plan_y = 0.66;
-	}
-	else if (c == 'S')
-	{
-		data->player.dir_y = 1.01;
-		data->player.plan_x = -0.66;
-	}
-	else if (c == 'N')
-	{
-		data->player.dir_y = -1.01;
-		data->player.plan_x = 0.66;
-	}
-}
-
-void	find_player(t_data *data)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (data->map->map2d[y])
-	{
-		x = 0;
-		while (data->map->map2d[y][x])
-		{
-			if (data->map->map2d[y][x] == 'N' || \
-				data->map->map2d[y][x] == 'S' || \
-				data->map->map2d[y][x] == 'E' || \
-				data->map->map2d[y][x] == 'W')
-			{
-				data->player.x = x + 0.5;
-				data->player.y = y + 0.5;
-				get_player_dir(data->map->map2d[y][x], data);
-				data->map->map2d[y][x] = '0';
-				return ;
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
 static void	replace_player(char **map2d)
 {
 	int	y;
@@ -128,5 +74,43 @@ int	check_space_inside(char **map2d)
 				return (ft_putendl_fd(ERR_MAP_OPEN_INSIDE, 2), 1);
 		}
 	}
+	return (0);
+}
+
+static int	init_minimap(t_data *data)
+{
+	size_t	i;
+
+	i = -1;
+	while (++i < 4)
+	{
+		data->map->minimap[i] = crea_row(' ', data->map->width);
+		if (!data->map->minimap[i])
+			return (ft_freesplit(data->map->minimap), 1);
+	}
+	i = -1;
+	while (++i < data->map->height)
+	{
+		data->map->minimap[i + 4] = ft_strdup(data->map->map2d[i]);
+		if (!data->map->minimap[i + 4])
+			return (ft_freesplit(data->map->minimap), 1);
+	}
+	i = -1;
+	while (++i < 4)
+	{
+		data->map->minimap[i + data->map->height + 4] = crea_row(' ', data->map->width);
+		if (!data->map->minimap[i + data->map->height + 4])
+			return (ft_freesplit(data->map->minimap), 1);
+	}
+	return (0);
+}
+
+int	crea_minimap(t_data *data)
+{
+	data->map->minimap = ft_calloc(data->map->height + 9, sizeof(char *));
+	if (!data->map->minimap)
+		return (1);
+	if (init_minimap(data))
+		return (1);
 	return (0);
 }

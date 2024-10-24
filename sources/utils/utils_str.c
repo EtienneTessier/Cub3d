@@ -21,3 +21,21 @@ int	skip_char(char *str, char to_skip)
 		i++;
 	return (i);
 }
+
+char	*crea_row(char c, int size)
+{
+	int		i;
+	char	*row;
+
+	row = ft_calloc(size + 1, sizeof(char));
+	if (!row)
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		row[i] = c;
+		i++;
+	}
+	row[i] = '\0';
+	return (row);
+}
