@@ -51,12 +51,57 @@ static int	*sky_xpm_to_img(t_data *data, char *path)
 	return (buffer);
 }
 
+static int	get_ennemis(t_data *data)
+{
+	int	y;
+	int	x;
+	int	enemy;
+
+	y = ((enemy = 0));
+	while (data->map->map2d[y])
+	{
+		x = 0;
+		while (data->map->map2d[y][x])
+		{
+			if (data->map->map2d[y][x] == 'T')
+			{
+				data->ennemis[enemy].alive = 1;
+				data->ennemis[enemy].x = x;
+				data->ennemis[enemy].y = y;
+				data->map->map2d[y][x] = '0';
+				enemy++;
+			}
+			x++;
+		}
+		y++;
+	}
+	ft_printf("ennemis : %d\n", enemy);
+	if (enemy > 5)
+		return (ft_putendl_fd(ERR_ENE_COUNT, 2), 1);
+	return (0);
+}
+
+static int	init_ennemis(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 5)
+	{
+		data->ennemis[i].alive = 0;
+		i++;
+	}
+	return (get_ennemis(data));
+}
+
 int		init_bonus(t_data *data)
 {
-	if (crea_minimap(data))
-		return (1);
 	data->txr->sky = sky_xpm_to_img(data, SKY_PATH);
 	if (!data->txr->sky)
+		return (1);
+	if (init_ennemis(data))
+		return (1);
+	if (crea_minimap(data))
 		return (1);
 	return (0);
 }

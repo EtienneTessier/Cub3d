@@ -59,6 +59,8 @@
 # define ERR_MAP_OPEN_WALL "Error\nThe map isn't closed"
 # define ERR_MAP_OPEN_INSIDE "Error\nThe map is open inside"
 
+# define ERR_ENE_COUNT "Error\nToo many ennemis, maximum 5"
+
 # define SKY_PATH "./textures/sky.xpm"
 
 # define SCR_WIDTH 1920
@@ -144,6 +146,13 @@ typedef struct	s_player
 	double		plan_y;
 }				t_player;
 
+typedef struct	s_enemy
+{
+	double		x;
+	double		y;
+	int			alive;
+}				t_enemy;
+
 typedef struct s_ray
 {
 	int			x;
@@ -180,6 +189,7 @@ typedef struct	s_data
 	t_txr		*txr;
 	t_map		*map;
 	t_player	player;
+	t_enemy		ennemis[5];
 }				t_data;
 
 //	Enum
@@ -189,19 +199,18 @@ typedef struct	s_data
 // Initialisation
 t_data	*init_data(char *map_path);
 
+// Textures
 char	*get_texture_path(char *line);
 int		init_textures(char *map_path, t_data *data);
 int		check_line(char *line, int i, t_txr *txr);
 int		check_textures(t_txr *txr, int map_fd);
-
 int		set_color(char *line);
 
+// Map
 char	*load_map(t_data *data);
 int		init_map(t_data *data);
 int		check_space_inside(char **map2d);
 void	find_player(t_data *data);
-
-int		init_bonus(t_data *data);
 
 // Affichage
 int		ray_cast(t_data *data);
@@ -209,14 +218,18 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	load_col(t_ray *ray, t_data *data);
 void	load_col_txr(t_ray *ray, t_data *data);
 
-// Minimap
-int		crea_minimap(t_data *data);
-void	print_minimap(t_img *img, t_player player, t_data *data);
-
 // Deplacements
 int		handle_key(int key_code, t_data *data);
 void	rotate_right(t_player *player);
 void	rotate_left(t_player *player);
+
+// Bonus
+int		init_bonus(t_data *data);
+int		control_char_map_bonus(char *map1d);
+
+// Minimap
+int		crea_minimap(t_data *data);
+void	print_minimap(t_data *data);
 
 // Utils
 char	*get_next_line(int fd);

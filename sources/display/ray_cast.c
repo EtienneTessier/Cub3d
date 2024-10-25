@@ -128,10 +128,7 @@ int	ray_cast(t_data *data)
 		find_delta_side_dist(&ray, data);
 		find_wall_hit(&ray, data);
 		find_wall_tex_pos(&ray, data);
-		if (DEBUG)
-			load_color(&ray, data);
-		else
-			load_textures(&ray, data);
+		load_textures(&ray, data);
 		ray.x++;
 	}
 	if (BONUS)

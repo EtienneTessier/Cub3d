@@ -54,15 +54,15 @@ static void	load_player(t_img *img)
 	}
 }
 
-void	print_minimap(t_img *img, t_player player, t_data *data)
+void	print_minimap(t_data *data)
 {
 	int	start_x;
 	int	start_y;
 	int	x;
 	int	y;
 
-	start_x = (int)player.x - 5;
-	start_y = (int)player.y - 1;
+	start_x = (int)data->player.x - 5;
+	start_y = (int)data->player.y - 1;
 	y = 0;
 	while (y < 10)
 	{
@@ -70,11 +70,11 @@ void	print_minimap(t_img *img, t_player player, t_data *data)
 		while (x < 10)
 		{
 			if (start_x + x >= 0 && start_x + x <= (int)data->map->width)
-				load_tile(data->map->minimap[start_y + y][start_x + x], img, x \
-					* TILE_SIZE, y * TILE_SIZE);
+				load_tile(data->map->minimap[start_y + y][start_x + x], \
+					data->img, x * TILE_SIZE, y * TILE_SIZE);
 			x++;
 		}
 		y++;
 	}
-	load_player(img);
+	load_player(data->img);
 }
