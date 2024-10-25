@@ -62,11 +62,13 @@
 # define ERR_ENE_COUNT "Error\nToo many ennemis, maximum 5"
 
 # define SKY_PATH "./textures/sky.xpm"
+# define TERRO_PATH "./textures/terro.xpm"
+# define CT_PATH "./textures/ct.xpm"
 
 # define SCR_WIDTH 1920
 # define SCR_HEIGHT 1080
 
-// # define MINIMAP_SIZE 200
+# define FACE_SIZE 54
 # define TILE_SIZE 20
 
 // Azerty
@@ -126,14 +128,18 @@ typedef struct	s_txr
 	int			*south;
 	int			*east;
 	int			*west;
-	int			*sky;
 	int			floor;
 	int			ceiling;
 	int			color;
 	int			height;
 	int			width;
+	int			*sky;
 	int			sky_height;
 	int			sky_width;
+	int			*terro;
+	int			*ct;
+	int			face_height;
+	int			face_width;
 }				t_txr;
 
 typedef struct	s_player
@@ -190,6 +196,7 @@ typedef struct	s_data
 	t_map		*map;
 	t_player	player;
 	t_enemy		ennemis[5];
+	int			ennemis_count;
 }				t_data;
 
 //	Enum
@@ -227,9 +234,16 @@ void	rotate_left(t_player *player);
 int		init_bonus(t_data *data);
 int		control_char_map_bonus(char *map1d);
 
+// Textures
+int		*sky_xpm_to_img(t_data *data, char *path);
+int		*face_xpm_to_img(t_data *data, char *path);
+
 // Minimap
 int		crea_minimap(t_data *data);
 void	print_minimap(t_data *data);
+
+// Ennemis
+void	print_faces(t_data *data);
 
 // Utils
 char	*get_next_line(int fd);
