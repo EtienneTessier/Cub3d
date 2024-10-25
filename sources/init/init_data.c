@@ -40,6 +40,7 @@ static t_txr	*crea_txr(t_data *data)
 	txr->south = NULL;
 	txr->east = NULL;
 	txr->west = NULL;
+	txr->sky = NULL;
 	return (txr);
 }
 
@@ -84,8 +85,9 @@ t_data	*init_data(char *map_path)
 		return (free_data(data), NULL);
 	if (init_map(data))
 		return (free_data(data), NULL);
-	if (!data->mlx)
-		return (free_data(data), NULL);
+	if (BONUS)
+		if (init_bonus(data))
+			return (free_data(data), NULL);
 	data->img->img = mlx_new_image(data->mlx, SCR_WIDTH, SCR_HEIGHT);
 	data->img->addr = (int *)mlx_get_data_addr(data->img->img, &data->img->bpp, \
 		&data->img->line_length, &data->img->endian);

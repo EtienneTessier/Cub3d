@@ -22,6 +22,8 @@ static void	free_textures(t_txr *txr)
 		free(txr->east);
 	if (txr->west)
 		free(txr->west);
+	if (txr->sky)
+		free(txr->sky);
 	free(txr);
 }
 

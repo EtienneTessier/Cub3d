@@ -16,8 +16,11 @@ OK		Si pas de map --> segault (map 4)
 
 BONUS :
 
-- Image ciel
 - Minimap
+	- Affichage ok
+		voir si possible de deplacer de façon smooth la map, pas case par case ?
+	- Afficher l'orientation du joueur
+- Image ciel ok
 - Ennemis
 - Sprites animes
 

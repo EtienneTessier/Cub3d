@@ -59,23 +59,25 @@
 # define ERR_MAP_OPEN_WALL "Error\nThe map isn't closed"
 # define ERR_MAP_OPEN_INSIDE "Error\nThe map is open inside"
 
+# define SKY_PATH "./textures/sky.xpm"
+
 # define SCR_WIDTH 1920
 # define SCR_HEIGHT 1080
 
-# define MINIMAP_SIZE 200
+// # define MINIMAP_SIZE 200
 # define TILE_SIZE 20
 
 // Azerty
-// # define W 122 //Z
-// # define S 115
-// # define D 100
-// # define A 113 //Q
-
-// Qwerty
-# define W 119
+# define W 122 //Z
 # define S 115
 # define D 100
-# define A 97
+# define A 113 //Q
+
+// Qwerty
+// # define W 119
+// # define S 115
+// # define D 100
+// # define A 97
 
 # define LEFT 65361
 # define RIGHT 65363
@@ -122,11 +124,14 @@ typedef struct	s_txr
 	int			*south;
 	int			*east;
 	int			*west;
+	int			*sky;
 	int			floor;
 	int			ceiling;
 	int			color;
 	int			height;
 	int			width;
+	int			sky_height;
+	int			sky_width;
 }				t_txr;
 
 typedef struct	s_player
@@ -195,6 +200,8 @@ char	*load_map(t_data *data);
 int		init_map(t_data *data);
 int		check_space_inside(char **map2d);
 void	find_player(t_data *data);
+
+int		init_bonus(t_data *data);
 
 // Affichage
 int		ray_cast(t_data *data);

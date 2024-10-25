@@ -49,7 +49,11 @@ void	load_col_txr(t_ray *ray, t_data *data)
 	y = 0;
 	while (y < ray->draw_start)
 	{
-		my_mlx_pixel_put(data->img, ray->x, y, data->txr->ceiling);
+		if (BONUS && data->txr->sky)
+			my_mlx_pixel_put(data->img, ray->x, y, data->txr->sky[y * \
+				SCR_WIDTH + ray->x]);
+		else
+			my_mlx_pixel_put(data->img, ray->x, y, data->txr->ceiling);
 		y++;
 	}
 	while (y >= ray->draw_start && y <= ray->draw_end)

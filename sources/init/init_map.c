@@ -134,8 +134,5 @@ int	init_map(t_data *data)
 	find_player(data);
 	if (check_space_inside(data->map->map2d_copy))
 		return (1);
-	if (BONUS)
-		if (crea_minimap(data))
-			return (1);
 	return (0);
 }

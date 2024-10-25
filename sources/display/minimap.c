@@ -69,7 +69,7 @@ void	print_minimap(t_img *img, t_player player, t_data *data)
 		x = 0;
 		while (x < 10)
 		{
-			if (start_x + x <= (int)data->map->width && start_x + x >= 0)
+			if (start_x + x >= 0 && start_x + x <= (int)data->map->width)
 				load_tile(data->map->minimap[start_y + y][start_x + x], img, x \
 					* TILE_SIZE, y * TILE_SIZE);
 			x++;
