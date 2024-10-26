@@ -24,6 +24,9 @@ static t_data	*crea_data(void)
 	data->img = NULL;
 	data->map = NULL;
 	data->txr = NULL;
+	data->sprites = NULL;
+	data->ennemis_count = 0;
+	data->sprites_count = 0;
 	return (data);
 }
 

@@ -129,10 +129,11 @@ int	ray_cast(t_data *data)
 		find_wall_hit(&ray, data);
 		find_wall_tex_pos(&ray, data);
 		load_textures(&ray, data);
+		ray.z_buffer[ray.x] = ray.perp_wall_dist;
 		ray.x++;
 	}
 	if (BONUS)
-		(print_minimap(data), print_faces(data), print_sprites(data));
+		(print_minimap(data), print_faces(data), print_sprites(data, ray, data->player));
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 	return (0);
 }

@@ -12,6 +12,18 @@
 
 #include "../../includes/cub3d.h"
 
+// void	free_sprites(t_sprites *sprites, int nb_sprites)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < nb_sprites)
+// 	{
+// 		freesprites[i]);
+// 		i++;
+// 	}
+// }
+
 int	control_char_map_bonus(char *map1d)
 {
 	int	i;
@@ -23,7 +35,7 @@ int	control_char_map_bonus(char *map1d)
 		if (map1d[i] == '\n' && map1d[i + 1] == '\n')
 			return (ft_putendl_fd(ERR_MAP_NL, 2), 1);
 		if (map1d[i] == '0' || map1d[i] == '1' || map1d[i] == ' ' || \
-			map1d[i] == '\n' || map1d[i] == 'T')
+			map1d[i] == '\n' || map1d[i] == 'T' || map1d[i] == 'B')
 			continue ;
 		if (map1d[i] == 'N' || map1d[i] == 'S' || map1d[i] == 'E' || \
 			map1d[i] == 'W')

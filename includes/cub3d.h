@@ -65,13 +65,14 @@
 # define TERRO_PATH "./textures/terro.xpm"
 # define CT_PATH "./textures/ct.xpm"
 # define BARREL_PATH "./textures/barrel.xpm"
+# define PILLAR_PATH "./textures/barrel.xpm"
 
 # define SCR_WIDTH 1920
 # define SCR_HEIGHT 1080
 
 # define FACE_SIZE 54
 # define TILE_SIZE 20
-# define BARREL_SIZE 64
+# define SPRITE_SIZE 64
 
 // Azerty
 # define W 122 //Z
@@ -143,8 +144,9 @@ typedef struct	s_txr
 	int			face_height;
 	int			face_width;
 	int			*barrel;
-	int			barrel_height;
-	int			barrel_width;
+	int			*pillar;
+	int			sprite_height;
+	int			sprite_width;
 }				t_txr;
 
 typedef struct	s_player
@@ -163,6 +165,13 @@ typedef struct	s_enemy
 	double		y;
 	int			alive;
 }				t_enemy;
+
+typedef struct	s_sprites
+{
+	double		x;
+	double		y;
+	int			*txr;
+}				t_sprites;
 
 typedef struct s_ray
 {
@@ -189,8 +198,28 @@ typedef struct s_ray
 	int			tex_x;
 	int			tex_y;
 	double		step;
+	double		z_buffer[SCR_WIDTH];
 	int			*txr;
 }				t_ray;
+
+typedef struct	s_sprite
+{
+	double		x;
+	double		y;
+	double		inv_det;
+	double		transform_x;
+	double		transform_y;
+	int			screen_x;
+	int			height;
+	int			draw_start_y;
+	int			draw_end_y;
+	int			width;
+	int			draw_start_x;
+	int			draw_end_x;
+	int			stripe;
+	double		*distance;
+	int			*order;
+}				t_sprite;
 
 typedef struct	s_data
 {
@@ -202,6 +231,8 @@ typedef struct	s_data
 	t_player	player;
 	t_enemy		ennemis[5];
 	int			ennemis_count;
+	t_sprites	*sprites;
+	int			sprites_count;
 }				t_data;
 
 //	Enum
@@ -251,7 +282,7 @@ void	print_faces(t_data *data);
 
 // Sprites
 int		init_sprites(t_data *data);
-void	print_sprites(t_data *data);
+void	print_sprites(t_data *data, t_ray ray, t_player player);
 
 // Utils
 char	*get_next_line(int fd);
