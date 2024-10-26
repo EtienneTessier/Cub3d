@@ -58,14 +58,9 @@ static int	init_ennemis(t_data *data)
 
 int		init_bonus(t_data *data)
 {
-	data->txr->sky = sky_xpm_to_img(data, SKY_PATH);
-	if (!data->txr->sky)
+	if (init_textures_bonus(data))
 		return (1);
-	data->txr->terro = face_xpm_to_img(data, TERRO_PATH);
-	if (!data->txr->terro)
-		return (1);
-	data->txr->ct = face_xpm_to_img(data, CT_PATH);
-	if (!data->txr->ct)
+	if (init_sprites(data))
 		return (1);
 	if (init_ennemis(data))
 		return (1);

@@ -24,6 +24,12 @@ static void	free_textures(t_txr *txr)
 		free(txr->west);
 	if (txr->sky)
 		free(txr->sky);
+	if (txr->terro)
+		free(txr->terro);
+	if (txr->ct)
+		free(txr->ct);
+	if (txr->barrel)
+		free(txr->barrel);
 	free(txr);
 }
 

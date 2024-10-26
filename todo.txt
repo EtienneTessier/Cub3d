@@ -28,3 +28,51 @@ BONUS :
 - Portes
 
 - Armes ?
+
+Variables traitement :
+double sprite_x;
+double sprite_y;
+double invDet;
+double transform_x;
+double transform_y;
+int sprite_screen_x;
+int sprite_height;
+int draw_start_y;
+int draw_end_y;
+int sprite_width;
+int draw_start_x;
+int draw_end_x;
+int stripe;
+
+Affichage des sprites :
+
+Structure Sprites :
+double x
+double y
+int *texture
+
+--> Créer une liste des sprites [0 -> nb_sprites]
+
+double ZBuffer[SCR_WIDTH]
+
+int sprite_order[nb_sprites]
+double sprite_distance[nb_sprites]
+
+--> Tri à bulle pour les sprites
+
+1. Charger les textures des sprites
+A la fin du raycast :
+Init ZBuffer : ZBuffer[x] = perp_wall_dist;
+
+2. Init des tableaux sprite order et distance
+3. Tri des tableaux
+4. Boucle pour chaque sprite :
+	Convertir la position du sprite par rapport à la caméra
+	Calculer l'inverse de la matrice de la caméra (affichage à l'endroit ?)
+	Transformer les coordonnées du sprite
+	Caclul de la position x dans l'écran
+	Calcul de la hauteur du sprite à l'écran
+	Calcul du point de départ et de fin du dessin sur l'axe y
+	Calcul de la largeur du sprite
+	Calcul du point de départ et de fin du dessin sur l'axe x
+	Dessiner chaque ligne verticale du sprite

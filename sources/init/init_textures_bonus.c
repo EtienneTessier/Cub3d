@@ -23,7 +23,7 @@ static int	init_texture_img_sky(t_data *data, t_img *image, char *path)
 	return (0);
 }
 
-int	*sky_xpm_to_img(t_data *data, char *path)
+static int	*sky_xpm_to_img(t_data *data, char *path)
 {
 	t_img	tmp;
 	int		*buffer;
@@ -62,7 +62,7 @@ static int	init_texture_img_face(t_data *data, t_img *image, char *path)
 	return (0);
 }
 
-int	*face_xpm_to_img(t_data *data, char *path)
+static int	*face_xpm_to_img(t_data *data, char *path)
 {
 	t_img	tmp;
 	int		*buffer;
@@ -88,4 +88,18 @@ int	*face_xpm_to_img(t_data *data, char *path)
 	}
 	mlx_destroy_image(data->mlx, tmp.img);
 	return (buffer);
+}
+
+int	init_textures_bonus(t_data *data)
+{
+	data->txr->sky = sky_xpm_to_img(data, SKY_PATH);
+	if (!data->txr->sky)
+		return (1);
+	data->txr->terro = face_xpm_to_img(data, TERRO_PATH);
+	if (!data->txr->terro)
+		return (1);
+	data->txr->ct = face_xpm_to_img(data, CT_PATH);
+	if (!data->txr->ct)
+		return (1);
+	return (0);
 }

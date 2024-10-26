@@ -64,12 +64,14 @@
 # define SKY_PATH "./textures/sky.xpm"
 # define TERRO_PATH "./textures/terro.xpm"
 # define CT_PATH "./textures/ct.xpm"
+# define BARREL_PATH "./textures/barrel.xpm"
 
 # define SCR_WIDTH 1920
 # define SCR_HEIGHT 1080
 
 # define FACE_SIZE 54
 # define TILE_SIZE 20
+# define BARREL_SIZE 64
 
 // Azerty
 # define W 122 //Z
@@ -140,6 +142,9 @@ typedef struct	s_txr
 	int			*ct;
 	int			face_height;
 	int			face_width;
+	int			*barrel;
+	int			barrel_height;
+	int			barrel_width;
 }				t_txr;
 
 typedef struct	s_player
@@ -235,8 +240,7 @@ int		init_bonus(t_data *data);
 int		control_char_map_bonus(char *map1d);
 
 // Textures
-int		*sky_xpm_to_img(t_data *data, char *path);
-int		*face_xpm_to_img(t_data *data, char *path);
+int		init_textures_bonus(t_data *data);
 
 // Minimap
 int		crea_minimap(t_data *data);
@@ -244,6 +248,10 @@ void	print_minimap(t_data *data);
 
 // Ennemis
 void	print_faces(t_data *data);
+
+// Sprites
+int		init_sprites(t_data *data);
+void	print_sprites(t_data *data);
 
 // Utils
 char	*get_next_line(int fd);
