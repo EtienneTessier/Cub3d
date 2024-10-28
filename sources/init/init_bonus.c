@@ -60,8 +60,8 @@ int		init_bonus(t_data *data)
 {
 	if (init_textures_bonus(data))
 		return (1);
-	if (init_sprites(data))
-		return (1);
+	// if (init_sprites(data))
+	// 	return (1);
 	if (init_ennemis(data))
 		return (1);
 	if (crea_minimap(data))
