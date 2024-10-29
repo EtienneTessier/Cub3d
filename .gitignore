@@ -1,5 +1,4 @@
 .vscode/
-mlx-linux/
 *.o
 *.a
 *.cub
