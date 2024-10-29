@@ -12,31 +12,36 @@
 
 #include "../../includes/cub3d.h"
 
-void	swap_sprites(double *distance, int pos)
+static void	swap_sprites(double *distance, t_enemy *ennemis, int pos)
 {
 	double	distance_tmp;
+	t_enemy	enemy_tmp;
 
 	distance_tmp = distance[pos];
 	distance[pos] = distance[pos + 1];
 	distance[pos + 1] = distance_tmp;
+	enemy_tmp = ennemis[pos];
+	ennemis[pos] = ennemis[pos + 1];
+	ennemis[pos + 1] = enemy_tmp;
 }
 
-void	sort_sprites(double *distance, int sprites_count)
+void	sort_sprites(double *distance, t_enemy *ennemis, int sprites_count)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	while (i < sprites_count - 1)
 	{
-		j = i;
+		j = 0;
 		while (j < sprites_count - 1)
 		{
+			// printf("j = %d\n", j);
+			// printf("distance[j] = %f, distance[j + 1] = %f\n", distance[j], distance[j + 1]);
 			if (distance[j] < distance[j + 1])
-				swap_sprites(distance, j);
+				swap_sprites(distance, ennemis, j);
 			j++;
 		}
 		i++;
 	}
 }
-

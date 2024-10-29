@@ -42,7 +42,8 @@ static t_txr	*crea_txr(t_data *data)
 	txr->east = NULL;
 	txr->west = NULL;
 	txr->sky = NULL;
-	txr->ben = NULL;
+	txr->left = NULL;
+	txr->right = NULL;
 	return (txr);
 }
 

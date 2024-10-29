@@ -28,8 +28,10 @@ static void	free_textures(t_txr *txr)
 		free(txr->terro);
 	if (txr->ct)
 		free(txr->ct);
-	if (txr->ben)
-		free(txr->ben);
+	if (txr->right)
+		free(txr->right);
+	if (txr->left)
+		free(txr->left);
 	free(txr);
 }
 

@@ -27,6 +27,7 @@ static int	get_ennemis(t_data *data)
 			{
 				if (data->ennemis_count == 5)
 					return (ft_putendl_fd(ERR_ENE_COUNT, 2), 1);
+				data->ennemis[data->ennemis_count].id = data->ennemis_count;
 				data->ennemis[data->ennemis_count].alive = 1;
 				data->ennemis[data->ennemis_count].x = x + 0.5;
 				data->ennemis[data->ennemis_count].y = y + 0.5;
@@ -60,17 +61,17 @@ static int	*ben_xpm_to_img(t_data *data, char *path)
 
 	if (init_texture_img_ben(data, &tmp, path))
 		return (NULL);
-	buffer = ft_calloc(1, sizeof(int) * BEN_SIZE * BEN_SIZE);
+	buffer = ft_calloc(1, sizeof(int) * BEN_HEIGHT * BEN_WIDTH);
 	if (!buffer)
 		exit_pgm(data);
 	y = 0;
-	while (y < BEN_SIZE)
+	while (y < BEN_WIDTH)
 	{
 		x = 0;
-		while (x < BEN_SIZE)
+		while (x < BEN_HEIGHT)
 		{
-			buffer[y * BEN_SIZE + x] \
-				= tmp.addr[y * BEN_SIZE + x];
+			buffer[y * BEN_WIDTH + x] \
+				= tmp.addr[y * BEN_WIDTH + x];
 			++x;
 		}
 		y++;
@@ -92,8 +93,11 @@ int	init_ennemis(t_data *data)
 	}
 	if (get_ennemis(data))
 		return (1);
-	data->txr->ben = ben_xpm_to_img(data, BEN_PATH);
-	if (!data->txr->ben)
-		return (1);
+	data->txr->right = ben_xpm_to_img(data, RIGHT_PATH);
+	if (!data->txr->right)
+		return (ft_putendl_fd(ERR_ENE_LOAD, 2), 1);
+	data->txr->left = ben_xpm_to_img(data, LEFT_PATH);
+	if (!data->txr->left)
+		return (ft_putendl_fd(ERR_ENE_LOAD, 2), 1);
 	return (0);
 }

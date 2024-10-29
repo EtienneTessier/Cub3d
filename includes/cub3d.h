@@ -60,20 +60,22 @@
 # define ERR_MAP_OPEN_INSIDE "Error\nThe map is open inside"
 
 # define ERR_ENE_COUNT "Error\nToo many ennemis, maximum 5"
+# define ERR_ENE_LOAD "Error\nLoading enemy texture failed"
 
 # define SKY_PATH "./textures/sky.xpm"
 # define TERRO_PATH "./textures/terro.xpm"
 # define CT_PATH "./textures/ct.xpm"
 # define BARREL_PATH "./textures/barrel.xpm"
-# define BEN_PATH "./textures/superben.xpm"
+# define RIGHT_PATH "./textures/right.xpm"
+# define LEFT_PATH "./textures/left.xpm"
 
 # define SCR_WIDTH 1920
 # define SCR_HEIGHT 1080
 
 # define FACE_SIZE 54
 # define TILE_SIZE 20
-# define SPRITE_SIZE 64
-# define BEN_SIZE 256
+# define BEN_HEIGHT 256
+# define BEN_WIDTH 256
 
 // Azerty
 // # define W 122 //Z
@@ -93,7 +95,7 @@
 
 # define PI 3.141592
 # define SPEED 0.1
-# define RSPEED 0.1
+# define RSPEED 0.03
 
 # define RED_PIXEL 0xFF0000
 # define ORA_PIXEL 0xFF5733
@@ -144,7 +146,8 @@ typedef struct	s_txr
 	int			*ct;
 	int			face_height;
 	int			face_width;
-	int			*ben;
+	int			*left;
+	int			*right;
 	int			ben_height;
 	int			ben_width;
 }				t_txr;
@@ -161,6 +164,7 @@ typedef struct	s_player
 
 typedef struct	s_enemy
 {
+	int			id;
 	double		x;
 	double		y;
 	int			alive;
@@ -279,8 +283,7 @@ void	print_faces(t_data *data);
 
 // Sprites
 void	print_sprites(t_data *data, t_ray ray, t_player player);
-void	swap_sprites(double *distance, int pos);
-void	sort_sprites(double *distance, int sprites_count);
+void	sort_sprites(double *distance, t_enemy *ennemis, int sprites_count);
 
 // Utils
 char	*get_next_line(int fd);
