@@ -24,9 +24,7 @@ static t_data	*crea_data(void)
 	data->img = NULL;
 	data->map = NULL;
 	data->txr = NULL;
-	data->sprites = NULL;
 	data->ennemis_count = 0;
-	data->sprites_count = 0;
 	return (data);
 }
 
@@ -44,6 +42,7 @@ static t_txr	*crea_txr(t_data *data)
 	txr->east = NULL;
 	txr->west = NULL;
 	txr->sky = NULL;
+	txr->ben = NULL;
 	return (txr);
 }
 

@@ -12,56 +12,10 @@
 
 #include "../../includes/cub3d.h"
 
-static int	get_ennemis(t_data *data)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (data->map->map2d[y])
-	{
-		x = 0;
-		while (data->map->map2d[y][x])
-		{
-			if (data->map->map2d[y][x] == 'T')
-			{
-				if (data->ennemis_count == 5)
-					return (ft_putendl_fd(ERR_ENE_COUNT, 2), 1);
-				data->ennemis[data->ennemis_count].alive = 1;
-				data->ennemis[data->ennemis_count].x = x;
-				data->ennemis[data->ennemis_count].y = y;
-				data->map->map2d[y][x] = '0';
-				data->ennemis_count++;
-			}
-			x++;
-		}
-		y++;
-	}
-	return (0);
-}
-
-static int	init_ennemis(t_data *data)
-{
-	int	i;
-
-	data->ennemis_count = 0;
-	i = 0;
-	while (i < 5)
-	{
-		data->ennemis[i].alive = 0;
-		i++;
-	}
-	if (get_ennemis(data))
-		return (1);
-	return (0);
-}
-
-int		init_bonus(t_data *data)
+int	init_bonus(t_data *data)
 {
 	if (init_textures_bonus(data))
 		return (1);
-	// if (init_sprites(data))
-	// 	return (1);
 	if (init_ennemis(data))
 		return (1);
 	if (crea_minimap(data))

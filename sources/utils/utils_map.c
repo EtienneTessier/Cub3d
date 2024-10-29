@@ -70,7 +70,7 @@ int	check_space_inside(char **map2d)
 		{
 			if (map2d[y][x] == ' ' && (map2d[y + 1][x] == '0' ||
 					map2d[y - 1][x] == '0' || map2d[y][x + 1] == '0' ||
-					map2d[y][x - 1] == '0'))
+					map2d[y][x - 1] == '0')) // Pas bon ajouter player
 				return (ft_putendl_fd(ERR_MAP_OPEN_INSIDE, 2), 1);
 		}
 	}

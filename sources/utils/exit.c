@@ -28,10 +28,8 @@ static void	free_textures(t_txr *txr)
 		free(txr->terro);
 	if (txr->ct)
 		free(txr->ct);
-	if (txr->barrel)
-		free(txr->barrel);
-	if (txr->pillar)
-		free(txr->pillar);
+	if (txr->ben)
+		free(txr->ben);
 	free(txr);
 }
 
@@ -61,8 +59,6 @@ void	free_data(t_data *data)
 		free_textures(data->txr);
 	if (data->map)
 		free_map(data->map);
-	if (data->sprites)
-		free(data->sprites);
 	if (data->img)
 		free_img(data->mlx, data->img);
 	if (data->win)

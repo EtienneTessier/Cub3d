@@ -65,7 +65,7 @@
 # define TERRO_PATH "./textures/terro.xpm"
 # define CT_PATH "./textures/ct.xpm"
 # define BARREL_PATH "./textures/barrel.xpm"
-# define PILLAR_PATH "./textures/barrel.xpm"
+# define BEN_PATH "./textures/superben.xpm"
 
 # define SCR_WIDTH 1920
 # define SCR_HEIGHT 1080
@@ -73,18 +73,19 @@
 # define FACE_SIZE 54
 # define TILE_SIZE 20
 # define SPRITE_SIZE 64
+# define BEN_SIZE 256
 
 // Azerty
-# define W 122 //Z
-# define S 115
-# define D 100
-# define A 113 //Q
-
-// Qwerty
-// # define W 119
+// # define W 122 //Z
 // # define S 115
 // # define D 100
-// # define A 97
+// # define A 113 //Q
+
+// Qwerty
+# define W 119
+# define S 115
+# define D 100
+# define A 97
 
 # define LEFT 65361
 # define RIGHT 65363
@@ -143,10 +144,9 @@ typedef struct	s_txr
 	int			*ct;
 	int			face_height;
 	int			face_width;
-	int			*barrel;
-	int			*pillar;
-	int			sprite_height;
-	int			sprite_width;
+	int			*ben;
+	int			ben_height;
+	int			ben_width;
 }				t_txr;
 
 typedef struct	s_player
@@ -170,7 +170,6 @@ typedef struct	s_sprites
 {
 	double		x;
 	double		y;
-	int			*txr;
 }				t_sprites;
 
 typedef struct s_ray
@@ -217,8 +216,7 @@ typedef struct	s_sprite
 	int			draw_start_x;
 	int			draw_end_x;
 	int			stripe;
-	double		*distance;
-	int			*order;
+	double		distance[5];
 }				t_sprite;
 
 typedef struct	s_data
@@ -231,8 +229,6 @@ typedef struct	s_data
 	t_player	player;
 	t_enemy		ennemis[5];
 	int			ennemis_count;
-	t_sprites	*sprites;
-	int			sprites_count;
 }				t_data;
 
 //	Enum
@@ -268,6 +264,7 @@ void	rotate_left(t_player *player);
 
 // Bonus
 int		init_bonus(t_data *data);
+int		init_ennemis(t_data *data);
 int		control_char_map_bonus(char *map1d);
 
 // Textures
@@ -281,8 +278,9 @@ void	print_minimap(t_data *data);
 void	print_faces(t_data *data);
 
 // Sprites
-int		init_sprites(t_data *data);
 void	print_sprites(t_data *data, t_ray ray, t_player player);
+void	swap_sprites(double *distance, int pos);
+void	sort_sprites(double *distance, int sprites_count);
 
 // Utils
 char	*get_next_line(int fd);
@@ -298,5 +296,6 @@ void	free_data(t_data *data);
 // Debug
 void	print_map_2d(char **map2d);
 void	load_color(t_ray *ray, t_data *data);
+void	print_sprites_data(t_data *data);
 
 #endif

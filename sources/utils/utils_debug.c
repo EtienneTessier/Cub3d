@@ -49,3 +49,18 @@ void	load_color(t_ray *ray, t_data *data)
 	}
 	load_col(ray, data);
 }
+
+void	print_sprites_data(t_data *data)
+{
+	int	i;
+
+	ft_printf("nb sprites : %d\n", data->ennemis_count);
+	i = 0;
+	while (i < data->ennemis_count)
+	{
+		ft_printf("i = %d\n", i);
+		printf("data->sprites[i].x = %f\n", data->ennemis[i].x);
+		printf("data->sprites[i].y = %f\n", data->ennemis[i].y);
+		i++;
+	}
+}
