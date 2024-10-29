@@ -98,6 +98,9 @@ int	init_textures_bonus(t_data *data)
 	data->txr->terro = face_xpm_to_img(data, TERRO_PATH);
 	if (!data->txr->terro)
 		return (1);
+	data->txr->terro_dead = face_xpm_to_img(data, TERRO_D_PATH);
+	if (!data->txr->terro)
+		return (1);
 	data->txr->ct = face_xpm_to_img(data, CT_PATH);
 	if (!data->txr->ct)
 		return (1);

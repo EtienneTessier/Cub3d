@@ -21,11 +21,16 @@ static void	print_terro(int i, t_data *data)
 	while (++y < FACE_SIZE)
 	{
 		x = -1;
-		while (++x < FACE_SIZE)
-		{
-			my_mlx_pixel_put(data->img, SCR_WIDTH / 1.75 + i * (FACE_SIZE + 5) \
-				+ x, y + 5, data->txr->terro[y * FACE_SIZE + x]);
-		}
+		if (data->ennemis[i].alive)
+			while (++x < FACE_SIZE)
+				my_mlx_pixel_put(data->img, SCR_WIDTH / 1.75 + \
+					data->ennemis[i].id * (FACE_SIZE + 5) + x, y + 5, \
+					data->txr->terro[y * FACE_SIZE + x]);
+		else
+			while (++x < FACE_SIZE)
+				my_mlx_pixel_put(data->img, SCR_WIDTH / 1.75 + \
+					data->ennemis[i].id * (FACE_SIZE + 5) + x, y + 5, \
+					data->txr->terro_dead[y * FACE_SIZE + x]);
 	}
 }
 

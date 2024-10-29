@@ -1,6 +1,5 @@
 .vscode/
 mlx-linux/
-maps/
 *.o
 *.a
 *.cub

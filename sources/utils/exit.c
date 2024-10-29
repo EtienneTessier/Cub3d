@@ -26,6 +26,8 @@ static void	free_textures(t_txr *txr)
 		free(txr->sky);
 	if (txr->terro)
 		free(txr->terro);
+	if (txr->terro_dead)
+		free(txr->terro_dead);
 	if (txr->ct)
 		free(txr->ct);
 	if (txr->right)

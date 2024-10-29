@@ -64,6 +64,7 @@
 
 # define SKY_PATH "./textures/sky.xpm"
 # define TERRO_PATH "./textures/terro.xpm"
+# define TERRO_D_PATH "./textures/terro_dead.xpm"
 # define CT_PATH "./textures/ct.xpm"
 # define BARREL_PATH "./textures/barrel.xpm"
 # define RIGHT_PATH "./textures/right.xpm"
@@ -143,6 +144,7 @@ typedef struct	s_txr
 	int			sky_height;
 	int			sky_width;
 	int			*terro;
+	int			*terro_dead;
 	int			*ct;
 	int			face_height;
 	int			face_width;
