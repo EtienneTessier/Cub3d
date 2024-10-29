@@ -36,8 +36,6 @@ void	sort_sprites(double *distance, t_enemy *ennemis, int sprites_count)
 		j = 0;
 		while (j < sprites_count - 1)
 		{
-			// printf("j = %d\n", j);
-			// printf("distance[j] = %f, distance[j + 1] = %f\n", distance[j], distance[j + 1]);
 			if (distance[j] < distance[j + 1])
 				swap_sprites(distance, ennemis, j);
 			j++;

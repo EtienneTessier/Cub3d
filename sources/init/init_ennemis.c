@@ -63,7 +63,7 @@ static int	*ben_xpm_to_img(t_data *data, char *path)
 		return (NULL);
 	buffer = ft_calloc(1, sizeof(int) * BEN_HEIGHT * BEN_WIDTH);
 	if (!buffer)
-		exit_pgm(data);
+		exit_pgm(data, 1);
 	y = 0;
 	while (y < BEN_WIDTH)
 	{

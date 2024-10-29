@@ -72,9 +72,9 @@ void	free_data(t_data *data)
 	free(data);
 }
 
-int	exit_pgm(t_data *data)
+int	exit_pgm(t_data *data, int exit_code)
 {
 	if (data)
 		free_data(data);
-	exit (1);
+	exit (exit_code);
 }

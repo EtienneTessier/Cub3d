@@ -107,6 +107,7 @@
 # define PUR_PIXEL 0xCF33FF
 # define WHI_PIXEL 0xFFFFFF
 # define BLA_PIXEL 0x000000
+# define NOT_PIXEL 0xff0000
 
 //	Structures
 
@@ -218,6 +219,7 @@ typedef struct	s_sprite
 	int			height;
 	int			draw_start_y;
 	int			draw_end_y;
+	int			draw_y;
 	int			width;
 	int			draw_start_x;
 	int			draw_end_x;
@@ -277,7 +279,6 @@ int		control_char_map_bonus(char *map1d);
 int		init_textures_bonus(t_data *data);
 
 // Minimap
-int		crea_minimap(t_data *data);
 void	print_minimap(t_data *data);
 
 // Ennemis
@@ -295,7 +296,7 @@ int		skip_char(char *str, char to_skip);
 char	*crea_row(char c, int size);
 
 // Free/Exit
-int		exit_pgm(t_data *data);
+int		exit_pgm(t_data *data, int exit_code);
 void	free_data(t_data *data);
 
 // Debug

@@ -75,16 +75,16 @@ static void	flood_fill(char **map, int x, int y, t_data *data)
 	map[x][y] = 'X';
 	if (x > 0 && (map[x - 1][y] != ' ' && map[x - 1][y] != '1' \
 			&& map[x - 1][y] != 'X'))
-		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), (void)exit_pgm(data));
+		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), (void)exit_pgm(data, 1));
 	if (y > 0 && (map[x][y - 1] != ' ' && map[x][y - 1] != '1' \
 			&& map[x][y - 1] != 'X'))
-		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), (void)exit_pgm(data));
+		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), (void)exit_pgm(data, 1));
 	if (map[x + 1] && (map[x + 1][y] != ' ' && map[x + 1][y] != '1' \
 			&& map[x + 1][y] != 'X'))
-		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), (void)exit_pgm(data));
+		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), (void)exit_pgm(data, 1));
 	if (map[x][y + 1] && (map[x][y + 1] != ' ' && map[x][y + 1] != '1' \
 			&& map[x][y + 1] != 'X'))
-		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), (void)exit_pgm(data));
+		return (ft_putendl_fd(ERR_MAP_OPEN_WALL, 2), (void)exit_pgm(data, 1));
 	if (x > 0 && map[x - 1][y] == ' ')
 		flood_fill(map, x - 1, y, data);
 	if (y > 0 && map[x][y - 1] == ' ')

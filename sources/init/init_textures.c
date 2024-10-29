@@ -35,7 +35,7 @@ static int	*xpm_to_img(t_data *data, char *path)
 	buffer = ft_calloc(1, sizeof * buffer * data->txr->width * \
 			data->txr->height);
 	if (!buffer)
-		exit_pgm(data);
+		exit_pgm(data, 1);
 	y = 0;
 	while (y < data->txr->height)
 	{

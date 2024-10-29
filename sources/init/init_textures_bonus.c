@@ -34,7 +34,7 @@ static int	*sky_xpm_to_img(t_data *data, char *path)
 		return (NULL);
 	buffer = ft_calloc(1, sizeof(int) * SCR_WIDTH * SCR_HEIGHT);
 	if (!buffer)
-		exit_pgm(data);
+		exit_pgm(data, 1);
 	y = 0;
 	while (y < SCR_HEIGHT)
 	{
@@ -73,7 +73,7 @@ static int	*face_xpm_to_img(t_data *data, char *path)
 		return (NULL);
 	buffer = ft_calloc(1, sizeof(int) * FACE_SIZE * FACE_SIZE);
 	if (!buffer)
-		exit_pgm(data);
+		exit_pgm(data, 1);
 	y = 0;
 	while (y < FACE_SIZE)
 	{

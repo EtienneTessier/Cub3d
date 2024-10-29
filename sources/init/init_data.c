@@ -34,7 +34,7 @@ static t_txr	*crea_txr(t_data *data)
 
 	txr = ft_calloc(1, sizeof(t_txr));
 	if (!txr)
-		exit_pgm(data);
+		exit_pgm(data, 1);
 	txr->ceiling = -1;
 	txr->floor = -1;
 	txr->north = NULL;
@@ -53,7 +53,7 @@ static t_map	*crea_map(t_data *data)
 
 	map = ft_calloc(1, sizeof(t_map));
 	if (!map)
-		exit_pgm(data);
+		exit_pgm(data, 1);
 	map->map2d = NULL;
 	map->map2d_copy = NULL;
 	map->minimap = NULL;
@@ -67,7 +67,7 @@ static t_img	*crea_img(t_data *data)
 
 	img = ft_calloc(1, sizeof(t_img));
 	if (!img)
-		exit_pgm(data);
+		exit_pgm(data, 1);
 	img->addr = NULL;
 	img->img = NULL;
 	return (img);
