@@ -18,6 +18,7 @@
 
 static int	is_on_enemy(int shoot_x, int shoot_y, t_enemy enemy)
 {
+	ft_printf("test\n");
 	printf("enemy.x = %f, enemy.y = %f\n", enemy.x, enemy.y);
 	printf("shoot_x = %d, shoot_y = %d\n", shoot_x, shoot_y);
 	if ((shoot_x == (int)enemy.x) && (shoot_y == (int)enemy.y))
