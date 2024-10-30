@@ -44,9 +44,9 @@ static void	find_draw_pos_size(t_sprite *sprite)
 	sprite->width = abs((int)(SCR_HEIGHT / sprite->transform_y));
 }
 
-static void	get_texture_terro(int i, t_data *data, t_sprite *sprite, t_ray *ray)
+static void	get_texture_terro(int i, t_data *data, t_ray *ray)
 {
-	if (sprite->distance[i] > 100)
+	if (data->ennemis[i].distance > 100)
 		ray->txr = data->txr->right;
 	else
 		ray->txr = data->txr->left;
@@ -83,18 +83,20 @@ void	print_sprites(t_data *data, t_ray ray, t_player player)
 	int			i;
 
 	sprite = ft_calloc(1, sizeof(t_sprite));
+	if (!sprite)
+		exit_pgm(data, 1);
 	i = -1;
 	while (++i < data->ennemis_count)
-		sprite->distance[i] = ((player.x - data->ennemis[i].x) * (player.x - \
-			data->ennemis[i].x) + (player.y - data->ennemis[i].y) * \
+		data->ennemis[i].distance = ((player.x - data->ennemis[i].x) * \
+			(player.x - data->ennemis[i].x) + (player.y - data->ennemis[i].y) * \
 			(player.y - data->ennemis[i].y));
-	sort_sprites(sprite->distance, data->ennemis, data->ennemis_count);
+	sort_sprites(data->ennemis, data->ennemis_count);
 	i = -1;
 	while (++i < data->ennemis_count)
 	{
 		find_enemy_pos(i, data, sprite);
 		find_draw_pos_size(sprite);
-		get_texture_terro(i, data, sprite, &ray);
+		get_texture_terro(i, data, &ray);
 		load_enemy(sprite, ray, data);
 	}
 	free(sprite);

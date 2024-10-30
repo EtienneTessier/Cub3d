@@ -28,7 +28,7 @@ SRC_FILES 			=	cub3d.c					\
 						utils/get_next_line.c	utils/utils_str.c		utils/utils_texture.c		utils/utils_sprites.c	\
 						init/init_data.c		init/init_map.c			init/init_textures.c		init/init_player.c		\
 						init/init_colors.c		init/init_bonus.c		init/init_textures_bonus.c	init/init_ennemis.c		\
-						move/move.c				move/rotate.c
+						action/move.c			action/rotate.c			action/shoot.c
 
 SRC			= $(addprefix $(SRC_PATH), $(SRC_FILES))
 

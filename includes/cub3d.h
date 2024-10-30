@@ -171,6 +171,7 @@ typedef struct	s_enemy
 	double		x;
 	double		y;
 	int			alive;
+	double		distance;
 }				t_enemy;
 
 typedef struct	s_sprites
@@ -224,7 +225,7 @@ typedef struct	s_sprite
 	int			draw_start_x;
 	int			draw_end_x;
 	int			stripe;
-	double		distance[5];
+	// double		distance[5];
 }				t_sprite;
 
 typedef struct	s_data
@@ -286,7 +287,7 @@ void	print_faces(t_data *data);
 
 // Sprites
 void	print_sprites(t_data *data, t_ray ray, t_player player);
-void	sort_sprites(double *distance, t_enemy *ennemis, int sprites_count);
+void	sort_sprites(t_enemy *ennemis, int sprites_count);
 
 // Utils
 char	*get_next_line(int fd);
