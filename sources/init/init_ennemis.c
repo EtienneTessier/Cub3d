@@ -99,5 +99,8 @@ int	init_ennemis(t_data *data)
 	data->txr->left = ben_xpm_to_img(data, LEFT_PATH);
 	if (!data->txr->left)
 		return (ft_putendl_fd(ERR_ENE_LOAD, 2), 1);
+	data->txr->dead = ben_xpm_to_img(data, DEAD_PATH);
+	if (!data->txr->dead)
+		return (ft_putendl_fd(ERR_ENE_LOAD, 2), 1);
 	return (0);
 }

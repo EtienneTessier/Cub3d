@@ -68,9 +68,9 @@
 # define TERRO_PATH "./textures/terro.xpm"
 # define TERRO_D_PATH "./textures/terro_dead.xpm"
 # define CT_PATH "./textures/ct.xpm"
-# define BARREL_PATH "./textures/barrel.xpm"
 # define RIGHT_PATH "./textures/right.xpm"
 # define LEFT_PATH "./textures/left.xpm"
+# define DEAD_PATH "./textures/dead.xpm"
 
 # define SCR_WIDTH 1920
 # define SCR_HEIGHT 1080
@@ -81,16 +81,17 @@
 # define BEN_WIDTH 256
 
 // Azerty
-// # define W 122 //Z
-// # define S 115
-// # define D 100
-// # define A 113 //Q
-
-// Qwerty
-# define W 119
+# define W 122 //Z
 # define S 115
 # define D 100
-# define A 97
+# define A 113 //Q
+# define E 101 //E
+
+// Qwerty
+// # define W 119
+// # define S 115
+// # define D 100
+// # define A 97
 
 # define LEFT_CLICK	1
 
@@ -155,6 +156,7 @@ typedef struct	s_txr
 	int			face_width;
 	int			*left;
 	int			*right;
+	int			*dead;
 	int			ben_height;
 	int			ben_width;
 }				t_txr;
@@ -229,7 +231,7 @@ typedef struct	s_sprite
 	int			draw_start_x;
 	int			draw_end_x;
 	int			stripe;
-	// double		distance[5];
+	double		distance[5];
 }				t_sprite;
 
 typedef struct	s_data
@@ -293,7 +295,10 @@ void	print_faces(t_data *data);
 
 // Sprites
 void	print_sprites(t_data *data, t_ray ray, t_player player);
-void	sort_sprites(t_enemy *ennemis, int sprites_count);
+void	sort_sprites(double *distances, t_enemy *ennemis, int sprites_count);
+
+// Shoot
+int		shoot(t_player player, t_data *data);
 
 // Utils
 char	*get_next_line(int fd);
