@@ -33,17 +33,24 @@ int	shoot(t_player player, t_data *data)
 	int		shoot_y;
 	double	distance;
 
+	ft_printf("shoot\n");
 	i = -1;
 	while (++i < data->ennemis_count)
 	{
-		shoot_x = player.dir_x;
-		shoot_y = player.dir_y;
-		distance = ((player.x - shoot_x) * (player.x - shoot_x) + \
-			(player.y - shoot_y) * (player.y - shoot_y));
-		while (distance <= data->ennemis[i].distance)
+		shoot_x = player.x;
+		shoot_y = player.y;
+		distance = 0;
+		printf("distance = %f\n", distance);
+		printf("data->ennemis[%d].distance = %f\n", i, data->ennemis[i].distance);
+		ft_printf("shoot_x = %d\n", shoot_x);
+		ft_printf("shoot_y = %d\n", shoot_y);
+		while (distance <= data->ennemis[i].distance && data->ennemis[i].alive)
 		{
 			if (is_on_enemy(shoot_x, shoot_y, data->ennemis[i]))
+			{
+				data->ennemis[i].alive = 0;
 				return (1);
+			}
 			shoot_x += player.dir_x;
 			shoot_y += player.dir_y;
 			distance = ((player.x - shoot_x) * (player.x - shoot_x) + \

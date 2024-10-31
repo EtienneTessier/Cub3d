@@ -34,6 +34,8 @@ static void	free_textures(t_txr *txr)
 		free(txr->right);
 	if (txr->left)
 		free(txr->left);
+	if (txr->dead)
+		free(txr->dead);
 	free(txr);
 }
 
