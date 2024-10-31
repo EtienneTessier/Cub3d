@@ -66,6 +66,8 @@ int	handle_key(int key_code, t_data *data)
 		rotate_left(&data->player);
 	else if (key_code == RIGHT)
 		rotate_right(&data->player);
+	else if (key_code == E)
+		shoot(data->player, data);
 	else if (key_code == ESC)
 		exit_pgm(data, 0);
 	return (0);
