@@ -36,6 +36,7 @@ int	main(int argc, char **argv)
 	mlx_hook(data->win, 17, 0, &exit_pgm, data);
 	mlx_hook(data->win, 2, 1L << 0, handle_key, data);
 	mlx_hook(data->win, MotionNotify, PointerMotionMask, &mouse_move, data);
+	mlx_hook(data->win, ButtonPress, ButtonPressMask, &mouse_click, data);
 	mlx_loop_hook(data->mlx, &ray_cast, data);
 	mlx_loop(data->mlx);
 	mlx_destroy_display(data->mlx);

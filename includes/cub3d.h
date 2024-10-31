@@ -273,6 +273,7 @@ void	load_col_txr(t_ray *ray, t_data *data);
 // Deplacements
 int		handle_key(int key_code, t_data *data);
 int		mouse_move(int x, int y, t_data *data);
+int		mouse_click(int key_code, t_data *data);
 void	rotate_right(t_player *player);
 void	rotate_left(t_player *player);
 

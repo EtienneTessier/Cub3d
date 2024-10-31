@@ -57,3 +57,11 @@ int	mouse_move(int x, int y, t_data *data)
 	mlx_mouse_move(data->mlx, data->win, SCR_WIDTH / 2, SCR_HEIGHT / 2);
 	return (EXIT_SUCCESS);
 }
+
+int	mouse_click(int key_code, t_data *data)
+{
+	(void)data;
+	if (key_code == LEFT_CLICK)
+		printf("Left Click\n");
+	return (EXIT_SUCCESS);
+}
