@@ -25,6 +25,16 @@ static void	check_param(int argc, char **argv)
 		(ft_putendl_fd(ERR_MAP_EXT, 2), exit(1));
 }
 
+static void	game_loop(t_data *data)
+{
+	mlx_hook(data->win, 17, 0, &exit_pgm, data);
+	mlx_hook(data->win, 2, 1L << 0, handle_key, data);
+	mlx_hook(data->win, MotionNotify, PointerMotionMask, &mouse_move, data);
+	mlx_hook(data->win, ButtonPress, ButtonPressMask, &mouse_click, data);
+	mlx_loop_hook(data->mlx, &ray_cast, data);
+	mlx_loop(data->mlx);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
@@ -33,12 +43,7 @@ int	main(int argc, char **argv)
 	data = init_data(argv[1]);
 	if (!data)
 		return (1);
-	mlx_hook(data->win, 17, 0, &exit_pgm, data);
-	mlx_hook(data->win, 2, 1L << 0, handle_key, data);
-	mlx_hook(data->win, MotionNotify, PointerMotionMask, &mouse_move, data);
-	mlx_hook(data->win, ButtonPress, ButtonPressMask, &mouse_click, data);
-	mlx_loop_hook(data->mlx, &ray_cast, data);
-	mlx_loop(data->mlx);
+	game_loop(data);
 	mlx_destroy_display(data->mlx);
 	free_data(data);
 	return (0);
