@@ -45,3 +45,15 @@ void	rotate_left(t_player *player)
 	player->plan_y = old_plan_x * sin(-RSPEED) + \
 		player->plan_y * cos(-RSPEED);
 }
+
+int	mouse_move(int x, int y, t_data *data)
+{
+	if (x == SCR_WIDTH / 2 && y == SCR_HEIGHT / 2)
+		return (EXIT_SUCCESS);
+	if (x >= SCR_WIDTH / 2)
+		rotate_right(&data->player);
+	else
+		rotate_left(&data->player);
+	mlx_mouse_move(data->mlx, data->win, SCR_WIDTH / 2, SCR_HEIGHT / 2);
+	return (EXIT_SUCCESS);
+}

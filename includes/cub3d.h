@@ -22,6 +22,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include "../libft_printf/includes/ft_printf.h"
 # include "../mlx-linux/mlx.h"
 
@@ -89,6 +91,8 @@
 # define S 115
 # define D 100
 # define A 97
+
+# define LEFT_CLICK	1
 
 # define LEFT 65361
 # define RIGHT 65363
@@ -268,6 +272,7 @@ void	load_col_txr(t_ray *ray, t_data *data);
 
 // Deplacements
 int		handle_key(int key_code, t_data *data);
+int		mouse_move(int x, int y, t_data *data);
 void	rotate_right(t_player *player);
 void	rotate_left(t_player *player);
 
