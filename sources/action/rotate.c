@@ -60,10 +60,10 @@ int	mouse_move(int x, int y, t_data *data)
 
 int	mouse_click(int key_code, int x, int y, void *arg)
 {
-	(void)x;
-	(void)y;
 	t_data	*data;
 
+	(void)x;
+	(void)y;
 	data = (t_data *)arg;
 	if (key_code == LEFT_CLICK)
 		shoot(&data->player, data);
