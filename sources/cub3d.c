@@ -25,20 +25,28 @@ static void	check_param(int argc, char **argv)
 		(ft_putendl_fd(ERR_MAP_EXT, 2), exit(1));
 }
 
+static void	game_loop(t_data *data)
+{
+	mlx_loop_hook(data->mlx, &ray_cast, data);
+	mlx_hook(data->win, KeyPress, KeyPressMask, &handle_key, data);
+	mlx_mouse_move(data->mlx, data->win, SCR_WIDTH / 2, SCR_HEIGHT / 2);
+	mlx_hook(data->win, ButtonPress, ButtonPressMask, &mouse_click, data);
+	mlx_hook(data->win, MotionNotify, PointerMotionMask, &mouse_move, data);
+	mlx_hook(data->win, DestroyNotify, StructureNotifyMask, &exit_pgm, data);
+	mlx_loop(data->mlx);
+}
+
 int	main(int argc, char **argv)
 {
-	t_data	*data;
+	t_data	data;
 
 	check_param(argc, argv);
-	data = init_data(argv[1]);
-	if (!data)
+	if (init_data(&data, argv[1]) == 1)
+	{
+		ft_putstr_fd("Error: Init data\n", STDERR_FILENO);
 		return (1);
-	mlx_hook(data->win, 17, 0, &exit_pgm, data);
-	mlx_hook(data->win, 2, 1L << 0, handle_key, data);
-	mlx_hook(data->win, MotionNotify, PointerMotionMask, &mouse_move, data);
-	mlx_loop_hook(data->mlx, &ray_cast, data);
-	mlx_loop(data->mlx);
-	mlx_destroy_display(data->mlx);
-	free_data(data);
+	}
+	game_loop(&data);
+	free_data(&data);
 	return (0);
 }

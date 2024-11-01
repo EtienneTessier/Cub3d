@@ -23,7 +23,7 @@ static int	is_on_enemy(int shoot_x, int shoot_y, t_enemy enemy)
 	return (0);
 }
 
-int	shoot(t_player player, t_data *data)
+int	shoot(t_player *player, t_data *data)
 {
 	int		i;
 	double	shoot_x;
@@ -33,8 +33,8 @@ int	shoot(t_player player, t_data *data)
 	i = -1;
 	while (++i < data->ennemis_count)
 	{
-		shoot_x = player.x;
-		shoot_y = player.y;
+		shoot_x = player->x;
+		shoot_y = player->y;
 		distance = 0;
 		while (distance <= data->ennemis[i].distance && data->ennemis[i].alive)
 		{

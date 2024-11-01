@@ -57,3 +57,15 @@ int	mouse_move(int x, int y, t_data *data)
 	mlx_mouse_move(data->mlx, data->win, SCR_WIDTH / 2, SCR_HEIGHT / 2);
 	return (EXIT_SUCCESS);
 }
+
+int	mouse_click(int key_code, int x, int y, void *arg)
+{
+	t_data	*data;
+
+	(void)x;
+	(void)y;
+	data = (t_data *)arg;
+	if (key_code == LEFT_CLICK)
+		shoot(&data->player, data);
+	return (EXIT_SUCCESS);
+}

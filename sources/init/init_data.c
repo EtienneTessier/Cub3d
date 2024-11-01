@@ -12,21 +12,21 @@
 
 #include "../includes/cub3d.h"
 
-static t_data	*crea_data(void)
-{
-	t_data	*data;
+// static t_data	*crea_data(void)
+// {
+// 	t_data	*data;
 
-	data = ft_calloc(1, sizeof(t_data));
-	if (!data)
-		exit(1);
-	data->mlx = NULL;
-	data->win = NULL;
-	data->img = NULL;
-	data->map = NULL;
-	data->txr = NULL;
-	data->ennemis_count = 0;
-	return (data);
-}
+// 	data = ft_calloc(1, sizeof(t_data));
+// 	if (!data)
+// 		exit(1);
+// 	data->mlx = NULL;
+// 	data->win = NULL;
+// 	data->img = NULL;
+// 	data->map = NULL;
+// 	data->txr = NULL;
+// 	data->ennemis_count = 0;
+// 	return (data);
+// }
 
 static t_txr	*crea_txr(t_data *data)
 {
@@ -73,27 +73,50 @@ static t_img	*crea_img(t_data *data)
 	return (img);
 }
 
-t_data	*init_data(char *map_path)
-{
-	t_data	*data;
+// t_data	*init_data(char *map_path)
+// {
+// 	t_data	*data;
 
-	data = crea_data();
+// 	data = crea_data();
+// 	data->map = crea_map(data);
+// 	data->img = crea_img(data);
+// 	data->mlx = mlx_init(data);
+// 	if (!data->mlx)
+// 		return (free_data(data), NULL);
+// 	data->txr = crea_txr(data);
+// 	if (init_textures(map_path, data))
+// 		return (free_data(data), NULL);
+// 	if (init_map(data))
+// 		return (free_data(data), NULL);
+// 	if (BONUS)
+// 		if (init_bonus(data))
+// 			return (free_data(data), NULL);
+// 	data->img->img = mlx_new_image(data->mlx, SCR_WIDTH, SCR_HEIGHT);
+// 	data->img->addr = (int *)mlx_get_data_addr(data->img->img, &data->img->bpp, \
+// 		&data->img->line_length, &data->img->endian);
+// 	data->win = mlx_new_window(data->mlx, SCR_WIDTH, SCR_HEIGHT, "cub3d");
+// 	return (data);
+// }
+
+int	init_data(t_data *data, char *map_path)
+{
+	ft_memset(data, 0, sizeof(t_data));
 	data->map = crea_map(data);
 	data->img = crea_img(data);
 	data->mlx = mlx_init(data);
 	if (!data->mlx)
-		return (free_data(data), NULL);
+		return (free_data(data), 1);
 	data->txr = crea_txr(data);
-	if (init_textures(map_path, data))
-		return (free_data(data), NULL);
-	if (init_map(data))
-		return (free_data(data), NULL);
+	if (init_textures(map_path, data) == 1)
+		return (free_data(data), 1);
+	if (init_map(data) == 1)
+		return (free_data(data), 1);
 	if (BONUS)
-		if (init_bonus(data))
-			return (free_data(data), NULL);
+		if (init_bonus(data) == 1)
+			return (free_data(data), 1);
 	data->img->img = mlx_new_image(data->mlx, SCR_WIDTH, SCR_HEIGHT);
 	data->img->addr = (int *)mlx_get_data_addr(data->img->img, &data->img->bpp, \
 		&data->img->line_length, &data->img->endian);
-	data->win = mlx_new_window(data->mlx, SCR_WIDTH, SCR_HEIGHT, "cub3d");
-	return (data);
+	data->win = mlx_new_window(data->mlx, SCR_WIDTH, SCR_HEIGHT, GAME_NAME);
+	return (0);
 }
