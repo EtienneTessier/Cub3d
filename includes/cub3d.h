@@ -72,6 +72,7 @@
 # define LEFT_PATH "./textures/left.xpm"
 # define DEAD_PATH "./textures/dead.xpm"
 
+# define GAME_NAME	"CUB3D"
 # define SCR_WIDTH 1920
 # define SCR_HEIGHT 1080
 
@@ -101,7 +102,7 @@
 
 # define PI 3.141592
 # define SPEED 0.1
-# define RSPEED 0.03
+# define RSPEED 0.02
 
 # define RED_PIXEL 0xFF0000
 # define ORA_PIXEL 0xFF5733
@@ -251,7 +252,8 @@ typedef struct	s_data
 //	Fonctions
 
 // Initialisation
-t_data	*init_data(char *map_path);
+// t_data	*init_data(char *map_path);
+int	init_data(t_data *data, char *map_path);
 
 // Textures
 char	*get_texture_path(char *line);
@@ -275,7 +277,8 @@ void	load_col_txr(t_ray *ray, t_data *data);
 // Deplacements
 int		handle_key(int key_code, t_data *data);
 int		mouse_move(int x, int y, t_data *data);
-int		mouse_click(int key_code, t_data *data);
+// int		mouse_click(int key_code, t_data *data);
+int		mouse_click(int key_code, int x, int y, void *data);
 void	rotate_right(t_player *player);
 void	rotate_left(t_player *player);
 
@@ -298,7 +301,7 @@ void	print_sprites(t_data *data, t_ray ray, t_player player);
 void	sort_sprites(double *distances, t_enemy *ennemis, int sprites_count);
 
 // Shoot
-int		shoot(t_player player, t_data *data);
+int		shoot(t_player *player, t_data *data);
 
 // Utils
 char	*get_next_line(int fd);

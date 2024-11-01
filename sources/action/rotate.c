@@ -58,10 +58,14 @@ int	mouse_move(int x, int y, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-int	mouse_click(int key_code, t_data *data)
+int	mouse_click(int key_code, int x, int y, void *arg)
 {
-	(void)data;
+	(void)x;
+	(void)y;
+	t_data	*data;
+
+	data = (t_data *)arg;
 	if (key_code == LEFT_CLICK)
-		printf("Left Click\n");
+		shoot(&data->player, data);
 	return (EXIT_SUCCESS);
 }
