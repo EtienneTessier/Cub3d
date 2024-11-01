@@ -43,10 +43,10 @@ int	shoot(t_player *player, t_data *data)
 				data->ennemis[i].alive = 0;
 				return (1);
 			}
-			shoot_x += player.dir_x / 2;
-			shoot_y += player.dir_y / 2;
-			distance = ((player.x - shoot_x) * (player.x - shoot_x) + \
-				(player.y - shoot_y) * (player.y - shoot_y));
+			shoot_x += player->dir_x / 2;
+			shoot_y += player->dir_y / 2;
+			distance = ((player->x - shoot_x) * (player->x - shoot_x) + \
+				(player->y - shoot_y) * (player->y - shoot_y));
 		}
 	}
 	return (0);
