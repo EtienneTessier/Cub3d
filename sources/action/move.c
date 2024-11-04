@@ -52,7 +52,7 @@ static void	move_right(t_player *player, t_data *data)
 		player->y += player->plan_y * SPEED;
 }
 
-int		handle_key(int key_code, t_data *data)
+int	handle_key(int key_code, t_data *data)
 {
 	if (key_code == W)
 		move_forward(&data->player, data);

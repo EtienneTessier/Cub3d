@@ -82,18 +82,18 @@
 # define BEN_WIDTH 256
 
 // Azerty
-# define W 122 //Z
-# define S 115
-# define D 100
-# define A 113 //Q
-# define E 101 //E
-
-// Qwerty
-// # define W 119
+// # define W 122 //Z
 // # define S 115
 // # define D 100
-// # define A 97
+// # define A 113 //Q
 
+// Qwerty
+# define W 119
+# define S 115
+# define D 100
+# define A 97
+
+# define E 101 //E
 # define LEFT_CLICK	1
 
 # define LEFT 65361
