@@ -104,5 +104,8 @@ int	init_textures_bonus(t_data *data)
 	data->txr->ct = face_xpm_to_img(data, CT_PATH);
 	if (!data->txr->ct)
 		return (1);
+	data->txr->door = xpm_to_img(data, DOOR_PATH);
+	if (!data->txr->door)
+		return (1);
 	return (0);
 }

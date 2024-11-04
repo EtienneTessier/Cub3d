@@ -71,6 +71,7 @@
 # define RIGHT_PATH "./textures/right.xpm"
 # define LEFT_PATH "./textures/left.xpm"
 # define DEAD_PATH "./textures/dead.xpm"
+# define DOOR_PATH	"./textures/hi256.xpm"
 
 # define GAME_NAME	"CUB3D"
 # define SCR_WIDTH 1920
@@ -160,6 +161,7 @@ typedef struct	s_txr
 	int			*dead;
 	int			ben_height;
 	int			ben_width;
+	int			*door;
 }				t_txr;
 
 typedef struct	s_player
