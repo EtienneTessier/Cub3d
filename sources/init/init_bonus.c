@@ -26,7 +26,7 @@ static int	init_minimap(t_data *data)
 	i = -1;
 	while (++i < data->map->height)
 	{
-		data->map->minimap[i + 4] = ft_strdup(data->map->map2d[i]);
+		data->map->minimap[i + 4] = ft_strndup(data->map->map2d[i], data);
 		if (!data->map->minimap[i + 4])
 			return (ft_freesplit(data->map->minimap), 1);
 	}

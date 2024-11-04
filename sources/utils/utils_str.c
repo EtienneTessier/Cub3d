@@ -39,3 +39,26 @@ char	*crea_row(char c, int size)
 	row[i] = '\0';
 	return (row);
 }
+
+char	*ft_strndup(char *str, t_data *data)
+{
+	char	*dup;
+	size_t	i;
+
+	dup = malloc (sizeof(char) * (data->map->width + 1));
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		dup[i] = str[i];
+		i++;
+	}
+	while (i < data->map->width)
+	{
+		dup[i] = ' ';
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
