@@ -23,7 +23,7 @@ static int	init_texture_img(t_data *data, t_img *image, char *path)
 	return (0);
 }
 
-static int	*xpm_to_img(t_data *data, char *path)
+int	*xpm_to_img(t_data *data, char *path)
 {
 	t_img	tmp;
 	int		*buffer;
