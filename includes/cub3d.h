@@ -300,6 +300,7 @@ void	close_gnl(int fd);
 char	*ft_join(char *s1, char *s2, int nb_read);
 int		skip_char(char *str, char to_skip);
 char	*crea_row(char c, int size);
+char	*ft_strndup(char *str, t_data *data);
 
 // Free/Exit
 int		exit_pgm(t_data *data, int exit_code);
