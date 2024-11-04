@@ -254,7 +254,6 @@ typedef struct	s_data
 //	Fonctions
 
 // Initialisation
-// t_data	*init_data(char *map_path);
 int	init_data(t_data *data, char *map_path);
 
 // Textures
@@ -280,7 +279,6 @@ void	load_col_txr(t_ray *ray, t_data *data);
 // Deplacements
 int		handle_key(int key_code, t_data *data);
 int		mouse_move(int x, int y, t_data *data);
-// int		mouse_click(int key_code, t_data *data);
 int		mouse_click(int key_code, int x, int y, void *data);
 void	rotate_right(t_player *player);
 void	rotate_left(t_player *player);
