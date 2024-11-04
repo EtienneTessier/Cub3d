@@ -260,6 +260,7 @@ char	*get_texture_path(char *line);
 int		init_textures(char *map_path, t_data *data);
 int		check_line(char *line, int i, t_txr *txr);
 int		check_textures(t_txr *txr, int map_fd);
+int		*xpm_to_img(t_data *data, char *path);
 int		set_color(char *line);
 
 // Map
