@@ -49,9 +49,9 @@ static void	get_texture_terro(int i, t_sprite *sprite, t_data *data, t_ray *ray)
 	if (!data->ennemis[i].alive)
 		ray->txr = data->txr->dead;
 	else if (sprite->distance[i] > 100)
-		ray->txr = data->txr->right;
+		ray->txr = data->txr->far;
 	else
-		ray->txr = data->txr->left;
+		ray->txr = data->txr->close;
 }
 
 static void	load_enemy(t_sprite *sprite, t_ray ray, t_data *data)

@@ -30,10 +30,10 @@ static void	free_textures(t_txr *txr)
 		free(txr->terro_dead);
 	if (txr->ct)
 		free(txr->ct);
-	if (txr->right)
-		free(txr->right);
-	if (txr->left)
-		free(txr->left);
+	if (txr->far)
+		free(txr->far);
+	if (txr->close)
+		free(txr->close);
 	if (txr->dead)
 		free(txr->dead);
 	free(txr);
