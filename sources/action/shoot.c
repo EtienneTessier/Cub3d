@@ -23,14 +23,21 @@ static int	is_on_enemy(int shoot_x, int shoot_y, t_enemy enemy)
 	return (0);
 }
 
-int	shoot(t_player *player, t_data *data)
+static int	is_on_wall(int shoot_x, int shoot_y, char **map)
+{
+	if (map[shoot_y][shoot_x] == '1')
+		return (1);
+	return (0);
+}
+
+int	shoot(t_player *player, double shoot_x, double shoot_y, t_data *data)
 {
 	int		i;
-	double	shoot_x;
-	double	shoot_y;
 	double	distance;
 
 	i = -1;
+	print_weapon(data, data->txr->shoot);
+	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 	while (++i < data->ennemis_count)
 	{
 		shoot_x = player->x;
@@ -38,11 +45,10 @@ int	shoot(t_player *player, t_data *data)
 		distance = 0;
 		while (distance <= data->ennemis[i].distance && data->ennemis[i].alive)
 		{
+			if (is_on_wall(shoot_x, shoot_y, data->map->map2d))
+				break ;
 			if (is_on_enemy(shoot_x, shoot_y, data->ennemis[i]))
-			{
-				data->ennemis[i].alive = 0;
-				return (1);
-			}
+				return ((data->ennemis[i].alive = 0), 1);
 			shoot_x += player->dir_x / 2;
 			shoot_y += player->dir_y / 2;
 			distance = ((player->x - shoot_x) * (player->x - shoot_x) + \

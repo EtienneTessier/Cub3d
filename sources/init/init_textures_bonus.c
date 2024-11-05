@@ -95,6 +95,12 @@ int	init_textures_bonus(t_data *data)
 	data->txr->sky = sky_xpm_to_img(data, SKY_PATH);
 	if (!data->txr->sky)
 		return (1);
+	data->txr->weapon = sky_xpm_to_img(data, WEAPON_PATH);
+	if (!data->txr->weapon)
+		return (1);
+	data->txr->shoot = sky_xpm_to_img(data, SHOOT_PATH);
+	if (!data->txr->shoot)
+		return (1);
 	data->txr->terro = face_xpm_to_img(data, TERRO_PATH);
 	if (!data->txr->terro)
 		return (1);
