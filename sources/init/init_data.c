@@ -21,13 +21,6 @@ static t_txr	*crea_txr(t_data *data)
 		exit_pgm(data, 1);
 	txr->ceiling = -1;
 	txr->floor = -1;
-	txr->north = NULL;
-	txr->south = NULL;
-	txr->east = NULL;
-	txr->west = NULL;
-	txr->sky = NULL;
-	txr->close = NULL;
-	txr->far = NULL;
 	return (txr);
 }
 
@@ -39,9 +32,6 @@ static t_map	*crea_map(t_data *data)
 	if (!map)
 		exit_pgm(data, 1);
 	map->fd = -1;
-	map->map2d = NULL;
-	map->map2d_copy = NULL;
-	map->minimap = NULL;
 	return (map);
 }
 
@@ -52,8 +42,6 @@ static t_img	*crea_img(t_data *data)
 	img = ft_calloc(1, sizeof(t_img));
 	if (!img)
 		exit_pgm(data, 1);
-	img->addr = NULL;
-	img->img = NULL;
 	return (img);
 }
 

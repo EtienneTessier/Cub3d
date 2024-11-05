@@ -23,7 +23,7 @@ INCLUDES			= $(addprefix $(INCLUDES_PATH), $(INCLUDES_FILES))
 
 SRC_PATH			=	sources/
 SRC_FILES 			=	cub3d.c					\
-						display/ray_cast.c		display/render.c		display/minimap.c			display/ennemis.c		display/sprites.c	\
+						display/ray_cast.c		display/render.c		display/minimap.c			display/faces_weapon.c	display/sprites.c	\
 						utils/utils_debug.c		utils/exit.c			utils/utils_map.c			utils/utils_bonus.c		\
 						utils/get_next_line.c	utils/utils_str.c		utils/utils_texture.c		utils/utils_sprites.c	\
 						init/init_data.c		init/init_map.c			init/init_textures.c		init/init_player.c		\
