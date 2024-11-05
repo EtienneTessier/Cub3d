@@ -71,7 +71,7 @@
 # define FAR_PATH "./textures/far.xpm"
 # define CLOSE_PATH "./textures/close.xpm"
 # define DEAD_PATH "./textures/dead.xpm"
-# define DOOR_PATH	"./textures/hi256.xpm"
+# define DOOR_PATH "./textures/test_door.xpm"
 
 # define GAME_NAME	"CUB3D"
 # define SCR_WIDTH 1920
@@ -83,16 +83,16 @@
 # define BEN_WIDTH 256
 
 // Azerty
-# define W 122 //Z
-# define S 115
-# define D 100
-# define A 113 //Q
-
-// Qwerty
-// # define W 119
+// # define W 122 //Z
 // # define S 115
 // # define D 100
-// # define A 97
+// # define A 113 //Q
+
+// Qwerty
+# define W 119
+# define S 115
+# define D 100
+# define A 97
 
 # define E 101 //E
 # define LEFT_CLICK	1
@@ -287,6 +287,7 @@ void	rotate_left(t_player *player);
 int		init_bonus(t_data *data);
 int		init_ennemis(t_data *data);
 int		control_char_map_bonus(char *map1d);
+int		door(t_player *player, t_data *data);
 
 // Textures
 int		init_textures_bonus(t_data *data);
