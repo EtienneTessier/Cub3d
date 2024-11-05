@@ -76,7 +76,11 @@ void	free_data(t_data *data)
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)
-		(mlx_destroy_display(data->mlx), free(data->mlx));
+	{
+		mlx_loop_end(data->mlx);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
 }
 
 int	exit_pgm(t_data *data, int exit_code)

@@ -10,45 +10,61 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static void	move_forward(t_player *player, t_data *data)
 {
 	if (data->map->map2d[(int)player->y] \
-			[(int)(player->x + (player->dir_x * SPEED))] == '0')
+			[(int)(player->x + (player->dir_x * SPEED))] == '0'
+		|| data->map->map2d[(int)player->y] \
+			[(int)(player->x + (player->dir_x * SPEED))] == 'd')
 		player->x += player->dir_x * SPEED;
 	if (data->map->map2d[(int)(player->y + (player->dir_y * SPEED))] \
-			[(int)player->x] == '0')
+			[(int)player->x] == '0'
+		|| data->map->map2d[(int)(player->y + (player->dir_y * SPEED))] \
+			[(int)player->x] == 'd')
 		player->y += player->dir_y * SPEED;
 }
 
 static void	move_backward(t_player *player, t_data *data)
 {
 	if (data->map->map2d[(int)player->y] \
-			[(int)(player->x - (player->dir_x * SPEED))] == '0')
+			[(int)(player->x - (player->dir_x * SPEED))] == '0'
+		|| data->map->map2d[(int)player->y] \
+			[(int)(player->x - (player->dir_x * SPEED))] == 'd')
 		player->x -= player->dir_x * SPEED;
 	if (data->map->map2d[(int)(player->y - (player->dir_y * SPEED))] \
-			[(int)player->x] == '0')
+			[(int)player->x] == '0'
+		|| data->map->map2d[(int)(player->y - (player->dir_y * SPEED))] \
+			[(int)player->x] == 'd')
 		player->y -= player->dir_y * SPEED;
 }
 
 static void	move_left(t_player *player, t_data *data)
 {
 	if (data->map->map2d[(int)player->y] \
-			[(int)(player->x - (player->plan_x * SPEED))] == '0')
+			[(int)(player->x - (player->plan_x * SPEED))] == '0'
+		|| data->map->map2d[(int)player->y] \
+			[(int)(player->x - (player->plan_x * SPEED))] == 'd')
 		player->x -= player->plan_x * SPEED;
 	if (data->map->map2d[(int)(player->y - (player->plan_y * SPEED))] \
-			[(int)player->x] == '0')
+			[(int)player->x] == '0'
+		|| data->map->map2d[(int)(player->y - (player->plan_y * SPEED))] \
+			[(int)player->x] == 'd')
 		player->y -= player->plan_y * SPEED;
 }
 
 static void	move_right(t_player *player, t_data *data)
 {
 	if (data->map->map2d[(int)player->y] \
-			[(int)(player->x + (player->plan_x * SPEED))] == '0')
+			[(int)(player->x + (player->plan_x * SPEED))] == '0'
+			|| data->map->map2d[(int)player->y] \
+			[(int)(player->x + (player->plan_x * SPEED))] == 'd')
 		player->x += player->plan_x * SPEED;
 	if (data->map->map2d[(int)(player->y + (player->plan_y * SPEED))] \
-			[(int)player->x] == '0')
+			[(int)player->x] == '0'
+			|| data->map->map2d[(int)(player->y + (player->plan_y * SPEED))] \
+			[(int)player->x] == 'd')
 		player->y += player->plan_y * SPEED;
 }
 
@@ -67,7 +83,7 @@ int	handle_key(int key_code, t_data *data)
 	else if (key_code == RIGHT)
 		rotate_right(&data->player);
 	else if (key_code == E)
-		shoot(&data->player, data->player.x, data->player.x, data);
+		door(&data->player, data);
 	else if (key_code == ESC)
 		exit_pgm(data, 0);
 	return (0);

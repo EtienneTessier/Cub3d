@@ -58,8 +58,10 @@ static void	find_wall_hit(t_ray *ray, t_data *data)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (data->map->map2d[ray->map_y][ray->map_x] > '0')
+		if (data->map->map2d[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
+		if (data->map->map2d[ray->map_y][ray->map_x] == 'D')
+			ray->hit = 2;
 	}
 }
 
@@ -96,7 +98,9 @@ static void	find_wall_tex_pos(t_ray *ray, t_data *data)
 // side == 0 && dir_x < 0 --> W
 static void	load_textures(t_ray *ray, t_data *data)
 {
-	if (ray->side == 1)
+	if (ray->hit == 2)
+		ray->txr = data->txr->door;
+	else if (ray->side == 1)
 	{
 		if (ray->ray_dir_y > 0)
 			ray->txr = data->txr->south;
