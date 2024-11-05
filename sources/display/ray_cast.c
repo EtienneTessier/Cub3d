@@ -118,6 +118,8 @@ int	ray_cast(t_data *data)
 	t_ray	ray;
 
 	ray.x = 0;
+	if (BONUS)
+		load_floor(data);
 	while (ray.x < SCR_WIDTH)
 	{
 		ray.camera_x = 2 * ray.x / (double)SCR_WIDTH - 1;

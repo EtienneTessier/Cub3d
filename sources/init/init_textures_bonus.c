@@ -110,5 +110,8 @@ int	init_textures_bonus(t_data *data)
 	data->txr->ct = face_xpm_to_img(data, CT_PATH);
 	if (!data->txr->ct)
 		return (1);
+	data->txr->floor_txr = xpm_to_img(data, FLOOR_PATH);
+	if (!data->txr->floor_txr)
+		return (1);
 	return (0);
 }
