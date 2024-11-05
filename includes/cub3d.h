@@ -68,8 +68,8 @@
 # define TERRO_PATH "./textures/terro.xpm"
 # define TERRO_D_PATH "./textures/terro_dead.xpm"
 # define CT_PATH "./textures/ct.xpm"
-# define RIGHT_PATH "./textures/right.xpm"
-# define LEFT_PATH "./textures/left.xpm"
+# define FAR_PATH "./textures/far.xpm"
+# define CLOSE_PATH "./textures/close.xpm"
 # define DEAD_PATH "./textures/dead.xpm"
 # define DOOR_PATH	"./textures/hi256.xpm"
 
@@ -83,16 +83,16 @@
 # define BEN_WIDTH 256
 
 // Azerty
-// # define W 122 //Z
-// # define S 115
-// # define D 100
-// # define A 113 //Q
-
-// Qwerty
-# define W 119
+# define W 122 //Z
 # define S 115
 # define D 100
-# define A 97
+# define A 113 //Q
+
+// Qwerty
+// # define W 119
+// # define S 115
+// # define D 100
+// # define A 97
 
 # define E 101 //E
 # define LEFT_CLICK	1
@@ -156,8 +156,8 @@ typedef struct	s_txr
 	int			*ct;
 	int			face_height;
 	int			face_width;
-	int			*left;
-	int			*right;
+	int			*far;
+	int			*close;
 	int			*dead;
 	int			ben_height;
 	int			ben_width;
