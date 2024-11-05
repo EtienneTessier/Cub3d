@@ -93,11 +93,11 @@ int	init_ennemis(t_data *data)
 	}
 	if (get_ennemis(data))
 		return (1);
-	data->txr->right = ben_xpm_to_img(data, RIGHT_PATH);
-	if (!data->txr->right)
+	data->txr->far = ben_xpm_to_img(data, FAR_PATH);
+	if (!data->txr->far)
 		return (ft_putendl_fd(ERR_ENE_LOAD, 2), 1);
-	data->txr->left = ben_xpm_to_img(data, LEFT_PATH);
-	if (!data->txr->left)
+	data->txr->close = ben_xpm_to_img(data, CLOSE_PATH);
+	if (!data->txr->close)
 		return (ft_putendl_fd(ERR_ENE_LOAD, 2), 1);
 	data->txr->dead = ben_xpm_to_img(data, DEAD_PATH);
 	if (!data->txr->dead)
