@@ -71,12 +71,9 @@
 # define FAR_PATH "./textures/far.xpm"
 # define CLOSE_PATH "./textures/close.xpm"
 # define DEAD_PATH "./textures/dead.xpm"
-<<<<<<< HEAD
 # define DOOR_PATH "./textures/test_door.xpm"
-=======
 # define WEAPON_PATH "./textures/weapon.xpm"
 # define SHOOT_PATH "./textures/shoot.xpm"
->>>>>>> master
 
 # define GAME_NAME	"CUB3D"
 # define SCR_WIDTH 1920
