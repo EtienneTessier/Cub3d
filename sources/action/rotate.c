@@ -66,6 +66,6 @@ int	mouse_click(int key_code, int x, int y, void *arg)
 	(void)y;
 	data = (t_data *)arg;
 	if (key_code == LEFT_CLICK)
-		shoot(&data->player, data);
+		shoot(&data->player, data->player.x, data->player.x, data);
 	return (EXIT_SUCCESS);
 }

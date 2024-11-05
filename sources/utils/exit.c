@@ -24,6 +24,8 @@ static void	free_textures(t_txr *txr)
 		free(txr->west);
 	if (txr->sky)
 		free(txr->sky);
+	if (txr->weapon)
+		free(txr->weapon);
 	if (txr->terro)
 		free(txr->terro);
 	if (txr->terro_dead)
@@ -62,7 +64,11 @@ static void	free_img(void *mlx, t_img *img)
 void	free_data(t_data *data)
 {
 	if (data->txr)
+	{
+		if (data->txr->shoot)
+			free(data->txr->shoot);
 		free_textures(data->txr);
+	}
 	if (data->map)
 		free_map(data->map);
 	if (data->img)

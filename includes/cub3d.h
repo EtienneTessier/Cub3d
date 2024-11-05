@@ -71,6 +71,8 @@
 # define FAR_PATH "./textures/far.xpm"
 # define CLOSE_PATH "./textures/close.xpm"
 # define DEAD_PATH "./textures/dead.xpm"
+# define WEAPON_PATH "./textures/weapon.xpm"
+# define SHOOT_PATH "./textures/shoot.xpm"
 
 # define GAME_NAME	"CUB3D"
 # define SCR_WIDTH 1920
@@ -148,6 +150,8 @@ typedef struct	s_txr
 	int			height;
 	int			width;
 	int			*sky;
+	int			*weapon;
+	int			*shoot;
 	int			sky_height;
 	int			sky_width;
 	int			*terro;
@@ -252,7 +256,6 @@ typedef struct	s_data
 //	Fonctions
 
 // Initialisation
-// t_data	*init_data(char *map_path);
 int	init_data(t_data *data, char *map_path);
 
 // Textures
@@ -278,31 +281,23 @@ void	load_col_txr(t_ray *ray, t_data *data);
 // Deplacements
 int		handle_key(int key_code, t_data *data);
 int		mouse_move(int x, int y, t_data *data);
-// int		mouse_click(int key_code, t_data *data);
 int		mouse_click(int key_code, int x, int y, void *data);
 void	rotate_right(t_player *player);
 void	rotate_left(t_player *player);
 
 // Bonus
+int		control_char_map_bonus(char *map1d);
 int		init_bonus(t_data *data);
 int		init_ennemis(t_data *data);
-int		control_char_map_bonus(char *map1d);
-
-// Textures
 int		init_textures_bonus(t_data *data);
-
-// Minimap
-void	print_minimap(t_data *data);
-
-// Ennemis
-void	print_faces(t_data *data);
-
-// Sprites
-void	print_sprites(t_data *data, t_ray ray, t_player player);
 void	sort_sprites(double *distances, t_enemy *ennemis, int sprites_count);
+int		shoot(t_player *player, double x, double y, t_data *data);
 
-// Shoot
-int		shoot(t_player *player, t_data *data);
+// Prints
+void	print_minimap(t_data *data);
+void	print_faces(t_data *data);
+void	print_sprites(t_data *data, t_ray ray, t_player player);
+void	print_weapon(t_data *data, int *txr);
 
 // Utils
 char	*get_next_line(int fd);

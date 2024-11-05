@@ -30,14 +30,14 @@ static int	is_on_wall(int shoot_x, int shoot_y, char **map)
 	return (0);
 }
 
-int	shoot(t_player *player, t_data *data)
+int	shoot(t_player *player, double shoot_x, double shoot_y, t_data *data)
 {
 	int		i;
-	double	shoot_x;
-	double	shoot_y;
 	double	distance;
 
 	i = -1;
+	print_weapon(data, data->txr->shoot);
+	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 	while (++i < data->ennemis_count)
 	{
 		shoot_x = player->x;
