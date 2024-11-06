@@ -74,6 +74,7 @@
 # define DOOR_PATH "./textures/test_door.xpm"
 # define WEAPON_PATH "./textures/weapon.xpm"
 # define SHOOT_PATH "./textures/shoot.xpm"
+# define FLOOR_PATH "./textures/floor_tex.xpm"
 
 # define GAME_NAME	"CUB3D"
 # define SCR_WIDTH 1920
@@ -147,6 +148,7 @@ typedef struct	s_txr
 	int			*west;
 	int			floor;
 	int			ceiling;
+	int			*floor_txr;
 	int			color;
 	int			height;
 	int			width;
@@ -222,6 +224,27 @@ typedef struct s_ray
 	int			*txr;
 }				t_ray;
 
+typedef struct s_floor
+{
+	int			x;
+	int			y;
+	int			tex_x;
+	int			tex_y;
+	int			pos;
+	double		pos_z;
+	double		ray_dir_x0;
+	double		ray_dir_y0;
+	double		ray_dir_x1;
+	double		ray_dir_y1;
+	double		row_distance;
+	double		step_x;
+	double		step_y;
+	double		floor_x;
+	double		floor_y;
+	double		cell_x;
+	double		cell_y;
+}				t_floor;
+
 typedef struct	s_sprite
 {
 	double		x;
@@ -282,12 +305,12 @@ void	load_col_txr(t_ray *ray, t_data *data);
 
 // Deplacements
 int		handle_key(int key_code, t_data *data);
-int		mouse_move(int x, int y, t_data *data);
-int		mouse_click(int key_code, int x, int y, void *data);
 void	rotate_right(t_player *player);
 void	rotate_left(t_player *player);
 
 // Bonus
+
+// Init
 int		control_char_map_bonus(char *map1d);
 int		init_bonus(t_data *data);
 int		init_ennemis(t_data *data);
@@ -296,10 +319,14 @@ int		door(t_player *player, t_data *data);
 
 // Textures
 int		init_textures_bonus(t_data *data);
-void	sort_sprites(double *distances, t_enemy *ennemis, int sprites_count);
+
+// Actions
+int		mouse_move(int x, int y, t_data *data);
+int		mouse_click(int key_code, int x, int y, void *data);
 int		shoot(t_player *player, double x, double y, t_data *data);
 
 // Prints
+void	load_floor(t_data *data);
 void	print_minimap(t_data *data);
 void	print_faces(t_data *data);
 void	print_sprites(t_data *data, t_ray ray, t_player player);
@@ -312,6 +339,7 @@ char	*ft_join(char *s1, char *s2, int nb_read);
 int		skip_char(char *str, char to_skip);
 char	*crea_row(char c, int size);
 char	*ft_strndup(char *str, t_data *data);
+void	sort_sprites(double *distances, t_enemy *ennemis, int sprites_count);
 
 // Free/Exit
 int		exit_pgm(t_data *data, int exit_code);
