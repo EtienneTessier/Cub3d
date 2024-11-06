@@ -33,10 +33,10 @@ SRC_FILES 			=	cub3d.c					\
 SRC			= $(addprefix $(SRC_PATH), $(SRC_FILES))
 
 OBJ_PATH	= obj/
-OBJ			= $(addprefix $(OBJS_PATH), $(SRC))
-# OBJ			= $(SRC:.c=.o)
+OBJ_FILES	= $(SRC:.c=.o)
+OBJ			= $(addprefix $(OBJ_PATH), $(OBJ_FILES))
 
-NAME	= cub3d
+NAME		= cub3d
 
 CC		= cc
 
@@ -48,15 +48,12 @@ BONUSFLAGS	= -D BONUS=1
 
 LDLIBS	= -lmlx_Linux -lXext -lX11 -lm -lftprintf
 
-RM		= rm -f
+RM		= rm -rf
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(MLX_LIB) $(LIBFTPRINTF_LIB)
-	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
-
-# %.o: %.c $(INCLUDES) $(INCLUDES_B)
-# 	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
+	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) $(LDLIBS) $(BONUSFLAGS) -o $(NAME)
 
 $(LIBFTPRINTF_LIB):
 	@make -C $(LIBFTPRINTF_PATH)
@@ -64,7 +61,7 @@ $(LIBFTPRINTF_LIB):
 $(MLX_LIB):
 	@make -C $(MLX_PATH)
 
-$(OBJS_PATH) %.o: %.c $(INCLUDES) $(INCLUDES_B)
+$(OBJ_PATH)%.o:	%.c
 	@mkdir -p ${@D}
 	@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -72,15 +69,15 @@ bonus : $(OBJ) $(MLX_LIB) $(LIBFTPRINTF_LIB)
 	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) $(LDLIBS) $(BONUSFLAGS) -o $(NAME)
 
 clean:
-	$(RM) $(OBJS_PATH)
+	@$(RM) $(OBJ_PATH)
 	@make clean -C $(LIBFTPRINTF_PATH)
 	@make clean -C $(MLX_PATH)
 
 fclean: clean
-	$(RM) $(NAME) $(NAME_B)
+	@$(RM) $(NAME) $(NAME_B)
 	@make fclean -C $(LIBFTPRINTF_PATH)
 
 re: fclean
-	make all
+	@make all
 
 .PHONY: all clean fclean re libft_printf bonus
