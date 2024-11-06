@@ -29,6 +29,9 @@ static void	load_tile(char c, t_img *img, int x, int y)
 			else if (c == '1')
 				my_mlx_pixel_put(img, x + tile_x + TILE_SIZE, y + tile_y \
 					+ TILE_SIZE, WHI_PIXEL);
+			else if (c == 'd' || c == 'D')
+				my_mlx_pixel_put(img, x + tile_x + TILE_SIZE, y + tile_y \
+					+ TILE_SIZE, YEL_PIXEL);
 			tile_x++;
 		}
 		tile_y++;

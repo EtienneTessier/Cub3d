@@ -60,7 +60,7 @@ static void	find_wall_hit(t_ray *ray, t_data *data)
 		}
 		if (data->map->map2d[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
-		if (data->map->map2d[ray->map_y][ray->map_x] == 'D')
+		if (BONUS && data->map->map2d[ray->map_y][ray->map_x] == 'D')
 			ray->hit = 2;
 	}
 }
