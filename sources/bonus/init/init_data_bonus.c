@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
 static t_txr	*crea_txr(t_data *data)
 {
@@ -58,9 +58,11 @@ int	init_data(t_data *data, char *map_path)
 		return (free_data(data), 1);
 	if (init_map(data) == 1)
 		return (free_data(data), 1);
+	if (init_bonus(data) == 1)
+		return (free_data(data), 1);
 	data->img->img = mlx_new_image(data->mlx, SCR_WIDTH, SCR_HEIGHT);
 	data->img->addr = (int *)mlx_get_data_addr(data->img->img, &data->img->bpp, \
 		&data->img->line_length, &data->img->endian);
-	data->win = mlx_new_window(data->mlx, SCR_WIDTH, SCR_HEIGHT, GAME_NAME);
+	data->win = mlx_new_window(data->mlx, SCR_WIDTH, SCR_HEIGHT, GAME_NAME_B);
 	return (0);
 }

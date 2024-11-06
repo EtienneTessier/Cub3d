@@ -10,24 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
-{
-	int	dst;
-
-	dst = y * (img->line_length / 4) + x;
-	img->addr[dst] = color;
-}
-
-void	load_col_txr(t_ray *ray, t_data *data)
+void	load_col_txr_b(t_ray *ray, t_data *data)
 {
 	int	y;
 
 	y = -1;
 	while (++y < ray->draw_start)
 	{
-		my_mlx_pixel_put(data->img, ray->x, y, data->txr->ceiling);
+		my_mlx_pixel_put(data->img, ray->x, y, data->txr->sky[y * \
+			SCR_WIDTH + ray->x]);
 	}
 	while (y >= ray->draw_start && y <= ray->draw_end)
 	{
@@ -35,11 +28,6 @@ void	load_col_txr(t_ray *ray, t_data *data)
 		ray->tex_pos += ray->step;
 		my_mlx_pixel_put(data->img, ray->x, y, ray->txr \
 			[ray->tex_y * data->txr->width + ray->tex_x]);
-		y++;
-	}
-	while (y < SCR_HEIGHT)
-	{
-		my_mlx_pixel_put(data->img, ray->x, y, data->txr->floor);
 		y++;
 	}
 }

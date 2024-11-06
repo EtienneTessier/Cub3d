@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
 static void	find_delta_side_dist(t_ray *ray, t_data *data)
 {
@@ -60,6 +60,8 @@ static void	find_wall_hit(t_ray *ray, t_data *data)
 		}
 		if (data->map->map2d[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
+		if (data->map->map2d[ray->map_y][ray->map_x] == 'D')
+			ray->hit = 2;
 	}
 }
 
@@ -96,7 +98,9 @@ static void	find_wall_tex_pos(t_ray *ray, t_data *data)
 // side == 0 && dir_x < 0 --> W
 static void	load_textures(t_ray *ray, t_data *data)
 {
-	if (ray->side == 1)
+	if (ray->hit == 2)
+		ray->txr = data->txr->door;
+	else if (ray->side == 1)
 	{
 		if (ray->ray_dir_y > 0)
 			ray->txr = data->txr->south;
@@ -110,14 +114,15 @@ static void	load_textures(t_ray *ray, t_data *data)
 		else
 			ray->txr = data->txr->west;
 	}
-	load_col_txr(ray, data);
+	load_col_txr_b(ray, data);
 }
 
-int	ray_cast(t_data *data)
+int	ray_cast_b(t_data *data)
 {
 	t_ray	ray;
 
 	ray.x = 0;
+	load_floor(data);
 	while (ray.x < SCR_WIDTH)
 	{
 		ray.camera_x = 2 * ray.x / (double)SCR_WIDTH - 1;
@@ -132,6 +137,10 @@ int	ray_cast(t_data *data)
 		ray.z_buffer[ray.x] = ray.perp_wall_dist;
 		ray.x++;
 	}
+	print_minimap(data);
+	print_faces(data);
+	print_sprites(data, ray, data->player);
+	print_weapon(data, data->txr->weapon);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 	return (0);
 }

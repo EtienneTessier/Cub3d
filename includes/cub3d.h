@@ -15,31 +15,32 @@
 
 //	Includes
 
-# include <unistd.h>
-# include <stdlib.h>
+# include "../libft_printf/includes/ft_printf.h"
+# include "../mlx-linux/mlx.h"
+# include <X11/X.h>
+# include <X11/keysym.h>
+# include <fcntl.h>
+# include <math.h>
 # include <stddef.h>
 # include <stdint.h>
 # include <stdio.h>
-# include <fcntl.h>
-# include <math.h>
-# include <X11/X.h>
-# include <X11/keysym.h>
-# include "../libft_printf/includes/ft_printf.h"
-# include "../mlx-linux/mlx.h"
+# include <stdlib.h>
+# include <unistd.h>
 
 //	Defines
 
-# ifndef BONUS
-#  define BONUS 0
-# endif
+# define GAME_NAME "CUB3D"
 
-# define DEBUG 0
+# define GAME_NAME_B "CS3"
 
 # define ERR_NB_ARG "Error\nOnly 2 parameters required : ./cub3d map.cub"
 
-# define ERR_LINE_FMT "Error\nTextures or colors lines couldn't beggin with space"
-# define ERR_LINE_COLOR_FMT "Error\nColor line format should be F/C 0-255.0-255.0-255"
-# define ERR_LINE_TEXTURE_FMT "Error\nTexture line format should be XX ./path_to_the_xxxx_texture"
+# define ERR_LINE_FMT "Error\n\
+Textures or colors lines couldn't beggin with space"
+# define ERR_LINE_COLOR_FMT "Error\n\
+Color line format should be F/C 0-255.0-255.0-255"
+# define ERR_LINE_TEXTURE_FMT "Error\n\
+Texture line format should be XX ./path_to_the_xxxx_texture"
 
 # define ERR_TEXTURES_LOAD_E "Error\nLoading east texture failed"
 # define ERR_TEXTURES_LOAD_N "Error\nnLoading north texture failed"
@@ -76,7 +77,6 @@
 # define SHOOT_PATH "./textures/shoot.xpm"
 # define FLOOR_PATH "./textures/floor_tex.xpm"
 
-# define GAME_NAME	"CUB3D"
 # define SCR_WIDTH 1920
 # define SCR_HEIGHT 1080
 
@@ -98,7 +98,7 @@
 # define A 97
 
 # define E 101 //E
-# define LEFT_CLICK	1
+# define LEFT_CLICK 1
 
 # define LEFT 65361
 # define RIGHT 65363
@@ -121,7 +121,7 @@
 
 //	Structures
 
-typedef struct	s_map
+typedef struct s_map
 {
 	int			fd;
 	size_t		width;
@@ -131,7 +131,7 @@ typedef struct	s_map
 	char		**minimap;
 }				t_map;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void		*img;
 	int			*addr;
@@ -140,7 +140,7 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
-typedef struct	s_txr
+typedef struct s_txr
 {
 	int			*north;
 	int			*south;
@@ -170,7 +170,7 @@ typedef struct	s_txr
 	int			*door;
 }				t_txr;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	double		x;
 	double		y;
@@ -180,7 +180,7 @@ typedef struct	s_player
 	double		plan_y;
 }				t_player;
 
-typedef struct	s_enemy
+typedef struct s_enemy
 {
 	int			id;
 	double		x;
@@ -189,7 +189,7 @@ typedef struct	s_enemy
 	double		distance;
 }				t_enemy;
 
-typedef struct	s_sprites
+typedef struct s_sprites
 {
 	double		x;
 	double		y;
@@ -245,7 +245,7 @@ typedef struct s_floor
 	double		cell_y;
 }				t_floor;
 
-typedef struct	s_sprite
+typedef struct s_sprite
 {
 	double		x;
 	double		y;
@@ -264,7 +264,7 @@ typedef struct	s_sprite
 	double		distance[5];
 }				t_sprite;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void		*mlx;
 	void		*win;
@@ -281,73 +281,70 @@ typedef struct	s_data
 //	Fonctions
 
 // Initialisation
-int	init_data(t_data *data, char *map_path);
+int				init_data(t_data *data, char *map_path);
 
 // Textures
-char	*get_texture_path(char *line);
-int		init_textures(char *map_path, t_data *data);
-int		check_line(char *line, int i, t_txr *txr);
-int		check_textures(t_txr *txr, int map_fd);
-int		*xpm_to_img(t_data *data, char *path);
-int		set_color(char *line);
+char			*get_texture_path(char *line);
+int				init_textures(char *map_path, t_data *data);
+int				check_line(char *line, int i, t_txr *txr);
+int				check_textures(t_txr *txr, int map_fd);
+int				*xpm_to_img(t_data *data, char *path);
+int				set_color(char *line);
 
 // Map
-char	*load_map(t_data *data);
-int		init_map(t_data *data);
-int		check_space_inside(char **map2d);
-void	find_player(t_data *data);
+char			*load_map(t_data *data);
+int				init_map(t_data *data);
+int				check_space_inside(char **map2d);
+void			find_player(t_data *data);
 
 // Affichage
-int		ray_cast(t_data *data);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void	load_col(t_ray *ray, t_data *data);
-void	load_col_txr(t_ray *ray, t_data *data);
+int				ray_cast(t_data *data);
+int				ray_cast_b(t_data *data);
+void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void			load_col_txr(t_ray *ray, t_data *data);
+void			load_col_txr_b(t_ray *ray, t_data *data);
 
 // Deplacements
-int		handle_key(int key_code, t_data *data);
-void	rotate_right(t_player *player);
-void	rotate_left(t_player *player);
+int				handle_key(int key_code, t_data *data);
+void			rotate_right(t_player *player);
+void			rotate_left(t_player *player);
 
 // Bonus
 
 // Init
-int		control_char_map_bonus(char *map1d);
-int		init_bonus(t_data *data);
-int		init_ennemis(t_data *data);
-int		control_char_map_bonus(char *map1d);
-int		door(t_player *player, t_data *data);
+int				control_char_map_bonus(char *map1d);
+int				init_bonus(t_data *data);
+int				init_ennemis(t_data *data);
+int				control_char_map_bonus(char *map1d);
+int				door(t_player *player, t_data *data);
 
 // Textures
-int		init_textures_bonus(t_data *data);
+int				init_textures_bonus(t_data *data);
 
 // Actions
-int		mouse_move(int x, int y, t_data *data);
-int		mouse_click(int key_code, int x, int y, void *data);
-int		shoot(t_player *player, double x, double y, t_data *data);
+int				mouse_move(int x, int y, t_data *data);
+int				mouse_click(int key_code, int x, int y, void *data);
+int				shoot(t_player *player, double x, double y, t_data *data);
 
 // Prints
-void	load_floor(t_data *data);
-void	print_minimap(t_data *data);
-void	print_faces(t_data *data);
-void	print_sprites(t_data *data, t_ray ray, t_player player);
-void	print_weapon(t_data *data, int *txr);
+void			load_floor(t_data *data);
+void			print_minimap(t_data *data);
+void			print_faces(t_data *data);
+void			print_sprites(t_data *data, t_ray ray, t_player player);
+void			print_weapon(t_data *data, int *txr);
 
 // Utils
-char	*get_next_line(int fd);
-void	close_gnl(int fd);
-char	*ft_join(char *s1, char *s2, int nb_read);
-int		skip_char(char *str, char to_skip);
-char	*crea_row(char c, int size);
-char	*ft_strndup(char *str, t_data *data);
-void	sort_sprites(double *distances, t_enemy *ennemis, int sprites_count);
+char			*get_next_line(int fd);
+void			close_gnl(int fd);
+char			*ft_join(char *s1, char *s2, int nb_read);
+int				skip_char(char *str, char to_skip);
+char			*crea_row(char c, int size);
+char			*ft_strndup(char *str, t_data *data);
+void			sort_sprites(double *distances, t_enemy *ennemis,
+					int sprites_count);
 
 // Free/Exit
-int		exit_pgm(t_data *data, int exit_code);
-void	free_data(t_data *data);
-
-// Debug
-void	print_map_2d(char **map2d);
-void	load_color(t_ray *ray, t_data *data);
-void	print_sprites_data(t_data *data);
+int				exit_pgm(t_data *data, int exit_code);
+void			free_data(t_data *data);
 
 #endif
