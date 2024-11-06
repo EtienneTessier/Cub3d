@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static void	check_param(int argc, char **argv)
 {
@@ -27,8 +27,11 @@ static void	check_param(int argc, char **argv)
 
 static void	game_loop(t_data *data)
 {
-	mlx_loop_hook(data->mlx, &ray_cast, data);
+	mlx_loop_hook(data->mlx, &ray_cast_b, data);
 	mlx_hook(data->win, KeyPress, KeyPressMask, &handle_key, data);
+	mlx_mouse_move(data->mlx, data->win, SCR_WIDTH / 2, SCR_HEIGHT / 2);
+	mlx_hook(data->win, MotionNotify, PointerMotionMask, &mouse_move, data);
+	mlx_hook(data->win, ButtonPress, ButtonPressMask, &mouse_click, data);
 	mlx_hook(data->win, DestroyNotify, StructureNotifyMask, &exit_pgm, data);
 	mlx_loop(data->mlx);
 }

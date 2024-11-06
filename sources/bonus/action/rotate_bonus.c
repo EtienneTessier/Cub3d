@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
 void	rotate_right(t_player *player)
 {
@@ -44,4 +44,28 @@ void	rotate_left(t_player *player)
 		cos(-RSPEED) - player->plan_y * sin(-RSPEED);
 	player->plan_y = old_plan_x * sin(-RSPEED) + \
 		player->plan_y * cos(-RSPEED);
+}
+
+int	mouse_move(int x, int y, t_data *data)
+{
+	if (x == SCR_WIDTH / 2 && y == SCR_HEIGHT / 2)
+		return (EXIT_SUCCESS);
+	if (x >= SCR_WIDTH / 2)
+		rotate_right(&data->player);
+	else
+		rotate_left(&data->player);
+	mlx_mouse_move(data->mlx, data->win, SCR_WIDTH / 2, SCR_HEIGHT / 2);
+	return (EXIT_SUCCESS);
+}
+
+int	mouse_click(int key_code, int x, int y, void *arg)
+{
+	t_data	*data;
+
+	(void)x;
+	(void)y;
+	data = (t_data *)arg;
+	if (key_code == LEFT_CLICK)
+		shoot(&data->player, data->player.x, data->player.x, data);
+	return (EXIT_SUCCESS);
 }

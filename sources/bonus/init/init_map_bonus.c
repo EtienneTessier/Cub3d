@@ -10,36 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
-
-static int	control_char_map(char *map1d)
-{
-	int	i;
-	int	player;
-
-	i = ((player = -1));
-	while (map1d[++i])
-	{
-		if (map1d[i] == '\n' && map1d[i + 1] == '\n')
-			return (ft_putendl_fd(ERR_MAP_NL, 2), 1);
-		if (map1d[i] == '0' || map1d[i] == '1' || map1d[i] == ' ' || \
-			map1d[i] == '\n')
-			continue ;
-		if (map1d[i] == 'N' || map1d[i] == 'S' || map1d[i] == 'E' || \
-			map1d[i] == 'W')
-		{
-			if (player == -1)
-				player = 1;
-			else
-				return (ft_putendl_fd(ERR_MAP_PLAYER, 2), 1);
-		}
-		else
-			return (ft_putendl_fd(ERR_MAP_CHAR, 2), 1);
-	}
-	if (player == -1)
-		return (ft_putendl_fd(ERR_MAP_PLAYER, 2), 1);
-	return (0);
-}
+#include "../../../includes/cub3d.h"
 
 static char	**crea_map_flood(size_t width, size_t height, t_data *data)
 {
@@ -123,7 +94,7 @@ int	init_map(t_data *data)
 	map1d = load_map(data);
 	if (!map1d)
 		return (ft_putendl_fd(ERR_MAP_LOAD, 2), 1);
-	if (control_char_map(map1d))
+	if (control_char_map_bonus(map1d))
 		return (free(map1d), 1);
 	data->map->map2d = ft_split(map1d, '\n');
 	free(map1d);
