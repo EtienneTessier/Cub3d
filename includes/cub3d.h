@@ -71,6 +71,7 @@
 # define FAR_PATH "./textures/far.xpm"
 # define CLOSE_PATH "./textures/close.xpm"
 # define DEAD_PATH "./textures/dead.xpm"
+# define DOOR_PATH "./textures/test_door.xpm"
 # define WEAPON_PATH "./textures/weapon.xpm"
 # define SHOOT_PATH "./textures/shoot.xpm"
 # define FLOOR_PATH "./textures/floor_tex.xpm"
@@ -166,6 +167,7 @@ typedef struct	s_txr
 	int			*dead;
 	int			ben_height;
 	int			ben_width;
+	int			*door;
 }				t_txr;
 
 typedef struct	s_player
@@ -312,6 +314,10 @@ void	rotate_left(t_player *player);
 int		control_char_map_bonus(char *map1d);
 int		init_bonus(t_data *data);
 int		init_ennemis(t_data *data);
+int		control_char_map_bonus(char *map1d);
+int		door(t_player *player, t_data *data);
+
+// Textures
 int		init_textures_bonus(t_data *data);
 
 // Actions
