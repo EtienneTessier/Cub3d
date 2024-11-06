@@ -48,9 +48,8 @@ void	load_floor(t_data *data)
 						- floor.cell_y)) & (data->txr->height - 1);
 			floor.floor_x += floor.step_x;
 			floor.floor_y += floor.step_y;
-			my_mlx_pixel_put(data->img, floor.x, floor.y,
-					data->txr->floor_txr[data->txr->width * floor.tex_y
-					+ floor.tex_x]);
+			my_mlx_pixel_put(data->img, floor.x, floor.y, data->txr->floor_txr \
+				[data->txr->width * floor.tex_y + floor.tex_x]);
 			floor.x++;
 		}
 		floor.y++;
