@@ -25,7 +25,7 @@ static int	is_on_enemy(int shoot_x, int shoot_y, t_enemy enemy)
 
 static int	is_on_wall(int shoot_x, int shoot_y, char **map)
 {
-	if (map[shoot_y][shoot_x] == '1')
+	if (map[shoot_y][shoot_x] == '1' || map[shoot_y][shoot_x] == 'D')
 		return (1);
 	return (0);
 }
