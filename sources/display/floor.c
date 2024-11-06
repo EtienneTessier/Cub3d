@@ -12,69 +12,47 @@
 
 #include "../../includes/cub3d.h"
 
+static void	init_floor_cast(t_data *data, t_floor *floor)
+{
+	floor->ray_dir_x0 = data->player.dir_x - data->player.plan_x;
+	floor->ray_dir_y0 = data->player.dir_y - data->player.plan_y;
+	floor->ray_dir_x1 = data->player.dir_x + data->player.plan_x;
+	floor->ray_dir_y1 = data->player.dir_y + data->player.plan_y;
+	floor->pos = floor->y - SCR_HEIGHT / 2;
+	floor->pos_z = 0.5 * SCR_HEIGHT;
+	floor->row_distance = floor->pos_z / floor->pos;
+	floor->step_x = floor->row_distance * (floor->ray_dir_x1
+			- floor->ray_dir_x0) / SCR_WIDTH;
+	floor->step_y = floor->row_distance * (floor->ray_dir_y1
+			- floor->ray_dir_y0) / SCR_WIDTH;
+	floor->floor_x = data->player.x + floor->row_distance * floor->ray_dir_x0;
+	floor->floor_y = data->player.y + floor->row_distance * floor->ray_dir_y0;
+}
+
 void	load_floor(t_data *data)
 {
-	// t_ray	ray;
-	int	y;
-	int	x;
+	t_floor	floor;
 
-	y = SCR_HEIGHT / 2;
-	while (y < SCR_HEIGHT)
-    {
-      // rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
-      float rayDirX0 = data->player.dir_x - data->player.plan_x;
-      float rayDirY0 = data->player.dir_y - data->player.plan_y;
-      float rayDirX1 = data->player.dir_x + data->player.plan_x;
-      float rayDirY1 = data->player.dir_y + data->player.plan_y;
-
-      // Current y position compared to the center of the screen (the horizon)
-      int pos = y - SCR_HEIGHT / 2;
-
-      // Vertical position of the camera.
-      float posZ = 0.5 * SCR_HEIGHT;
-
-      /*// Horizontal distance from the camera to the floor for the current row.
-      // 0.5 is the z position exactly in the middle between floor and ceiling.*/
-      float rowDistance = posZ / pos;
-
-      /*// calculate the real world step vector we have to add for each x (parallel to camera plane)
-      // adding step by step avoids multiplications with a weight in the inner loop*/
-      float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / SCR_WIDTH;
-      float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / SCR_WIDTH;
-
-      // real world coordinates of the leftmost column. This will be updated as we step to the right.
-      float floorX = data->player.x + rowDistance * rayDirX0;
-      float floorY = data->player.y + rowDistance * rayDirY0;
-
-		x = 0;
-      while (x < SCR_WIDTH)
-      {
-        // the cell coord is simply got from the integer parts of floorX and floorY
-        int cellX = (int)(floorX);
-        int cellY = (int)(floorY);
-
-        // get the texture coordinate from the fractional part
-        int tx = (int)(data->txr->width * (floorX - cellX)) & (data->txr->width - 1);
-        int ty = (int)(data->txr->height * (floorY - cellY)) & (data->txr->height - 1);
-
-        floorX += floorStepX;
-        floorY += floorStepY;
-
-        /*// choose texture and draw the pixel
-        int32_t color;
-
-        // floor
-        color = data->txr->floor_txr[data->txr->width * ty + tx];*/
-		my_mlx_pixel_put(data->img, x, y, data->txr->floor_txr[data->txr->width * ty + tx]);
-        /*// color = (color >> 1) & 8355711; // make a bit darker
-        // buffer[y][x] = color;
-
-        // //ceiling (symmetrical, at screenHeight - y - 1 instead of y)
-        // color = texture[ceilingTexture][texWidth * ty + tx];
-        // color = (color >> 1) & 8355711; // make a bit darker
-        // buffer[screenHeight - y - 1][x] = color;*/
-		x++;
-      }
-	  y++;
-    }
+	floor.y = SCR_HEIGHT / 2;
+	while (floor.y < SCR_HEIGHT)
+	{
+		init_floor_cast(data, &floor);
+		floor.x = 0;
+		while (floor.x < SCR_WIDTH)
+		{
+			floor.cell_x = (int)(floor.floor_x);
+			floor.cell_y = (int)(floor.floor_y);
+			floor.tex_x = (int)(data->txr->width * (floor.floor_x
+						- floor.cell_x)) & (data->txr->width - 1);
+			floor.tex_y = (int)(data->txr->height * (floor.floor_y
+						- floor.cell_y)) & (data->txr->height - 1);
+			floor.floor_x += floor.step_x;
+			floor.floor_y += floor.step_y;
+			my_mlx_pixel_put(data->img, floor.x, floor.y,
+					data->txr->floor_txr[data->txr->width * floor.tex_y
+					+ floor.tex_x]);
+			floor.x++;
+		}
+		floor.y++;
+	}
 }

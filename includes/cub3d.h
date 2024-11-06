@@ -73,7 +73,7 @@
 # define DEAD_PATH "./textures/dead.xpm"
 # define WEAPON_PATH "./textures/weapon.xpm"
 # define SHOOT_PATH "./textures/shoot.xpm"
-# define FLOOR_PATH "./textures/hi256.xpm"
+# define FLOOR_PATH "./textures/floor_tex.xpm"
 
 # define GAME_NAME	"CUB3D"
 # define SCR_WIDTH 1920
@@ -85,16 +85,16 @@
 # define BEN_WIDTH 256
 
 // Azerty
-# define W 122 //Z
-# define S 115
-# define D 100
-# define A 113 //Q
-
-// Qwerty
-// # define W 119
+// # define W 122 //Z
 // # define S 115
 // # define D 100
-// # define A 97
+// # define A 113 //Q
+
+// Qwerty
+# define W 119
+# define S 115
+# define D 100
+# define A 97
 
 # define E 101 //E
 # define LEFT_CLICK	1
@@ -221,6 +221,27 @@ typedef struct s_ray
 	double		z_buffer[SCR_WIDTH];
 	int			*txr;
 }				t_ray;
+
+typedef struct s_floor
+{
+	int			x;
+	int			y;
+	int			tex_x;
+	int			tex_y;
+	int			pos;
+	double		pos_z;
+	double		ray_dir_x0;
+	double		ray_dir_y0;
+	double		ray_dir_x1;
+	double		ray_dir_y1;
+	double		row_distance;
+	double		step_x;
+	double		step_y;
+	double		floor_x;
+	double		floor_y;
+	double		cell_x;
+	double		cell_y;
+}				t_floor;
 
 typedef struct	s_sprite
 {
