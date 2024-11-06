@@ -69,6 +69,8 @@ void	free_data(t_data *data)
 			free(data->txr->shoot);
 		if (data->txr->floor_txr)
 			free(data->txr->floor_txr);
+		if (data->txr->door)
+			free(data->txr->door);
 		free_textures(data->txr);
 	}
 	if (data->map)
