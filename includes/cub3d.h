@@ -312,6 +312,7 @@ void			rotate_left(t_player *player);
 // Bonus
 
 // Init
+int				init_data_b(t_data *data, char *map_path);
 int				control_char_map_bonus(char *map1d);
 int				init_bonus(t_data *data);
 int				init_ennemis(t_data *data);

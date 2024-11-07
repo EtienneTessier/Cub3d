@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	check_param(argc, argv);
-	if (init_data(&data, argv[1]) == 1)
+	if (init_data_b(&data, argv[1]) == 1)
 	{
 		ft_putstr_fd("Error: Init data\n", STDERR_FILENO);
 		return (1);

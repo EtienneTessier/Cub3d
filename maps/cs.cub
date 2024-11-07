@@ -1,7 +1,7 @@
-NO      ./textures/stone1_256.xpm
-SO    ./textures/stone256.xpm
-WE ./textures/stone2_256.xpm
-EA              ./textures/stone3_256.xpm
+NO      ./textures/Wall256.xpm
+SO    ./textures/stone2_256.xpm
+WE ./textures/stone3_256.xpm
+EA              ./textures/stone256.xpm
 
 F 125,125,255
 C                 255,87,255
