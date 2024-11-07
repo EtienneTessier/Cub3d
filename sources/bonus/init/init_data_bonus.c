@@ -45,7 +45,7 @@ static t_img	*crea_img(t_data *data)
 	return (img);
 }
 
-int	init_data(t_data *data, char *map_path)
+int	init_data_b(t_data *data, char *map_path)
 {
 	ft_memset(data, 0, sizeof(t_data));
 	data->map = crea_map(data);
