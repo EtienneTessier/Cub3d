@@ -47,3 +47,43 @@ int	control_char_map_bonus(char *map1d)
 		return (ft_putendl_fd(ERR_MAP_PLAYER, 2), 1);
 	return (0);
 }
+
+static int	bonus_init_texture_img(t_data *data, t_img *image, char *path)
+{
+	image->img = mlx_xpm_file_to_image(data->mlx, path, &data->txr->bonus_width,
+			&data->txr->bonus_height);
+	if (!image->img)
+		return (1);
+	image->addr = (int *)mlx_get_data_addr(image->img, &image->bpp,
+			&image->line_length, &image->endian);
+	return (0);
+}
+
+int	*bonus_xpm_to_img(t_data *data, char *path)
+{
+	t_img	tmp;
+	int		*buffer;
+	int		x;
+	int		y;
+
+	if (bonus_init_texture_img(data, &tmp, path))
+		return (NULL);
+	buffer = ft_calloc(1, sizeof * buffer * data->txr->bonus_width * \
+			data->txr->bonus_height);
+	if (!buffer)
+		exit_pgm(data, 1);
+	y = 0;
+	while (y < data->txr->bonus_height)
+	{
+		x = 0;
+		while (x < data->txr->bonus_width)
+		{
+			buffer[y * data->txr->bonus_width + x] \
+				= tmp.addr[y * data->txr->bonus_width + x];
+			++x;
+		}
+		y++;
+	}
+	mlx_destroy_image(data->mlx, tmp.img);
+	return (buffer);
+}
