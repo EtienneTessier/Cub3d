@@ -148,10 +148,13 @@ typedef struct s_txr
 	int			*west;
 	int			floor;
 	int			ceiling;
-	int			*floor_txr;
 	int			color;
 	int			height;
 	int			width;
+	int			*floor_txr;
+	int			*door;
+	int			bonus_height;
+	int			bonus_width;
 	int			*sky;
 	int			*weapon;
 	int			*shoot;
@@ -167,7 +170,6 @@ typedef struct s_txr
 	int			*dead;
 	int			ben_height;
 	int			ben_width;
-	int			*door;
 }				t_txr;
 
 typedef struct s_player
@@ -288,7 +290,6 @@ char			*get_texture_path(char *line);
 int				init_textures(char *map_path, t_data *data);
 int				check_line(char *line, int i, t_txr *txr);
 int				check_textures(t_txr *txr, int map_fd);
-int				*xpm_to_img(t_data *data, char *path);
 int				set_color(char *line);
 
 // Map
@@ -321,6 +322,7 @@ int				door(t_player *player, t_data *data);
 
 // Textures
 int				init_textures_bonus(t_data *data);
+int				*bonus_xpm_to_img(t_data *data, char *path);
 
 // Actions
 int				mouse_move(int x, int y, t_data *data);
